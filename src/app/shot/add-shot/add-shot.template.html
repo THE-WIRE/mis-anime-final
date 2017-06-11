@@ -1,0 +1,17 @@
+<div class="shot-form">
+    <form #shotForm="ngForm" (ngSubmit)="add(shotForm.value)">
+        <label for="scode">Shot Code</label>
+        <input (ngModel)="scode" type="text" name="scode" value="">
+
+        <label for="sdesc">Description</label>
+        <textarea (ngModel)="sdesc" name="sdesc" rows="3" cols="20"></textarea>
+
+        <label for="sst">Start Date</label>
+        <input (ngModel)="sst" type="date" name="sst" value="">
+
+        <label for="sendt">End Date</label>
+        <input (ngModel)="sendt" type="date" name="sendt" value="">
+
+        <button type="submit">Create Shot</button>
+    </form>
+</div>

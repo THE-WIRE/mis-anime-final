@@ -13,6 +13,9 @@ export const ROUTES: Routes = [{
   path: 'asset', loadChildren: './asset/asset.module#AssetModule'
 },
 {
+  path: 'shot', loadChildren: './shot/shot.module#ShotModule'
+},
+{
   path: 'login', loadChildren: './login/login.module#LoginModule'
 }, {
   path: 'error', loadChildren: './error/error.module#ErrorModule'
