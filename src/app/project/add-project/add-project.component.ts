@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from '../project.interface'
-import { AngularFireDatabase,FirebaseListObservable } from 'angularfire2/database'
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'
 
 @Component({
     selector: 'add-project',
@@ -13,18 +13,18 @@ import { AngularFireDatabase,FirebaseListObservable } from 'angularfire2/databas
 })
 
 export class AddProjectComponent implements OnInit {
-    
-public project : Project;
-    constructor(private db : AngularFireDatabase) {
-            }
+
+    public project: Project;
+    constructor(private db: AngularFireDatabase) {
+    }
 
     ngOnInit() { }
-    add(form){
+    add(form) {
         //form.pst = new Date();
         this.project = form;
         console.log(form);
         const add = this.db.list('/projects');
-        add.push(this.project).then(_ => {console.log('project Added')})
- 
+        add.push(this.project).then(_ => { console.log('project Added') })
+
     }
 }
