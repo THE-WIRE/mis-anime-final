@@ -1,0 +1,14 @@
+<div class="shot-version-form">
+    <form #ShotVersionForm="ngForm" (ngSubmit)="add(ShotVersionForm.value)">
+        <label for="svercode">Shot Version Code</label>
+        <input (ngModel)="svercode" type="text" name="svercode" value="">
+
+        <label for="sverst">Start Date</label>
+        <input (ngModel)="sverst" type="date" name="sverst" value="">
+
+        <label for="sverendt">End Date</label>
+        <input (ngModel)="sverendt" type="date" name="sverendt" value="">
+
+        <button type="submit">Create Shot Version</button>
+    </form>
+</div>

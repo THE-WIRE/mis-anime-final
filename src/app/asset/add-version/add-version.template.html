@@ -1,0 +1,14 @@
+<div class="asset-version-form">
+    <form #AssetVersionForm="ngForm" (ngSubmit)="add(AssetVersionForm.value)">
+        <label for="avercode">Asset Version Code</label>
+        <input (ngModel)="avercode" type="text" name="avercode" value="">
+
+        <label for="averst">Start Date</label>
+        <input (ngModel)="averst" type="date" name="averst" value="">
+
+        <label for="averendt">End Date</label>
+        <input (ngModel)="averendt" type="date" name="averendt" value="">
+
+        <button type="submit">Create Asset Version</button>
+    </form>
+</div>
