@@ -5,14 +5,17 @@ import { RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from 'angularfire2/auth'
 
 import { Project } from './project.component';
+import { AddProjectComponent } from './add-project/add-project.component'
 
 export const routes = [
-  { path: '', component: Project, pathMatch: 'full' }
+  { path: '', component: Project, pathMatch: 'full' },
+  { path: 'add', component: AddProjectComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
   declarations: [
-    Project
+    Project,
+    AddProjectComponent
   ],
   imports: [
     CommonModule,
