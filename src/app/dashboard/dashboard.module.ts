@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { Dashboard } from './dashboard.component';
 import { Widget } from '../layout/widget/widget.directive';
 
+import { MaterialModule } from '@angular/material';
+
 export const routes = [
   { path: '', component: Dashboard, pathMatch: 'full' }
 ];
@@ -18,6 +20,7 @@ export const routes = [
   imports: [
     CommonModule,
     FormsModule,
+    MaterialModule,
     RouterModule.forChild(routes),
   ]
 })

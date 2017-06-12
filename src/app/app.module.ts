@@ -6,6 +6,8 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AngularFireModule } from "angularfire2";
+import { MaterialModule } from '@angular/material';
+
 import { AddProjectComponent } from './project/AddProject/add_project.component'
 /*
  * Platform and Environment providers/directives/pipes
@@ -43,6 +45,7 @@ type StoreType = {
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
+    MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot(ROUTES, {
       useHash: true,
