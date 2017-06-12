@@ -14,8 +14,17 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 
 export class ViewAllShotVersionComponent implements OnInit {
 
-    public shot_version: ShotVersion;
+    public shot_versions: ShotVersion[];
     constructor(private db: AngularFireDatabase) {
+        db.list('/Shot_version').subscribe(
+            res => {
+                this.shot_versions = res ;
+                console.log('refreshed'); 
+            },
+            err =>{
+                console.log('something went wrong')
+            }
+        )
     }
 
     ngOnInit() { }

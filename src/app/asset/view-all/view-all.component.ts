@@ -14,8 +14,17 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 
 export class ViewAllAssetComponent implements OnInit {
 
-    public asset: Asset;
+    public assets: Asset[];
     constructor(private db: AngularFireDatabase) {
+        db.list('/Assets').subscribe(
+            res => {
+                this.assets = res ;
+                console.log('refreshed'); 
+            },
+            err =>{
+                console.log('something went wrong')
+            }
+        )
     }
 
     ngOnInit() { }

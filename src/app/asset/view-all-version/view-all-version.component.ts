@@ -14,10 +14,18 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 
 export class ViewAllAssetVersionComponent implements OnInit {
 
-    public asset_version: AssetVersion;
+    public asset_versions: AssetVersion[];
     constructor(private db: AngularFireDatabase) {
+        db.list('/Asset_version').subscribe(
+            res => {
+                this.asset_versions = res ;
+                console.log('refreshed'); 
+            },
+            err =>{ 
+                console.log('something went wrong')
+            }
+        )
     }
-
     ngOnInit() { }
 
 }
