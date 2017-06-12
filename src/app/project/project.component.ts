@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { Router } from '@angular/router';
+import { AngularFireDatabase,FirebaseListObservable } from 'angularfire2/database'
 
 @Component({
   selector: 'project',
@@ -12,7 +13,6 @@ import { Router } from '@angular/router';
   }
 })
 export class Project {
-
   constructor() {
     console.log("Omkar");
   }
