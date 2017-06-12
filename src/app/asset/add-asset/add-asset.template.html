@@ -1,23 +1,78 @@
-<div class="asset-form">
-    <form #AssetForm="ngForm" (ngSubmit)="add(AssetForm.value)">
-        <label for="acode">Asset Code</label>
-        <input (ngModel)="acode" type="text" name="acode" value="">
-
-        <label for="atype">Asset Type</label>
-        <select (ngModel)="atype" name="atype">
-            <option value="A">A</option>
-            <option value="B">B</option>
-        </select>
-
-        <label for="adesc">Description</label>
-        <textarea (ngModel)="adesc" name="adesc" rows="3" cols="20"></textarea>
-
-        <label for="ast">Start Date</label>
-        <input (ngModel)="ast" type="date" name="ast" value="">
-
-        <label for="aendt">End Date</label>
-        <input (ngModel)="aendt" type="date" name="aendt" value="">
-
-        <button type="submit">Create Asset</button>
-    </form>
-</div>
+ <div class="content container asset-form">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="page-title">Add <small>Asset</small></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <section class="widget">
+                        <header>
+                            <h4>
+                                <i class="fa fa-align-left"></i>
+                                Inputs
+                            </h4>
+                            <div class="widget-controls">
+                                <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </header>
+                        <div class="body project-form">
+                            <form class="form-horizontal" role="form" #AssetForm="ngForm" (ngSubmit)="add(AssetForm.value)">
+                                <fieldset>
+                                        <div class="form-group">
+                                            <label for="acode" class="col-sm-4 control-label">Asset Code</label>
+                                            <div class="col-sm-7">
+                                                <input (ngModel)="acode" type="text" name="acode" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="atype" class="col-sm-4 control-label" for="default-select">Asset Type</label>
+                                            <div class="col-sm-7">
+                                                <select (ngModel)="atype" name="atype"
+                                                        data-placeholder="A"
+                                                        data-minimum-results-for-search="10"
+                                                        tabindex="-1"
+                                                        class="select2 form-control" id="default-select">
+                                                    <option value="A">A</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="adesc" class="col-sm-4 control-label">Description</label>
+                                            <div class="col-sm-7">
+                                                <textarea (ngModel)="adesc" name="adesc" rows="4" class="form-control input-transparent" ></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ast" class="col-sm-4 control-label">Start Date</label>
+                                            <div class="col-sm-7">
+                                                <input type="date" name="ast" (ngModel)="ast" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="aend" class="col-sm-4 control-label">End Date</label>
+                                            <div class="col-sm-7">
+                                                <input type="date" name="aend" (ngModel)="aendt" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                </fieldset>
+                                <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-sm-offset-4 col-sm-7">
+                                        <div class="btn-toolbar">
+                                            <button type="submit" class="btn btn-primary">Create Asset</button>
+                                            <button type="button" class="btn btn-inverse">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>            
+                        </div>
+                    </section>
+                </div>
+            </div> 
+        </div>                 

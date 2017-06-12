@@ -1,14 +1,58 @@
-<div class="shot-version-form">
-    <form #ShotVersionForm="ngForm" (ngSubmit)="add(ShotVersionForm.value)">
-        <label for="svercode">Shot Version Code</label>
-        <input (ngModel)="svercode" type="text" name="svercode" value="">
-
-        <label for="sverst">Start Date</label>
-        <input (ngModel)="sverst" type="date" name="sverst" value="">
-
-        <label for="sverendt">End Date</label>
-        <input (ngModel)="sverendt" type="date" name="sverendt" value="">
-
-        <button type="submit">Create Shot Version</button>
-    </form>
-</div>
+ <div class="content container shot-version-form">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="page-title">Shot <small>Version</small></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <section class="widget">
+                        <header>
+                            <h4>
+                                <i class="fa fa-align-left"></i>
+                                Inputs
+                            </h4>
+                            <div class="widget-controls">
+                                <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </header>
+                        <div class="body project-form">
+                            <form class="form-horizontal" role="form" #ShotVersionForm="ngForm" (ngSubmit)="add(ShotVersionForm.value)">
+                                <fieldset>
+                                        <div class="form-group">
+                                            <label for="svercode" class="col-sm-4 control-label">Shot Version Code</label>
+                                            <div class="col-sm-7">
+                                                <input (ngModel)="svercode" type="text" name="svercode" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sverst" class="col-sm-4 control-label">Start Date</label>
+                                            <div class="col-sm-7">
+                                                <input type="date" name="sverst" (ngModel)="sverst" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sverend" class="col-sm-4 control-label">End Date</label>
+                                            <div class="col-sm-7">
+                                                <input type="date" name="sverend" (ngModel)="sverendt" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                </fieldset>
+                                <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-sm-offset-4 col-sm-7">
+                                        <div class="btn-toolbar">
+                                            <button type="submit" class="btn btn-primary">Create Shot Version</button>
+                                            <button type="button" class="btn btn-inverse">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>            
+                        </div>
+                    </section>
+                </div>
+            </div> 
+        </div>                 
