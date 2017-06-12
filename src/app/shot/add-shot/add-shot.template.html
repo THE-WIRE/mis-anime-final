@@ -1,17 +1,64 @@
-<div class="shot-form">
-    <form #shotForm="ngForm" (ngSubmit)="add(shotForm.value)">
-        <label for="scode">Shot Code</label>
-        <input (ngModel)="scode" type="text" name="scode" value="">
-
-        <label for="sdesc">Description</label>
-        <textarea (ngModel)="sdesc" name="sdesc" rows="3" cols="20"></textarea>
-
-        <label for="sst">Start Date</label>
-        <input (ngModel)="sst" type="date" name="sst" value="">
-
-        <label for="sendt">End Date</label>
-        <input (ngModel)="sendt" type="date" name="sendt" value="">
-
-        <button type="submit">Create Shot</button>
-    </form>
-</div>
+ <div class="content container shot-form">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="page-title">Add <small>Shot</small></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <section class="widget">
+                        <header>
+                            <h4>
+                                <i class="fa fa-align-left"></i>
+                                Inputs
+                            </h4>
+                            <div class="widget-controls">
+                                <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </header>
+                        <div class="body project-form">
+                            <form class="form-horizontal" #shotForm="ngForm" (ngSubmit)="add(shotForm.value)">
+                                <fieldset>
+                                        <div class="form-group">
+                                            <label for="scode" class="col-sm-4 control-label">Shot Code</label>
+                                            <div class="col-sm-7">
+                                                <input (ngModel)="scode" type="text" name="scode" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sdesc" class="col-sm-4 control-label">Description</label>
+                                            <div class="col-sm-7">
+                                                <textarea (ngModel)="sdesc" name="sdesc" rows="4" class="form-control input-transparent" ></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sst" class="col-sm-4 control-label">Start Date</label>
+                                            <div class="col-sm-7">
+                                                <input type="date" name="sst" (ngModel)="sst" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="send" class="col-sm-4 control-label">End Date</label>
+                                            <div class="col-sm-7">
+                                                <input type="date" name="send" (ngModel)="sendt" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                </fieldset>
+                                <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-sm-offset-4 col-sm-7">
+                                        <div class="btn-toolbar">
+                                            <button type="submit" class="btn btn-primary">Create Asset</button>
+                                            <button type="button" class="btn btn-inverse">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>            
+                        </div>
+                    </section>
+                </div>
+            </div> 
+        </div>                 

@@ -1,14 +1,58 @@
-<div class="asset-version-form">
-    <form #AssetVersionForm="ngForm" (ngSubmit)="add(AssetVersionForm.value)">
-        <label for="avercode">Asset Version Code</label>
-        <input (ngModel)="avercode" type="text" name="avercode" value="">
-
-        <label for="averst">Start Date</label>
-        <input (ngModel)="averst" type="date" name="averst" value="">
-
-        <label for="averendt">End Date</label>
-        <input (ngModel)="averendt" type="date" name="averendt" value="">
-
-        <button type="submit">Create Asset Version</button>
-    </form>
-</div>
+ <div class="content container asset-version-form">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="page-title">Asset <small>Version</small></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <section class="widget">
+                        <header>
+                            <h4>
+                                <i class="fa fa-align-left"></i>
+                                Inputs
+                            </h4>
+                            <div class="widget-controls">
+                                <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                                <a href="#"><i class="fa fa-refresh"></i></a>
+                                <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </header>
+                        <div class="body project-form">
+                            <form class="form-horizontal" role="form" #AssetVersionForm="ngForm" (ngSubmit)="add(AssetVersionForm.value)">
+                                <fieldset>
+                                        <div class="form-group">
+                                            <label for="avercode" class="col-sm-4 control-label">Asset Version Code</label>
+                                            <div class="col-sm-7">
+                                                <input (ngModel)="acode" type="text" name="acode" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="averst" class="col-sm-4 control-label">Start Date</label>
+                                            <div class="col-sm-7">
+                                                <input type="date" name="averst" (ngModel)="averst" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="averend" class="col-sm-4 control-label">End Date</label>
+                                            <div class="col-sm-7">
+                                                <input type="date" name="averend" (ngModel)="averendt" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                </fieldset>
+                                <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-sm-offset-4 col-sm-7">
+                                        <div class="btn-toolbar">
+                                            <button type="submit" class="btn btn-primary">Create Asset Version</button>
+                                            <button type="button" class="btn btn-inverse">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>            
+                        </div>
+                    </section>
+                </div>
+            </div> 
+        </div>                 
