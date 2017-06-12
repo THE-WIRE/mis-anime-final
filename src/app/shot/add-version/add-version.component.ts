@@ -23,6 +23,6 @@ export class AddShotVersionComponent implements OnInit {
     add(form){
         this.shot_version = form ;
         const add = this.db.list('/Shot_version');
-        add.push(this.shot_version).then(_ => {console.log('Shot Version Added')})
+        add.push(this.shot_version).then(_ => {console.log('Shot Version Added now')})
     }
 }
