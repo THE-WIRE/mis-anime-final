@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Shot } from '../shot.interface'
+import { AngularFireDatabase } from 'angularfire2/database'
 
 @Component({
     selector: 'add-shot',
@@ -15,7 +16,13 @@ export class AddShotComponent implements OnInit {
 
     public shot: Shot;
 
-    constructor() { }
+    constructor(private db : AngularFireDatabase) { }
 
     ngOnInit() { }
+
+    add(form){
+        this.shot = form ;
+        const add = this.db.list('/Shots');
+        add.push(this.shot).then(_ => {console.log('Shot added')})
+    }
 }

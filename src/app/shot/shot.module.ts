@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database'
+
 
 import { Shot } from './shot.component';
 import { AddShotComponent } from './add-shot/add-shot.component';
@@ -25,6 +27,7 @@ export const routes = [
     FormsModule,
     AngularFireAuthModule,
     RouterModule.forChild(routes),
+    AngularFireDatabaseModule
   ]
 })
 export class ShotModule {
