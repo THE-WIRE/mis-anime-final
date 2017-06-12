@@ -1,11 +1,11 @@
 <div class="view">
     <p>Asset Details</p>
 
-    <ul>
-        <li><strong>Name : </strong> A1</li>
-        <li><strong>Asset Type : </strong> Character</li>
-        <li><strong>Description : </strong> xyz</li>
-        <li><strong>Start Date : </strong> 09-08-2017</li>
-        <li><strong>End Date : </strong> N/A</li>
+    <ul *ngFor="let a of asset">
+        <li><strong>Name : </strong> {{a.acode}}</li>
+        <li><strong>Asset Type : </strong>{{a.atype}}</li>
+        <li><strong>Description : </strong> {{a.adesc}}</li>
+        <li><strong>Start Date : </strong> {{a.ast}}</li>
+        <li><strong>End Date : </strong>{{a.aendt}}</li>
     </ul>
 </div>

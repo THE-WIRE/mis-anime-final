@@ -1,9 +1,9 @@
 <div class="view">
     <p>Asset Version Details</p>
 
-    <ul>
-        <li><strong>Version : </strong> A1</li>
-        <li><strong>Start Date : </strong> 09-08-2017</li>
-        <li><strong>End Date : </strong> N/A</li>
+    <ul *ngFor="let av of asset_version">
+        <li><strong>Version : </strong>{{av.avercode}}</li>
+        <li><strong>Start Date : </strong>{{av?.averst}}</li>
+        <li><strong>End Date : </strong> {{av?.averendt}}</li>
     </ul>
 </div>
