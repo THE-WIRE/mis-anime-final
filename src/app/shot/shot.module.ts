@@ -8,19 +8,33 @@ import { AngularFireDatabaseModule } from 'angularfire2/database'
 
 import { Shot } from './shot.component';
 import { AddShotComponent } from './add-shot/add-shot.component';
+import { ViewAllShotComponent } from './view-all/view-all.component';
+import { ShotDetailsComponent } from './details/details.component';
+
 import { AddShotVersionComponent } from './add-version/add-version.component';
+import { ViewAllShotVersionComponent } from './view-all-version/view-all-version.component';
+import { ShotVersionDetailsComponent } from './version-details/version-details.component';
 
 export const routes = [
   { path: '', component: Shot, pathMatch: 'full' },
   { path: 'add', component: AddShotComponent, pathMatch: 'full' },
-  { path: 'version/add', component: AddShotVersionComponent, pathMatch: 'full' }
+  { path: 'all', component: ViewAllShotComponent, pathMatch: 'full' },
+  { path: 'details', component: ShotDetailsComponent, pathMatch: 'full' },
+
+  { path: 'version/add', component: AddShotVersionComponent, pathMatch: 'full' },
+  { path: 'version/all', component: ViewAllShotVersionComponent, pathMatch: 'full' },
+  { path: 'version/details', component: ShotVersionDetailsComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
   declarations: [
     Shot,
     AddShotComponent,
-    AddShotVersionComponent
+    ViewAllShotComponent,
+    ShotDetailsComponent,
+    AddShotVersionComponent,
+    ViewAllShotVersionComponent,
+    ShotVersionDetailsComponent
   ],
   imports: [
     CommonModule,
