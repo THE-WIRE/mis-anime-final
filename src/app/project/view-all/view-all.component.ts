@@ -14,8 +14,17 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 
 export class ViewAllProjectComponent implements OnInit {
 
-    public project: Project;
+    public projects : Project[];
     constructor(private db: AngularFireDatabase) {
+        db.list('/Projects').subscribe(
+            res => {
+                this.projects = res ;
+                console.log('refreshed'); 
+            },
+            err =>{
+                console.log('something went wrong')
+            }
+        )
     }
 
     ngOnInit() { }

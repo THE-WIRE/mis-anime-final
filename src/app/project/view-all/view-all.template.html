@@ -2,7 +2,8 @@
     <p>Projects</p>
 
     <ul>
-        <li>Project 1</li>
-        <li>Project 2</li>
+        <li *ngFor = "let project of projects">
+            {{project.pname}}
+        </li>
     </ul>
 </div>
