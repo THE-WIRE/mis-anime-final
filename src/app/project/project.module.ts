@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
+import { MaterialModule } from '@angular/material'
 
 import { Project } from './project.component';
 import { AddProjectComponent } from './add-project/add-project.component';
@@ -27,6 +28,7 @@ export const routes = [
   imports: [
     CommonModule,
     FormsModule,
+    MaterialModule,
     AngularFireAuthModule,
     RouterModule.forChild(routes),
     AngularFireDatabaseModule

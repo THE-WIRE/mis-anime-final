@@ -8,6 +8,12 @@ import { AngularFireDatabase } from 'angularfire2/database'
     styles: [`
         .shot-form{
             color: white;
+        },
+        .form-horizontal{
+            width: 1000px;
+        },
+        .widget{
+            color: black;
         }
     `]
 })

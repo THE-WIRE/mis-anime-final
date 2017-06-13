@@ -6,73 +6,79 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <section class="widget">
-                        <header>
-                            <h4>
-                                <i class="fa fa-align-left"></i>
-                                Inputs
-                            </h4>
-                            <div class="widget-controls">
-                                <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
-                                <a href="#"><i class="fa fa-refresh"></i></a>
-                                <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
-                            </div>
-                        </header>
-                        <div class="body project-form">
-                            <form class="form-horizontal" role="form" #projectForm="ngForm" (ngSubmit)="add(projectForm.value)">
-                                <fieldset>
-                                        <div class="form-group">
-                                            <label for="pname" class="col-sm-4 control-label">Project Name</label>
-                                            <div class="col-sm-7">
-                                                <input (ngModel)="pname" type="text" name="pname" value="" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="ptype" class="col-sm-4 control-label" for="default-select">Project Type</label>
-                                            <div class="col-sm-7">
-                                                <select (ngModel)="ptype" name="ptype"
-                                                        data-placeholder="A"
-                                                        data-minimum-results-for-search="10"
-                                                        tabindex="-1"
-                                                        class="select2 form-control" id="default-select">
-                                                    <option value="A">A</option>
-                                                    <option value="B">B</option>
-                                                    <option value="C">C</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="pdesc" class="col-sm-4 control-label">Description</label>
-                                            <div class="col-sm-7">
-                                                <textarea (ngModel)="pdesc" name="pdesc" rows="4" class="form-control input-transparent" ></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="pst" class="col-sm-4 control-label">Start Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="date" name="pst" (ngModel)="pst" value="" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="pendt" class="col-sm-4 control-label">End Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="date" name="pendt" (ngModel)="pendt" value="" class="form-control">
-                                            </div>
-                                        </div>
-                                </fieldset>
-                                <div class="form-actions">
-                                <div class="row">
-                                    <div class="col-sm-offset-4 col-sm-7">
-                                        <div class="btn-toolbar">
-                                            <button type="submit" class="btn btn-primary">Create Project</button>
-                                            <button type="button" class="btn btn-inverse">Cancel</button>
-                                        </div>
-                                    </div>
+                    <md-card>
+                            <header>
+                                <h4>
+                                    <i class="fa fa-align-left"></i>
+                                    Inputs
+                                </h4>
+                                <div class="widget-controls">
+                                    <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                                    <a href="#"><i class="fa fa-refresh"></i></a>
+                                    <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
                                 </div>
+                            </header>
+                            <div class="body project-form">
+                                <form class="form-horizontal" role="form" #projectForm="ngForm" (ngSubmit)="add(projectForm.value)">
+                                    <fieldset>
+                                            <div class="form-group">
+                                               <md-input-container>
+                                                    <div class="col-sm-7">
+                                                        <input mdInput (ngModel)="pname" type="text" name="pname" value="" class="form-control" placeholder="Project Name">
+                                                    </div>
+                                               </md-input-container>
+                                            </div>
+                                            <div class="form-group">
+                                                
+                                                <div class="col-sm-7">
+                                                    <md-select placeholder="Project Type" [(ngModel)]="selectedValue" (ngModel)="ptype" name="ptype"
+                                                            data-placeholder="A"
+                                                            data-minimum-results-for-search="10"
+                                                            tabindex="-1"
+                                                            class="select2 form-control" id="default-select">
+                                                        <md-option *ngFor="let project of projects" [value]="project.value">
+                                                            {{project.viewValue}}
+                                                        </md-option>
+                                                        <p> Selected value: {{selectedValue}} </p>
+                                                    </md-select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <md-input-container>
+                                                    <div class="col-sm-7">
+                                                        <textarea mdInput (ngModel)="pdesc" name="pdesc" rows="4" class="form-control input-transparent" placeholder="Description" ></textarea>
+                                                    </div>
+                                                </md-input-container>    
+                                            </div>
+                                            <div class="form-group">
+                                                <md-input-container>
+                                                    <div class="col-sm-7">
+                                                        <input mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" name="pst" (ngModel)="pst" value="" class="form-control">
+                                                        <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                                                    </div>
+                                                </md-input-container>    
+                                            </div>
+                                            <div class="form-group">
+                                                <md-input-container>
+                                                    <div class="col-sm-7">
+                                                        <input mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" name="pendt" (ngModel)="pendt" value="" class="form-control">
+                                                        <button mdSuffix [mdDatepickerToggle]="picker1"></button>
+                                                    </div>
+                                                </md-input-container>    
+                                            </div>
+                                    </fieldset>
+                                    <md-card-actions>
+                                        <div class="col-sm-offset-4 col-sm-7">
+                                            <div class="btn-toolbar">
+                                                <button  md-raised-button type="submit" color="primary">Create Project</button>
+                                                <button  md-raised-button type="button" color="accent">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </md-card-actions>
+                                </form>            
                             </div>
-                            </form>            
-                        </div>
-                    </section>
+                       
+                    </md-card>    
                 </div>
             </div> 
         </div>                 

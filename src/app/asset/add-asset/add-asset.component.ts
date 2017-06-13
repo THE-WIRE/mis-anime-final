@@ -25,4 +25,12 @@ export class AddAssetComponent implements OnInit {
         const add = this.db.list('/Assets');
         add.push(this.asset).then(_ => {console.log('Asset Added')});
   }
+
+  selectedValue: string;
+
+    assets = [
+        {value: 'A', viewValue: 'A'},
+        {value: 'B', viewValue: 'B'},
+        {value: 'C', viewValue: 'C'}
+    ];
 }

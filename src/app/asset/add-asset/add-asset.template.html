@@ -6,7 +6,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <section class="widget">
+                    <md-card>
                         <header>
                             <h4>
                                 <i class="fa fa-align-left"></i>
@@ -22,57 +22,59 @@
                             <form class="form-horizontal" role="form" #AssetForm="ngForm" (ngSubmit)="add(AssetForm.value)">
                                 <fieldset>
                                         <div class="form-group">
-                                            <label for="acode" class="col-sm-4 control-label">Asset Code</label>
-                                            <div class="col-sm-7">
-                                                <input (ngModel)="acode" type="text" name="acode" value="" class="form-control">
-                                            </div>
+                                            <md-input-container>
+                                                <input mdInput (ngModel)="acode" type="text" name="acode" value="" class="form-control" placeholder="Asset Code">
+                                            </md-input-container>
                                         </div>
                                         <div class="form-group">
-                                            <label for="atype" class="col-sm-4 control-label" for="default-select">Asset Type</label>
                                             <div class="col-sm-7">
-                                                <select (ngModel)="atype" name="atype"
+                                                <md-select placeholder="Asset Type" [(ngModel)]="selectedValue" (ngModel)="atype" name="atype"
                                                         data-placeholder="A"
                                                         data-minimum-results-for-search="10"
                                                         tabindex="-1"
                                                         class="select2 form-control" id="default-select">
-                                                    <option value="A">A</option>
-                                                    <option value="B">B</option>
-                                                    <option value="C">C</option>
-                                                </select>
+                                                        <md-option *ngFor="let asset of assets" [value]="asset.value">
+                                                            {{asset.viewValue}}
+                                                        </md-option>
+                                                        <p> Selected value: {{selectedValue}} </p>
+                                                </md-select>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="adesc" class="col-sm-4 control-label">Description</label>
-                                            <div class="col-sm-7">
-                                                <textarea (ngModel)="adesc" name="adesc" rows="4" class="form-control input-transparent" ></textarea>
-                                            </div>
+                                            <md-input-container>
+                                                <div class="col-sm-7">
+                                                    <textarea mdInput (ngModel)="adesc" name="adesc" rows="4" class="form-control input-transparent" placeholder="Description"></textarea>
+                                                </div>
+                                            </md-input-container>    
                                         </div>
                                         <div class="form-group">
-                                            <label for="ast" class="col-sm-4 control-label">Start Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="date" name="ast" (ngModel)="ast" value="" class="form-control">
-                                            </div>
+                                            <md-input-container>
+                                                <div class="col-sm-7">
+                                                    <input mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" name="ast" (ngModel)="ast" value="" class="form-control">
+                                                    <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                                                </div>
+                                            </md-input-container>
                                         </div>
                                         <div class="form-group">
-                                            <label for="aendt" class="col-sm-4 control-label">End Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="date" name="aendt" (ngModel)="aendt" value="" class="form-control">
-                                            </div>
+                                            <md-input-container>
+                                                <div class="col-sm-7">
+                                                    <input mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" name="aendt" (ngModel)="aendt" value="" class="form-control">
+                                                    <button mdSuffix [mdDatepickerToggle]="picker1"></button>
+                                                </div>
+                                            </md-input-container>     
                                         </div>
                                 </fieldset>
-                                <div class="form-actions">
-                                <div class="row">
+                                <md-card-actions>
                                     <div class="col-sm-offset-4 col-sm-7">
                                         <div class="btn-toolbar">
-                                            <button type="submit" class="btn btn-primary">Create Asset</button>
-                                            <button type="button" class="btn btn-inverse">Cancel</button>
+                                            <button md-raised-button type="submit" color="primary">Create Asset</button>
+                                            <button md-raised-button type="button" color="accent">Cancel</button>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </md-card-actions>
                             </form>            
                         </div>
-                    </section>
+                    </md-card>
                 </div>
             </div> 
         </div>                 

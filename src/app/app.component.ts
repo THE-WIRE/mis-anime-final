@@ -13,7 +13,8 @@ import { AppState } from './app.service';
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
-    './scss/application.scss'
+    './scss/application.scss',
+    '../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css'
   ],
   template: `<router-outlet></router-outlet>`
 })
