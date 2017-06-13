@@ -11,6 +11,8 @@ import { AddProjectComponent } from './add-project/add-project.component';
 import { ViewAllProjectComponent } from './view-all/view-all.component';
 import { ProjectDetailsComponent } from './details/details.component';
 
+import { ProjectService } from '../shared/cproject.service';
+
 export const routes = [
   { path: '', component: Project, pathMatch: 'full' },
   { path: 'add', component: AddProjectComponent, pathMatch: 'full' },
@@ -32,7 +34,8 @@ export const routes = [
     AngularFireAuthModule,
     RouterModule.forChild(routes),
     AngularFireDatabaseModule
-  ]
+  ],
+  providers: [ProjectService]
 })
 export class ProjectModule {
   static routes = routes;

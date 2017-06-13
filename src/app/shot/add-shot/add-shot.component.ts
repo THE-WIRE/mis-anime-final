@@ -10,10 +10,14 @@ import { AngularFireDatabase } from 'angularfire2/database'
             color: white;
         },
         .form-horizontal{
-            width: 1000px;
+            
         },
         .widget{
             color: black;
+        }
+
+        .full-width{
+            width:100%;
         }
     `]
 })
@@ -22,13 +26,13 @@ export class AddShotComponent implements OnInit {
 
     public shot: Shot;
 
-    constructor(private db : AngularFireDatabase) { }
+    constructor(private db: AngularFireDatabase) { }
 
     ngOnInit() { }
 
-    add(form){
-        this.shot = form ;
+    add(form) {
+        this.shot = form;
         const add = this.db.list('/Shots');
-        add.push(this.shot).then(_ => {console.log('Shot added')})
+        add.push(this.shot).then(_ => { console.log('Shot added') })
     }
 }

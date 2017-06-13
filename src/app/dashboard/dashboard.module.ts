@@ -7,6 +7,8 @@ import { Dashboard } from './dashboard.component';
 import { Widget } from '../layout/widget/widget.directive';
 
 import { MaterialModule } from '@angular/material';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { ProjectDetailsComponent } from '../project/details/details.component';
 
 export const routes = [
   { path: '', component: Dashboard, pathMatch: 'full' }
@@ -21,6 +23,7 @@ export const routes = [
     CommonModule,
     FormsModule,
     MaterialModule,
+    AngularFireDatabaseModule,
     RouterModule.forChild(routes),
   ]
 })
