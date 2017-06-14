@@ -1,14 +1,14 @@
- <div class="content container shot-form">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="page-title">Add <small>Shot</small></h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <section class="widget">
-                        <header>
-                            <h4>
+<div class="content container shot-form">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title">Add <small>Shot</small></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <md-card [ngClass]="{widget : true}">
+                <!--<header>
+                            <h4 class="head">
                                 <i class="fa fa-align-left"></i>
                                 Inputs
                             </h4>
@@ -17,48 +17,56 @@
                                 <a href="#"><i class="fa fa-refresh"></i></a>
                                 <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
                             </div>
-                        </header>
-                        <div class="body project-form">
-                            <form class="form-horizontal" #shotForm="ngForm" (ngSubmit)="add(shotForm.value)">
-                                <fieldset>
-                                        <div class="form-group">
-                                            <label for="scode" class="col-sm-4 control-label">Shot Code</label>
-                                            <div class="col-sm-7">
-                                                <input (ngModel)="scode" type="text" name="scode" value="" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sdesc" class="col-sm-4 control-label">Description</label>
-                                            <div class="col-sm-7">
-                                                <textarea (ngModel)="sdesc" name="sdesc" rows="4" class="form-control input-transparent" ></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sst" class="col-sm-4 control-label">Start Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="date" name="sst" (ngModel)="sst" value="" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="send" class="col-sm-4 control-label">End Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="date" name="send" (ngModel)="sendt" value="" class="form-control">
-                                            </div>
-                                        </div>
-                                </fieldset>
-                                <div class="form-actions">
-                                <div class="row">
-                                    <div class="col-sm-offset-4 col-sm-7">
-                                        <div class="btn-toolbar">
-                                            <button type="submit" class="btn btn-primary">Create Asset</button>
-                                            <button type="button" class="btn btn-inverse">Cancel</button>
-                                        </div>
+                        </header>-->
+                <div class="body project-form">
+                    <form class="form-horizontal" #shotForm="ngForm" (ngSubmit)="add(shotForm.value)">
+                        <fieldset>
+
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input mdInput (ngModel)="scode" type="text" name="scode" value="" class="" placeholder="Shot Code">
                                     </div>
-                                </div>
+                                </md-input-container>
                             </div>
-                            </form>            
-                        </div>
-                    </section>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <textarea mdInput (ngModel)="sdesc" name="sdesc" rows="3" placeholder="Shot Description" class=" input-transparent"></textarea>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input name="sst" mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" (ngModel)="sst" value="" class="col-md-8">
+                                        <button mdSuffix [mdDatepickerToggle]="picker" class="col-md-4"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input name="sendt" mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" (ngModel)="sendt" value="" class="col-md-8">
+                                        <button mdSuffix [mdDatepickerToggle]="picker1" class="col-md-4"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </fieldset>
+                        <md-card-actions>
+                            <div class="col-sm-offset-4 col-sm-7">
+                                <div class="btn-toolbar">
+                                    <button md-raised-button type="submit" color="primary">Create Asset</button>
+                                    <button md-raised-button type="button" color="accent">Cancel</button>
+                                </div>
+                                <md-datepicker #picker></md-datepicker>
+                                <md-datepicker #picker1></md-datepicker>
+                            </div>
+
+                        </md-card-actions>
+                    </form>
                 </div>
-            </div> 
-        </div>                 
+            </md-card>
+        </div>
+    </div>
+</div>

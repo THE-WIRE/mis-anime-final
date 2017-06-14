@@ -4,11 +4,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
+import { MaterialModule } from '@angular/material'
 
 import { Project } from './project.component';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { ViewAllProjectComponent } from './view-all/view-all.component';
 import { ProjectDetailsComponent } from './details/details.component';
+
+import { ProjectService } from '../shared/cproject.service';
 
 export const routes = [
   { path: '', component: Project, pathMatch: 'full' },
@@ -27,10 +30,12 @@ export const routes = [
   imports: [
     CommonModule,
     FormsModule,
+    MaterialModule,
     AngularFireAuthModule,
     RouterModule.forChild(routes),
     AngularFireDatabaseModule
-  ]
+  ],
+  providers: [ProjectService]
 })
 export class ProjectModule {
   static routes = routes;

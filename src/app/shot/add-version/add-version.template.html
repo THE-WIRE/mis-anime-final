@@ -1,58 +1,63 @@
- <div class="content container shot-version-form">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="page-title">Shot <small>Version</small></h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <section class="widget">
-                        <header>
-                            <h4>
-                                <i class="fa fa-align-left"></i>
-                                Inputs
-                            </h4>
-                            <div class="widget-controls">
-                                <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
-                                <a href="#"><i class="fa fa-refresh"></i></a>
-                                <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
-                            </div>
-                        </header>
-                        <div class="body project-form">
-                            <form class="form-horizontal" role="form" #ShotVersionForm="ngForm" (ngSubmit)="add(ShotVersionForm.value)">
-                                <fieldset>
-                                        <div class="form-group">
-                                            <label for="svercode" class="col-sm-4 control-label">Shot Version Code</label>
-                                            <div class="col-sm-7">
-                                                <input (ngModel)="svercode" type="text" name="svercode" value="" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sverst" class="col-sm-4 control-label">Start Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="date" name="sverst" (ngModel)="sverst" value="" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="sverendt" class="col-sm-4 control-label">End Date</label>
-                                            <div class="col-sm-7">
-                                                <input type="date" name="sverendt" (ngModel)="sverendt" value="" class="form-control">
-                                            </div>
-                                        </div>
-                                </fieldset>
-                                <div class="form-actions">
-                                <div class="row">
-                                    <div class="col-sm-offset-4 col-sm-7">
-                                        <div class="btn-toolbar">
-                                            <button type="submit" class="btn btn-primary">Create Shot Version</button>
-                                            <button type="button" class="btn btn-inverse">Cancel</button>
-                                        </div>
+<div class="content container shot-version-form">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title">Shot <small>Version</small></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <md-card>
+
+                <!--<header>
+                                <h4>
+                                    <i class="fa fa-align-left"></i>
+                                    Inputs
+                                </h4>
+                                <div class="widget-controls">
+                                    <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                                    <a href="#"><i class="fa fa-refresh"></i></a>
+                                    <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                                </div>
+                            </header>-->
+                <div class="body project-form">
+                    <form class="form-horizontal" role="form" #ShotVersionForm="ngForm" (ngSubmit)="add(ShotVersionForm.value)">
+                        <fieldset>
+                            <div class="form-group">
+                                <md-input-container>
+                                    <div class="col-sm-7">
+                                        <input mdInput (ngModel)="svercode" type="text" name="svercode" value="" class="form-control">
                                     </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container>
+                                    <div class="col-sm-7">
+                                        <input mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" name="sverst" (ngModel)="sverst" value="" class="form-control">
+                                        <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container>
+                                    <div class="col-sm-7">
+                                        <input mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" name="sverendt" (ngModel)="sverendt" value="" class="form-control">
+                                        <button mdSuffix [mdDatepickerToggle]="picker1"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </fieldset>
+                        <md-card-actions>
+                            <div class="col-sm-offset-4 col-sm-7">
+                                <div class="btn-toolbar">
+                                    <button md-raised-button type="submit" color="primary">Create Shot Version</button>
+                                    <button md-raised-button type="button" color="accent">Cancel</button>
                                 </div>
                             </div>
-                            </form>            
-                        </div>
-                    </section>
+                        </md-card-actions>
+                    </form>
                 </div>
-            </div> 
-        </div>                 
+
+            </md-card>
+        </div>
+    </div>
+</div>
