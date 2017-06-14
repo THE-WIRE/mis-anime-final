@@ -6,7 +6,9 @@ const routes: Routes = [
     path: '', component: Layout, children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', loadChildren: '../dashboard/dashboard.module#DashboardModule' },
-      { path: 'another', loadChildren: '../another/another.module#AnotherModule' }
+      { path: 'shot', loadChildren: '../shot/shot.module#ShotModule' },
+      { path: 'project', loadChildren: '../project/project.module#ShotModule' },
+      { path: 'asset', loadChildren: '../asset/asset.module#AssetModule' }
     ]
   }
 ];

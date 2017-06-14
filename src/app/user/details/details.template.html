@@ -1,0 +1,8 @@
+<div class="view">
+    <p>User Details</p>
+
+    <ul *ngFor="let user of user_details">
+        <li><strong>Name : </strong> {{user.uname}}</li>
+        <li><strong>Created Date : </strong> {{user?.cdate}}</li>
+    </ul>
+</div>

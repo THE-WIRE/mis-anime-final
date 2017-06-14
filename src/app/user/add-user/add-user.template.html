@@ -1,0 +1,79 @@
+<div class="content container ">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title">Add <small>User</small></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <md-card>
+                <header>
+                    <h4>
+                        <i class="fa fa-align-left"></i> Inputs
+                    </h4>
+                    <div class="widget-controls">
+                        <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                        <a href="#"><i class="fa fa-refresh"></i></a>
+                        <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </header>
+                <div class="body user-form">
+                    <form class="form-horizontal" role="form" #userForm="ngForm" (ngSubmit)="add(userForm.value)">
+                        <fieldset>
+                            <div class="form-group">
+                                <md-input-container>
+                                    <div class="col-sm-7">
+                                        <input mdInput (ngModel)="uname" type="text" name="uname" value="" class="form-control" placeholder="User Name">
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-sm-7">
+                                    <md-select placeholder="User Type" [(ngModel)]="selectedValue" (ngModel)="ptype" name="ptype" data-placeholder="A" data-minimum-results-for-search="10" tabindex="-1" class="select2 form-control" id="default-select">
+                                        <md-option *ngFor="let user of users" [value]="user.value">
+                                            {{user?.viewValue}}
+                                        </md-option>
+                                        <p> Selected value: {{selectedValue}} </p>
+                                    </md-select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container>
+                                    <div class="col-sm-7">
+                                        <textarea mdInput (ngModel)="pdesc" name="pdesc" rows="4" class="form-control input-transparent" placeholder="Description"></textarea>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container>
+                                    <div class="col-sm-7">
+                                        <input mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" name="pst" (ngModel)="pst" value="" class="form-control">
+                                        <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container>
+                                    <div class="col-sm-7">
+                                        <input mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" name="pendt" (ngModel)="pendt" value="" class="form-control">
+                                        <button mdSuffix [mdDatepickerToggle]="picker1"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </fieldset>
+                        <md-card-actions>
+                            <div class="col-sm-offset-4 col-sm-7">
+                                <div class="btn-toolbar">
+                                    <button md-raised-button type="submit" color="primary">Create User</button>
+                                    <button md-raised-button type="button" color="accent">Cancel</button>
+                                </div>
+                            </div>
+                        </md-card-actions>
+                    </form>
+                </div>
+
+            </md-card>
+        </div>
+    </div>
+</div>
