@@ -22,9 +22,9 @@ export class AddProjectComponent implements OnInit {
     add(form) {
         //form.pst = new Date();
         this.project = form;
-        console.log(form);
+        //console.log(form);
         const add = this.db.list('/Projects');
-        add.push(this.project).then(_ => { console.log('project Added') })
+        add.push(this.project).then(res => { console.log(res) })
 
     }
 }
