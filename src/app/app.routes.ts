@@ -16,6 +16,9 @@ export const ROUTES: Routes = [{
   path: 'shot', loadChildren: './shot/shot.module#ShotModule'
 },
 {
+  path: 'user', loadChildren: './user/user.module#UserModule'
+},
+{
   path: 'login', loadChildren: './login/login.module#LoginModule'
 }, {
   path: 'error', loadChildren: './error/error.module#ErrorModule'
