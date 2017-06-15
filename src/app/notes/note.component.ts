@@ -33,6 +33,7 @@ export class Note {
 
 
       add(form){
+        this.note = null 
         const ncrtdate = Date.now();
         const nobj = this.db.list('/Notes').push({"note" : form.note , "ncrtdate" : ncrtdate}).key//.then((item)=>{
         //   console.log('first '+item)

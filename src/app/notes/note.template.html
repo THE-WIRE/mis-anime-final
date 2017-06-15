@@ -3,7 +3,7 @@
 </div>
 
 <form #noteForm = "ngForm" (ngSubmit) = "add(noteForm.value)" >
-<input (ngModel)="note" type="text" name="note"/>
+<input (ngModel)="note" [(ngModel)]="note" type="text" name="note"/>
 <button type="submit"> Add note </button><br/>
 </form>
 <div style = "color : white ;font-size: 25px; "><b>RECENT NOTES</b></div><br/>
