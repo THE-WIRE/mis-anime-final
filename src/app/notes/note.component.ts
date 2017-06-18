@@ -1,10 +1,19 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database'
-
+import { AngularFireDatabase } from 'angularfire2/database';
+import { MdInputContainer, MdCard, MdCardActions } from '@angular/material';
 
 @Component({
   selector: 'note',
   templateUrl: './note.template.html',
+  styles: [`
+    .note-card{
+      margin: 10px;
+    }
+    .note-card-reply{
+      margin: 10px;
+      background: #fff888;
+    }
+  `],
   encapsulation: ViewEncapsulation.None,
   host: {
     class: 'note-page app'
@@ -12,41 +21,41 @@ import { AngularFireDatabase } from 'angularfire2/database'
 })
 export class Note {
 
-      public note : any
-      public notes : any[] 
-      constructor( private db : AngularFireDatabase ){
-          db.list('/Notes',{
-            query : {
-              orderByChild : 'ncrtdate',
-              limitToLast : 100
-            }
-          }).subscribe(
-              res =>{
-                  this.notes = res.sort(this.sortByDate);
-                  console.log(this.notes);
-
-              },
-              err =>{
-                  console.log('something went wrong while retrieving notes');
-              })
+  public note: any
+  public notes: any[]
+  constructor(private db: AngularFireDatabase) {
+    db.list('/Notes', {
+      query: {
+        orderByChild: 'ncrtdate',
+        limitToLast: 100
       }
+    }).subscribe(
+      res => {
+        this.notes = res.sort(this.sortByDate);
+        console.log(this.notes);
+
+      },
+      err => {
+        console.log('something went wrong while retrieving notes');
+      })
+  }
 
 
-      add(form){
-        this.note = null 
-        const ncrtdate = Date.now();
-        const nobj = this.db.list('/Notes').push({"note" : form.note , "ncrtdate" : ncrtdate}).key//.then((item)=>{
-        //   console.log('first '+item)
-        //   console.log (item.key);
-        // } )
+  add(form) {
+    this.note = null
+    const ncrtdate = Date.now();
+    const nobj = this.db.list('/Notes').push({ "note": form.note, "ncrtdate": ncrtdate }).key//.then((item)=>{
+    //   console.log('first '+item)
+    //   console.log (item.key);
+    // } )
 
-        console.log('this is something awesome : '+nobj)
-      }
+    console.log('this is something awesome : ' + nobj)
+  }
 
-      
-    sortByDate(n1,n2){
-        return n2.ncrtdate - n1.ncrtdate;
-    }
 
-      
- }
+  sortByDate(n1, n2) {
+    return n2.ncrtdate - n1.ncrtdate;
+  }
+
+
+}
