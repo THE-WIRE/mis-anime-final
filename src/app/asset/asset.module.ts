@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { MaterialModule } from '@angular/material'
+import { MaterialModule } from '@angular/material';
 
 import { Asset } from './asset.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';

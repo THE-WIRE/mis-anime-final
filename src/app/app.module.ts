@@ -9,6 +9,7 @@ import { AngularFireModule } from "angularfire2";
 import { MaterialModule, MdNativeDateModule } from '@angular/material';
 
 import { AddProjectComponent } from './project/AddProject/add_project.component'
+import { ProjectService } from './shared/cproject.service';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -55,7 +56,8 @@ type StoreType = {
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    ProjectService
   ]
 })
 export class AppModule {

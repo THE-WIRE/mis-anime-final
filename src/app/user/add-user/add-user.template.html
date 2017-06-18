@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <md-card>
                 <header>
                     <h4>
@@ -22,45 +22,37 @@
                         <fieldset>
                             <div class="form-group">
                                 <md-input-container>
-                                    <div class="col-sm-7">
+                                    <div class="">
                                         <input mdInput (ngModel)="uname" type="text" name="uname" value="" class="form-control" placeholder="User Name">
                                     </div>
                                 </md-input-container>
                             </div>
-                            <div class="form-group">
 
+                            <div class="form-group">
+                                <md-input-container>
+                                    <div class="col-sm-7">
+                                        <input mdInput (ngModel)="upass" type="password" name="upass" value="" class="form-control" placeholder="User Password">
+                                    </div>
+                                </md-input-container>
+                            </div>
+
+                            <div class="form-group">
                                 <div class="col-sm-7">
-                                    <md-select placeholder="User Type" [(ngModel)]="selectedValue" (ngModel)="ptype" name="ptype" data-placeholder="A" data-minimum-results-for-search="10" tabindex="-1" class="select2 form-control" id="default-select">
+                                    <md-select placeholder="User Type" [(ngModel)]="utype" (ngModel)="utype" name="utype" data-placeholder="Select User Role" data-minimum-results-for-search="10" tabindex="-1" id="default-select">
                                         <md-option *ngFor="let user of users" [value]="user.value">
                                             {{user?.viewValue}}
                                         </md-option>
-                                        <p> Selected value: {{selectedValue}} </p>
                                     </md-select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <md-input-container>
-                                    <div class="col-sm-7">
-                                        <textarea mdInput (ngModel)="pdesc" name="pdesc" rows="4" class="form-control input-transparent" placeholder="Description"></textarea>
+                                    <div class="col-md-12">
+                                        <textarea mdInput (ngModel)="udetails" row="4" col="10" name="udetails" class="form-control" placeholder="Additional Details"></textarea>
                                     </div>
                                 </md-input-container>
                             </div>
-                            <div class="form-group">
-                                <md-input-container>
-                                    <div class="col-sm-7">
-                                        <input mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" name="pst" (ngModel)="pst" value="" class="form-control">
-                                        <button mdSuffix [mdDatepickerToggle]="picker"></button>
-                                    </div>
-                                </md-input-container>
-                            </div>
-                            <div class="form-group">
-                                <md-input-container>
-                                    <div class="col-sm-7">
-                                        <input mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" name="pendt" (ngModel)="pendt" value="" class="form-control">
-                                        <button mdSuffix [mdDatepickerToggle]="picker1"></button>
-                                    </div>
-                                </md-input-container>
-                            </div>
+
                         </fieldset>
                         <md-card-actions>
                             <div class="col-sm-offset-4 col-sm-7">

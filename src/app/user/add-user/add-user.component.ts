@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user.interface';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Component({
@@ -16,23 +17,34 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 export class AddUserComponent implements OnInit {
 
     public user: User;
-    constructor(private db: AngularFireDatabase) {
+    constructor(private db: AngularFireDatabase, public af: AngularFireAuth) {
     }
 
     ngOnInit() { }
     add(form) {
-        //form.pst = new Date();
-        this.user = form;
-        console.log(form);
-        const add = this.db.list('/Users');
-        add.push(this.user).then(_ => { console.log('user Added') })
-
+        form.crdate = Date.now();
+        this.af.auth.createUserWithEmailAndPassword(form.uname, form.upass)
+            .then(
+            data => {
+                form.upass = null;
+                this.user = form;
+                console.log(form);
+                const add = this.db.list('/Users');
+                add.push(this.user).then(_ => { console.log('user Added') })
+            }
+            )
+            .catch(
+            err => {
+                console.log(err);
+            });
     }
     selectedValue: string;
 
     users = [
-        { value: 'A', viewValue: 'A' },
-        { value: 'B', viewValue: 'B' },
-        { value: 'C', viewValue: 'C' }
+        { value: 'shotartist', viewValue: 'Shot Artist' },
+        { value: 'assetartist', viewValue: 'Asset Artist' },
+        { value: 'supervisor', viewValue: 'Supervisor' },
+        { value: 'vendor', viewValue: 'Vendor' },
+        { value: 'manager', viewValue: 'Manager' }
     ];
 }
