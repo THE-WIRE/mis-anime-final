@@ -3,6 +3,22 @@
 
     <ul>
         <li *ngFor="let asset of assets">{{asset.acode}}</li>
-        
+
     </ul>
 </div>
+
+<md-card class="all">
+    <md-card-header>
+        <div md-card-avatar class="header-image"></div>
+        <md-card-title>Asset Name :Tom</md-card-title>
+        <md-card-subtitle>Create Date: </md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+        <p>
+            Tom &amp; Jerry were best friends, but in the they bost committed suicide!!
+        </p>
+    </md-card-content>
+    <md-card-actions>
+        <button md-raised-button (onclick)="">Explore</button>
+    </md-card-actions>
+</md-card>

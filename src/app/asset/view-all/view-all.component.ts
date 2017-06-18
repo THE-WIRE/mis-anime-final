@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Asset } from '../asset.interface'
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { MaterialModule } from '@angular/material'
 
 @Component({
     selector: 'view-all-asset',
@@ -9,6 +10,9 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
         .view{
             color: white;
         }
+        
+
+        
     `]
 })
 
@@ -18,10 +22,10 @@ export class ViewAllAssetComponent implements OnInit {
     constructor(private db: AngularFireDatabase) {
         db.list('/Assets').subscribe(
             res => {
-                this.assets = res ;
-                console.log('refreshed'); 
+                this.assets = res;
+                console.log('refreshed');
             },
-            err =>{
+            err => {
                 console.log('something went wrong')
             }
         )
