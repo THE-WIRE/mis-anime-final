@@ -1,7 +1,3 @@
-<div class="" style = "color : white ; padding-left: 550px;font-size: 25px; ">
-    {{ date | date:'medium'}}
-</div>
-
 <form #noteForm = "ngForm" (ngSubmit) = "add(noteForm.value)" >
 <input (ngModel)="note" [(ngModel)]="note" type="text" name="note"/>
 <button type="submit"> Add note </button><br/>
@@ -9,6 +5,6 @@
 <div style = "color : white ;font-size: 25px; "><b>RECENT NOTES</b></div><br/>
 <div style = "color : white ;font-size: 15px; ">
         <ul>
-            <li *ngFor="let no of notes" >{{no.note}} :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; date {{ no.ncrtdate | date}}</li>
+            <li *ngFor="let no of notes" >{{no.note}} :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; date {{ no.ncrtdate | date:'medium'}}</li>
         </ul>
 </div>
