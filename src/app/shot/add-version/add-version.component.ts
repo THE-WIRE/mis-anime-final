@@ -9,6 +9,9 @@ import { AngularFireDatabase } from 'angularfire2/database'
         .shot-version-form{
             color: white;
         }
+        .full-width{
+            width:100%;
+        }
     `]
 })
 
@@ -16,13 +19,13 @@ export class AddShotVersionComponent implements OnInit {
 
     public shot_version: ShotVersion;
 
-    constructor(private db : AngularFireDatabase) { }
+    constructor(private db: AngularFireDatabase) { }
 
     ngOnInit() { }
 
-    add(form){
-        this.shot_version = form ;
+    add(form) {
+        this.shot_version = form;
         const add = this.db.list('/Shot_version');
-        add.push(this.shot_version).then(_ => {console.log('Shot Version Added')})
+        add.push(this.shot_version).then(_ => { console.log('Shot Version Added') })
     }
 }

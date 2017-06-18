@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AssetVersion } from '../asset-version.interface'
-import {AngularFireDatabase} from 'angularfire2/database'
+import { AngularFireDatabase } from 'angularfire2/database'
 
 @Component({
     selector: 'add-asset-version',
@@ -9,6 +9,9 @@ import {AngularFireDatabase} from 'angularfire2/database'
         .asset-version-form{
             color: white;
         }
+        .full-width{
+            width:100%;
+        }
     `]
 })
 
@@ -16,13 +19,13 @@ export class AddAssetVersionComponent implements OnInit {
 
     public asset_version: AssetVersion;
 
-    constructor(private db : AngularFireDatabase) { }
+    constructor(private db: AngularFireDatabase) { }
 
     ngOnInit() { }
 
-    add(form){
+    add(form) {
         this.asset_version = form;
         const add = this.db.list('/Asset_version')
-        add.push(this.asset_version).then(_ => {console.log('Asset version Added')})
+        add.push(this.asset_version).then(_ => { console.log('Asset version Added') })
     }
 }

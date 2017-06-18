@@ -1,13 +1,13 @@
- <div class="content container ">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="page-title">Add <small>Project</small></h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <md-card>
-                            <header>
+<div class="content container ">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title">Add <small>Project</small></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <md-card [ngClass]="{widget : true}">
+                <!--<header>
                                 <h4>
                                     <i class="fa fa-align-left"></i>
                                     Inputs
@@ -17,68 +17,64 @@
                                     <a href="#"><i class="fa fa-refresh"></i></a>
                                     <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
                                 </div>
-                            </header>
-                            <div class="body project-form">
-                                <form class="form-horizontal" role="form" #projectForm="ngForm" (ngSubmit)="add(projectForm.value)">
-                                    <fieldset>
-                                            <div class="form-group">
-                                               <md-input-container>
-                                                    <div class="col-sm-7">
-                                                        <input mdInput (ngModel)="pname" type="text" name="pname" value="" class="form-control" placeholder="Project Name">
-                                                    </div>
-                                               </md-input-container>
-                                            </div>
-                                            <div class="form-group">
-                                                
-                                                <div class="col-sm-7">
-                                                    <md-select placeholder="Project Type" [(ngModel)]="selectedValue" (ngModel)="ptype" name="ptype"
-                                                            data-placeholder="A"
-                                                            data-minimum-results-for-search="10"
-                                                            tabindex="-1"
-                                                            class="select2 form-control" id="default-select">
-                                                        <md-option *ngFor="let project of projects" [value]="project.value">
-                                                            {{project.viewValue}}
-                                                        </md-option>
-                                                        <p> Selected value: {{selectedValue}} </p>
-                                                    </md-select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <md-input-container>
-                                                    <div class="col-sm-7">
-                                                        <textarea mdInput (ngModel)="pdesc" name="pdesc" rows="4" class="form-control input-transparent" placeholder="Description" ></textarea>
-                                                    </div>
-                                                </md-input-container>    
-                                            </div>
-                                            <div class="form-group">
-                                                <md-input-container>
-                                                    <div class="col-sm-7">
-                                                        <input mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" name="pst" (ngModel)="pst" value="" class="form-control">
-                                                        <button mdSuffix [mdDatepickerToggle]="picker"></button>
-                                                    </div>
-                                                </md-input-container>    
-                                            </div>
-                                            <div class="form-group">
-                                                <md-input-container>
-                                                    <div class="col-sm-7">
-                                                        <input mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" name="pendt" (ngModel)="pendt" value="" class="form-control">
-                                                        <button mdSuffix [mdDatepickerToggle]="picker1"></button>
-                                                    </div>
-                                                </md-input-container>    
-                                            </div>
-                                    </fieldset>
-                                    <md-card-actions>
-                                        <div class="col-sm-offset-4 col-sm-7">
-                                            <div class="btn-toolbar">
-                                                <button  md-raised-button type="submit" color="primary">Create Project</button>
-                                                <button  md-raised-button type="button" color="accent">Cancel</button>
-                                            </div>
-                                        </div>
-                                    </md-card-actions>
-                                </form>            
+                            </header>-->
+                <div class="body project-form">
+                    <form class="form-horizontal" role="form" #projectForm="ngForm" (ngSubmit)="add(projectForm.value)">
+                        <fieldset>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input mdInput (ngModel)="pname" type="text" name="pname" value="" placeholder="Project Name">
+                                    </div>
+                                </md-input-container>
                             </div>
-                       
-                    </md-card>    
+                            <div class="form-group">
+
+                                <md-select class="full-width" placeholder="Project Type" [(ngModel)]="selectedValue" (ngModel)="ptype" name="ptype" data-placeholder="A"
+                                    data-minimum-results-for-search="10" tabindex="-1" id="default-select">
+                                    <div class="col-md-12">
+                                        <md-option class="full-width" *ngFor="let project of projects" [value]="project.value">
+                                            {{project.viewValue}}
+                                        </md-option>
+                                    </div>
+                                </md-select>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <textarea mdInput (ngModel)="pdesc" name="pdesc" rows="4" placeholder="Description"></textarea>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" name="pst" (ngModel)="pst" value="" class="col-md-10">
+                                        <button mdSuffix [mdDatepickerToggle]="picker" class="col-md-2"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" name="pendt" (ngModel)="pendt" value="" class="col-md-10">
+                                        <button mdSuffix [mdDatepickerToggle]="picker1" class="col-md-2"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </fieldset>
+                        <md-card-actions>
+                            <div class="col-sm-offset-4 col-sm-7">
+                                <div class="btn-toolbar">
+                                    <button md-raised-button type="submit" color="primary">Create Project</button>
+                                    <button md-raised-button type="button" color="accent">Cancel</button>
+                                </div>
+                            </div>
+                        </md-card-actions>
+                    </form>
                 </div>
-            </div> 
-        </div>                 
+
+            </md-card>
+        </div>
+    </div>
+</div>

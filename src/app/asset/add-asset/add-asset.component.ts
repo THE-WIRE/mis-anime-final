@@ -12,6 +12,9 @@ import { ProjectService } from '../../shared/cproject.service';
         .asset-form{
             color: white;
         }
+        .full-width{
+            width:100%;
+        }
     `]
 })
 

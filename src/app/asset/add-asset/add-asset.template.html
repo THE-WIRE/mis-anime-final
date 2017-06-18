@@ -1,80 +1,82 @@
- <div class="content container asset-form">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="page-title">Add <small>Asset</small></h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <md-card>
-                        <header>
-                            <h4>
-                                <i class="fa fa-align-left"></i>
-                                Inputs
-                            </h4>
-                            <div class="widget-controls">
-                                <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
-                                <a href="#"><i class="fa fa-refresh"></i></a>
-                                <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
-                            </div>
-                        </header>
-                        <div class="body project-form">
-                            <form class="form-horizontal" role="form" #AssetForm="ngForm" (ngSubmit)="add(AssetForm.value)">
-                                <fieldset>
-                                        <div class="form-group">
-                                            <md-input-container>
-                                                <input mdInput (ngModel)="acode" type="text" name="acode" value="" class="form-control" placeholder="Asset Code">
-                                            </md-input-container>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-7">
-                                                <md-select placeholder="Asset Type" [(ngModel)]="selectedValue" (ngModel)="atype" name="atype"
-                                                        data-placeholder="A"
-                                                        data-minimum-results-for-search="10"
-                                                        tabindex="-1"
-                                                        class="select2 form-control" id="default-select">
-                                                        <md-option *ngFor="let asset of assets" [value]="asset.value">
-                                                            {{asset.viewValue}}
-                                                        </md-option>
-                                                        <p> Selected value: {{selectedValue}} </p>
-                                                </md-select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <md-input-container>
-                                                <div class="col-sm-7">
-                                                    <textarea mdInput (ngModel)="adesc" name="adesc" rows="4" class="form-control input-transparent" placeholder="Description"></textarea>
-                                                </div>
-                                            </md-input-container>    
-                                        </div>
-                                        <div class="form-group">
-                                            <md-input-container>
-                                                <div class="col-sm-7">
-                                                    <input mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" name="ast" (ngModel)="ast" value="" class="form-control">
-                                                    <button mdSuffix [mdDatepickerToggle]="picker"></button>
-                                                </div>
-                                            </md-input-container>
-                                        </div>
-                                        <div class="form-group">
-                                            <md-input-container>
-                                                <div class="col-sm-7">
-                                                    <input mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" name="aendt" (ngModel)="aendt" value="" class="form-control">
-                                                    <button mdSuffix [mdDatepickerToggle]="picker1"></button>
-                                                </div>
-                                            </md-input-container>     
-                                        </div>
-                                </fieldset>
-                                <md-card-actions>
-                                    <div class="col-sm-offset-4 col-sm-7">
-                                        <div class="btn-toolbar">
-                                            <button md-raised-button type="submit" color="primary">Create Asset</button>
-                                            <button md-raised-button type="button" color="accent">Cancel</button>
-                                        </div>
+<div class="content container asset-form">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title">Add <small>Asset</small></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <md-card [ngClass]="{widget : true}">
+                <!--<header>
+                    <h4>
+                        <i class="fa fa-align-left"></i> Inputs
+                    </h4>
+                    <div class="widget-controls">
+                        <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                        <a href="#"><i class="fa fa-refresh"></i></a>
+                        <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </header>-->
+                <div class="body project-form">
+                    <form class="form-horizontal" role="form" #AssetForm="ngForm" (ngSubmit)="add(AssetForm.value)">
+                        <fieldset>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input mdInput (ngModel)="acode" type="text" name="acode" value="" placeholder="Asset Code">
                                     </div>
-                                </md-card-actions>
-                            </form>            
-                        </div>
-                    </md-card>
+                                </md-input-container>
+                            </div>
+
+                            <div class="form-group">
+                                <md-select class="full-width" placeholder="Asset Type" [(ngModel)]="selectedValue" (ngModel)="atype" name="atype" data-placeholder="A"
+                                    data-minimum-results-for-search="10" tabindex="-1" id="default-select">
+                                    <div class="col-md-12">
+                                        <md-option class="full-width" *ngFor="let asset of assets" [value]="asset.value">
+                                            {{asset.viewValue}}
+                                        </md-option>
+                                    </div>
+                                </md-select>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <textarea mdInput (ngModel)="adesc" name="adesc" rows="4" placeholder="Description"></textarea>
+                                    </div>
+                                </md-input-container>
+                            </div>
+
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" name="ast" (ngModel)="ast" value="" class="col-md-10">
+                                        <button mdSuffix [mdDatepickerToggle]="picker" class="col-md-2"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" name="aendt" (ngModel)="aendt" value="" class="col-md-10">
+                                        <button mdSuffix [mdDatepickerToggle]="picker1" class="col-md-2"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </fieldset>
+                        <md-card-actions>
+                            <div class="col-sm-offset-4 col-sm-7">
+                                <div class="btn-toolbar">
+                                    <button md-raised-button type="submit" color="primary">Create Asset</button>
+                                    <button md-raised-button type="button" color="accent">Cancel</button>
+                                </div>
+                                <md-datepicker #picker></md-datepicker>
+                                <md-datepicker #picker1></md-datepicker>
+                            </div>
+                        </md-card-actions>
+                    </form>
                 </div>
-            </div> 
-        </div>                 
+            </md-card>
+        </div>
+    </div>
+</div>
