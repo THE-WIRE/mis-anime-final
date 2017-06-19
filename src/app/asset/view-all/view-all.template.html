@@ -9,7 +9,7 @@
                 <md-option>MNP</md-option>
             </md-select>
         </md-card-subtitle>
-        <table class="table table-responsive">
+        <table class="table table-fixed">
             <thead>
                 <tr>
                     <td>Asset Code</td>
@@ -22,29 +22,34 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let asset of assets">
-                    <td>
+                <tr *ngFor="let asset of assets" id="tr-{{asset.$key}}">
+                    <td *ngIf="asset.isShown">
                         {{asset?.acode}}
                     </td>
-                    <td>
+                    <td *ngIf="asset.isShown">
                         {{asset?.atype}}
                     </td>
-                    <td>
+                    <td *ngIf="asset.isShown">
                         <md-card color="primary" style="height:10px; padding-top:10px;"><strong>PENDING</strong></md-card>
                     </td>
-                    <td>
+                    <td *ngIf="asset.isShown">
                         {{asset?.ast | date}}
                     </td>
-                    <td>
+                    <td *ngIf="asset.isShown">
                         {{asset?.aendt | date}}
                     </td>
-                    <td>
+                    <td *ngIf="asset.isShown">
                         {{asset?.crby}}
                     </td>
-                    <td>
-                        <button (click)="explore(asset)" md-raised-button type="button">EXPLORE</button>
+                    <td *ngIf="asset.isShown">
+                        <button (click)="explore(asset.$key)" md-raised-button type="button">EXPLORE</button>
                     </td>
 
+                    <td *ngIf="!asset.isShown" colspan="7">
+                        <view-detailed-asset [selectedAsset]="asset"></view-detailed-asset>
+                        <hr>
+                        <button style="float: right;" md-raised-button (click)="close(asset.$key)">Close</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

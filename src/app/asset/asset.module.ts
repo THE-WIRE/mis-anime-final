@@ -10,6 +10,7 @@ import { Asset } from './asset.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { ViewAllAssetComponent } from './view-all/view-all.component';
 import { AssetDetailsComponent } from './details/details.component';
+import { ViewDetailedAssetComponent } from './view-all/view-detailed.component';
 
 import { AddAssetVersionComponent } from './add-version/add-version.component';
 import { ViewAllAssetVersionComponent } from './view-all-version/view-all-version.component';
@@ -34,7 +35,8 @@ export const routes = [
     AssetDetailsComponent,
     AddAssetVersionComponent,
     ViewAllAssetVersionComponent,
-    AssetVersionDetailsComponent
+    AssetVersionDetailsComponent,
+    ViewDetailedAssetComponent
   ],
   imports: [
     CommonModule,
