@@ -22,7 +22,7 @@ export const routes = [
   { path: 'all', component: ViewAllAssetComponent, pathMatch: 'full' },
   { path: 'details', component: AssetDetailsComponent, pathMatch: 'full' },
   { path: 'version/add', component: AddAssetVersionComponent, pathMatch: 'full' },
-  { path: 'version/all', component: ViewAllAssetVersionComponent, pathMatch: 'full' },
+  { path: 'version/:dept_id/:id', component: ViewAllAssetVersionComponent, pathMatch: 'full' },
   { path: 'version/details', component: AssetVersionDetailsComponent, pathMatch: 'full' }
 
 ];
