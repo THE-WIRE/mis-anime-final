@@ -14,10 +14,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr *ngFor="let item of departments">
                     <td>
                         <button md-button>
-                            Layout
+                            {{item.dname}}
                     </button>
                     </td>
                     <td>Pending</td>

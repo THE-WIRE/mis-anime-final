@@ -18,10 +18,38 @@ import { MaterialModule } from '@angular/material'
 export class ViewDetailedAssetComponent implements OnInit {
 
     @Input() selectedAsset: any;
+    public departments: any;
     constructor(private db: AngularFireDatabase) {
-        console.log('this is selectedAsset  ',this.selectedAsset)
+
     }
 
-    ngOnInit() { }
+
+    ngOnInit() {
+
+        switch (this.selectedAsset.atype) {
+            case "char": this.selectedAsset.type = "character build";
+                break;
+
+            case "prop": this.selectedAsset.type = "prop build";
+                break;
+
+            case "set": this.selectedAsset.type = "set build";
+                break;
+
+        }
+        console.log(this.selectedAsset.type)
+
+        const obj = this.db.list('/Departments', {
+            query: {
+                orderByChild: 'type',
+                equalTo: this.selectedAsset.type
+            }
+        }).subscribe(res => {
+            console.log(res)
+            this.departments = res
+        })
+
+
+    }
 
 }
