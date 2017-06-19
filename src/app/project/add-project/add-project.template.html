@@ -30,8 +30,7 @@
                             </div>
                             <div class="form-group">
 
-                                <md-select class="full-width" placeholder="Project Type" [(ngModel)]="selectedValue" (ngModel)="ptype" name="ptype" data-placeholder="A"
-                                    data-minimum-results-for-search="10" tabindex="-1" id="default-select">
+                                <md-select class="full-width" placeholder="Project Type" [(ngModel)]="ptype" (ngModel)="ptype" name="ptype" placeholder="Select Project Type" data-minimum-results-for-search="10" tabindex="-1" id="default-select">
                                     <div class="col-md-12">
                                         <md-option class="full-width" *ngFor="let project of projects" [value]="project.value">
                                             {{project.viewValue}}
@@ -68,7 +67,10 @@
                                 <div class="btn-toolbar">
                                     <button md-raised-button type="submit" color="primary">Create Project</button>
                                     <button md-raised-button type="button" color="accent">Cancel</button>
+
                                 </div>
+                                <md-datepicker #picker></md-datepicker>
+                                <md-datepicker #picker1></md-datepicker>
                             </div>
                         </md-card-actions>
                     </form>

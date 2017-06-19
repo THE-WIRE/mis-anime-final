@@ -30,6 +30,8 @@ export class AddAssetComponent implements OnInit {
 
     add(form) {
         form.crby = this.af.auth.currentUser.uid;
+        form.ast = form.ast.valueOf();
+        form.aendt = form.aendt.valueOf();
         this.asset = form;
         const add = this.db.list('/Assets');
         const add_project_asset = this.db.object('/Project_Asset/' + this.cproj.getCurrentProjectId());

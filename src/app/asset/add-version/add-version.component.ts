@@ -24,6 +24,8 @@ export class AddAssetVersionComponent implements OnInit {
     ngOnInit() { }
 
     add(form) {
+        form.averst = form.averst.valueOf();
+        form.averendt = form.averendt.valueOf();
         this.asset_version = form;
         const add = this.db.list('/Asset_version')
         add.push(this.asset_version).then(_ => { console.log('Asset version Added') })

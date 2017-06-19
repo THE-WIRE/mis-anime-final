@@ -10,7 +10,6 @@ import { MaterialModule } from '@angular/material'
         .view{
             color: white;
         }
-        
 
         
     `]
@@ -29,6 +28,10 @@ export class ViewAllAssetComponent implements OnInit {
                 console.log('something went wrong')
             }
         )
+    }
+
+    explorer(asset){
+        console.log(asset);
     }
 
     ngOnInit() { }
