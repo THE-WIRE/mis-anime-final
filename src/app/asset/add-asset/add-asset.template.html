@@ -29,8 +29,7 @@
                             </div>
 
                             <div class="form-group">
-                                <md-select class="full-width" placeholder="Asset Type" [(ngModel)]="selectedValue" (ngModel)="atype" name="atype" data-placeholder="A"
-                                    data-minimum-results-for-search="10" tabindex="-1" id="default-select">
+                                <md-select class="full-width" placeholder="Asset Type" [(ngModel)]="atype" (ngModel)="atype" name="atype" data-minimum-results-for-search="10" tabindex="-1" id="default-select">
                                     <div class="col-md-12">
                                         <md-option class="full-width" *ngFor="let asset of assets" [value]="asset.value">
                                             {{asset.viewValue}}

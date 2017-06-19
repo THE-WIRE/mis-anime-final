@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Asset } from '../asset.interface';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { ProjectService } from '../../shared/cproject.service';
 
 
@@ -22,7 +23,10 @@ export class AddAssetComponent implements OnInit {
 
     public asset: Asset;
 
-    constructor(private db: AngularFireDatabase, public af: AngularFireAuth, public cproj: ProjectService) {
+    constructor(private db: AngularFireDatabase, public af: AngularFireAuth, public cproj: ProjectService, public router: Router) {
+        if (!cproj.getCurrentProjectId()) {
+            router.navigate(['/project/all']);
+        }
         console.log(cproj.getCurrentProjectId());
     }
 
@@ -34,17 +38,17 @@ export class AddAssetComponent implements OnInit {
         form.aendt = form.aendt.valueOf();
         this.asset = form;
         const add = this.db.list('/Assets');
-        const add_project_asset = this.db.object('/Project_Asset/' + this.cproj.getCurrentProjectId());
+        const add_project_asset = this.db.list('/Project_Asset/');
 
-        add.push(this.asset).then(_ => { add_project_asset.set({ "asset_key": _.key }) });
+        add.push(this.asset).then(_ => { add_project_asset.push({ "asset_key": _.key, "project_key": this.cproj.getCurrentProjectId() }) });
 
     }
 
     selectedValue: string;
 
     assets = [
-        { value: 'A', viewValue: 'A' },
-        { value: 'B', viewValue: 'B' },
-        { value: 'C', viewValue: 'C' }
+        { value: 'char', viewValue: 'Character' },
+        { value: 'prop', viewValue: 'Prop' },
+        { value: 'set', viewValue: 'Set' }
     ];
 }

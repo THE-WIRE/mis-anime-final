@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Asset } from '../asset.interface'
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { MaterialModule } from '@angular/material'
+import { ProjectService } from '../../shared/cproject.service';
+
 
 @Component({
     selector: 'view-all-asset',
@@ -19,7 +22,12 @@ export class ViewAllAssetComponent implements OnInit {
     public selectedAsset: any;
     public isAssetOpen: boolean = false;
     public saveTr: any;
-    constructor(private db: AngularFireDatabase) {
+    constructor(private db: AngularFireDatabase, public cproj: ProjectService, public router: Router) {
+
+        if (!cproj.getCurrentProjectId()) {
+            router.navigate(['/project/all']);
+        }
+
         db.list('/Assets').subscribe(
             res => {
                 this.assets = res;

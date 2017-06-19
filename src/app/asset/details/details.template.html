@@ -1,11 +1,18 @@
-<div class="view">
-    <p>Asset Details</p>
-
-    <ul *ngFor="let a of asset">
-        <li><strong>Name : </strong> {{a.acode}}</li>
-        <li><strong>Asset Type : </strong>{{a.atype}}</li>
-        <li><strong>Description : </strong> {{a.adesc}}</li>
-        <li><strong>Start Date : </strong> {{a.ast}}</li>
-        <li><strong>End Date : </strong>{{a.aendt}}</li>
-    </ul>
-</div>
+<md-card>
+    <md-card-header>
+        <md-card-title>{{asset?.acode}}</md-card-title>
+        <md-card-subtitle>Started : {{asset?.ast}}</md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+        Description : {{asset?.adesc}}
+    </md-card-content>
+    <md-card-actions>
+        <button style="float: right;" md-button>Go Back</button>
+    </md-card-actions>
+</md-card>
+<md-card>
+    <md-tab-group>
+        <md-tab label="Tab 1">Content 1</md-tab>
+        <md-tab label="Tab 2">Content 2</md-tab>
+    </md-tab-group>
+</md-card>
