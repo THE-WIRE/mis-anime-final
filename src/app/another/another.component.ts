@@ -8,10 +8,18 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 })
 export class AnotherPage {
   public item: FirebaseListObservable<any[]>;
+
+  public department = {
+    "dname" : "edit",
+    "type"  : "shot production",
+    "sform" : "shpro"
+  }
+
+
   constructor(public db: AngularFireDatabase) {
-    this.item = db.list('projects');
-    this.item.subscribe(items => {
-      console.log(items)
-    })
+    db.list('/Departments').push(this.department).then(_=>{
+        console.log('department pushed')
+    });
+    
   }
 }

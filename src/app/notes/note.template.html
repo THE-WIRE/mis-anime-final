@@ -3,9 +3,11 @@
         <div class="col-md-12">
             <form #noteForm="ngForm" (ngSubmit)="add(noteForm.value)">
                 <md-card class="note-card">
+                    <div [hidden]="ishiden">
                     <md-input-container>
                         <textarea mdInput (ngModel)="note" name="note" rows="" cols="50"></textarea>
                     </md-input-container>
+                    </div>
                     <button md-raised-button type="submit">Add Note</button>
                 </md-card>
             </form>

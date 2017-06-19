@@ -19,6 +19,7 @@ export class ViewDetailedAssetComponent implements OnInit {
 
     @Input() selectedAsset: any;
     constructor(private db: AngularFireDatabase) {
+        console.log('this is selectedAsset  ',this.selectedAsset)
     }
 
     ngOnInit() { }
