@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AssetVersion } from '../asset-version.interface';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MaterialModule } from '@angular/material'
+import { MaterialModule } from '@angular/material';
+import * as firebase from 'firebase';
+
 
 @Component({
     selector: 'view-all-version-asset',
@@ -14,7 +16,10 @@ import { MaterialModule } from '@angular/material'
     `]
 })
 
+
 export class ViewAllAssetVersionComponent implements OnInit {
+
+
 
     public asset: any;
     public dept_id: any;
@@ -43,4 +48,12 @@ export class ViewAllAssetVersionComponent implements OnInit {
     }
     ngOnInit() { }
 
+    start(begin) {
+        console.log('first');
+        let store = firebase.database.ServerValue.TIMESTAMP;
+        this.db.list('Time').push({
+            "asset_ver_key": begin,
+            "time": store
+        })
+    }
 }

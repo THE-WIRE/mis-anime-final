@@ -8,6 +8,8 @@
                 <th>Started</th>
                 <th>Expected</th>
                 <th>Options</th>
+                <th>Time in Normal Format
+                    <th>
             </tr>
         </thead>
         <tbody>
@@ -16,9 +18,16 @@
                 <td>{{av.averst}}</td>
                 <td>{{av.averendt}}</td>
                 <td>
-                    <button md-raised-button type="button" color="primary">Start</button>
+                    <button md-raised-button type="button" color="primary" (click)="start(av.$key)">Start</button>
                     <button md-raised-button type="button" color="accent">Pause</button>
                     <button md-raised-button type="button" color="none">Notes</button>
+                </td>
+                <td>
+                    <ul>
+                        <li *ngFor="let time of times | async">
+
+                        </li>
+                    </ul>
                 </td>
             </tr>
         </tbody>
