@@ -16,20 +16,12 @@
             <tbody>
                 <tr *ngFor="let item of departments">
                     <td>
-                        <button md-button>
+                        <button md-raised-button style="width:100%;" [routerLink]="['/asset/version/', item.dname, selectedAsset.$key]">
                             {{item.dname}}
                     </button>
                     </td>
                     <td>Pending</td>
                 </tr>
-                <!--<tr>
-                    <td>
-                        <button md-button>
-                            Layout
-                    </button>
-                    </td>
-                    <td>Pending</td>
-                </tr>-->
             </tbody>
         </table>
     </md-card-content>

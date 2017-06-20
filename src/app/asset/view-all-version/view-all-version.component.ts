@@ -15,12 +15,25 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 export class ViewAllAssetVersionComponent implements OnInit {
 
+    public asset: any;
+    public dept_id: any;
     public asset_versions: AssetVersion[];
     constructor(private db: AngularFireDatabase, public router: Router, public ar: ActivatedRoute) {
 
         console.log(ar.snapshot.params['dept_id'], ar.snapshot.params['id']);
+        this.dept_id = ar.snapshot.params['dept_id'];
 
-        db.list('/Asset_version').subscribe(
+        db.object('/Assets/' + ar.snapshot.params['id']).subscribe(res => {
+            console.log(res);
+            this.asset = res;
+        })
+
+        db.list('/Asset_version', {
+            query: {
+                orderByChild: 'dept',
+                equalTo: this.dept_id
+            }
+        }).subscribe(
             res => {
                 this.asset_versions = res;
                 console.log('refreshed');
@@ -28,7 +41,7 @@ export class ViewAllAssetVersionComponent implements OnInit {
             err => {
                 console.log('something went wrong')
             }
-        )
+            )
     }
     ngOnInit() { }
 

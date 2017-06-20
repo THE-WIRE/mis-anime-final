@@ -1,8 +1,18 @@
-<div class="view">
-    <p>Asset Versions</p>
-
-    <ul>
-        <li *ngFor="let version of asset_versions">{{version.avercode}}</li>
-        
-    </ul>
-</div>
+<md-card>
+    <md-card-header>
+        <md-card-title>{{asset?.acode}}</md-card-title>
+        <md-card-subtitle>Started : {{asset?.ast}}</md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+        Description : {{asset?.adesc}}
+    </md-card-content>
+    <md-card-actions>
+        <button style="float: right;" md-button>Go Back</button>
+    </md-card-actions>
+</md-card>
+<md-card>
+    <md-tab-group>
+        <md-tab label="Tab 1">Content 1</md-tab>
+        <md-tab label="Tab 2">Content 2</md-tab>
+    </md-tab-group>
+</md-card>
