@@ -39,6 +39,7 @@ export class Note {
   public asset_id: any;
   public asset_verid: any;
   public selectedValue = 'all';
+  public dept_name: any
   public filters = [
     { value: 'all', viewValue: 'Show all' }
   ];
@@ -46,10 +47,11 @@ export class Note {
 
   constructor(private db: AngularFireDatabase, private af: AngularFireAuth, private route: ActivatedRoute) {
     this.asset_id = this.route.snapshot.params['asset_id'];
+    this.dept_name = this.route.snapshot.params['dept_name']
     db.list('Asset_version', {
       query: {
-        orderByChild: 'asset_id',
-        equalTo: this.asset_id
+        orderByChild: 'a_d',
+        equalTo: this.asset_id + '_' + this.dept_name
       }
     }).subscribe(res => {
       res.forEach(x => {
@@ -63,12 +65,13 @@ export class Note {
   }
 
   show_notes() {
+    this.notes = null;
     if (this.selectedValue == 'all') {
       this.input = false
       this.db.list('/Notes', {
         query: {
-          orderByChild: 'asset_id',
-          equalTo: this.asset_id
+          orderByChild: 'asset_dept',
+          equalTo: this.asset_id + '_' + this.dept_name
         }
       }).subscribe(
         res => {
@@ -84,10 +87,11 @@ export class Note {
 
     else {
       this.input = true
+      this.notes = null;
       this.db.list('/Notes', {
         query: {
-          orderByChild: 'asset_ver',
-          equalTo: this.asset_id + '_' + this.selectedValue
+          orderByChild: 'asset_dept_ver',
+          equalTo: this.asset_id + '_' + this.dept_name + '_' + this.selectedValue
         }
       }).subscribe(
         res => {
@@ -110,7 +114,7 @@ export class Note {
     this.note = null
     const ncrtdate = Date.now();
 
-    const nobj = this.db.list('/Notes').push({ "asset_id": this.asset_id, "asset_ver": this.asset_id + '_-Kn2xduZHc6bVbfH6tah', "note": form.note, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid }).key//.then((item)=>{
+    const nobj = this.db.list('/Notes').push({ "asset_id": this.asset_id, "dept_name": this.dept_name, "asset_dept": this.asset_id + '_' + this.dept_name, "asset_dept_ver": this.asset_id + '_' + this.dept_name + '_' + this.selectedValue, "note": form.note, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid }).key//.then((item)=>{
     //   console.log('first '+item)
     //   console.log (item.key);
     // } )
