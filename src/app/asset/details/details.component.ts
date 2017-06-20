@@ -18,6 +18,7 @@ import { ProjectService } from '../../shared/cproject.service';
 export class AssetDetailsComponent implements OnInit {
 
     public asset: any;
+    public selectedIndex: any;
     constructor(private db: AngularFireDatabase, public router: Router, public cproj: ProjectService, public ar: ActivatedRoute) {
         if (!cproj.getCurrentProjectId()) {
             router.navigate(['/project/all']);
@@ -27,6 +28,12 @@ export class AssetDetailsComponent implements OnInit {
             this.asset = res;
         });
     }
+
+    changeTab(val: number) {
+        console.log(val)
+        this.selectedIndex = val;
+    }
+
     ngOnInit() { }
 
 }

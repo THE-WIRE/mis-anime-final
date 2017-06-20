@@ -7,27 +7,20 @@
                 <th>Version</th>
                 <th>Started</th>
                 <th>Expected</th>
+                <th>Total Time</th>
                 <th>Options</th>
-                <th>Time in Normal Format
-                    <th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let av of asset_versions">
                 <td>{{av.avercode}}</td>
-                <td>{{av.averst}}</td>
-                <td>{{av.averendt}}</td>
+                <td>{{av?.averst}}</td>
+                <td>{{av?.averendt}}</td>
+                <td>{{av?.stats?.total | mstohms}}</td>
                 <td>
-                    <button md-raised-button type="button" color="primary" (click)="start(av.$key)">Start</button>
-                    <button md-raised-button type="button" color="accent">Pause</button>
-                    <button md-raised-button type="button" color="none">Notes</button>
-                </td>
-                <td>
-                    <ul>
-                        <li *ngFor="let time of times | async">
-
-                        </li>
-                    </ul>
+                    <button md-raised-button type="button" color="primary" (click)="start(av)">Start</button>
+                    <button md-raised-button type="button" color="accent" (click)="pause(av)">Pause</button>
+                    <button md-raised-button type="button" color="none" (click)="goToNotes(1)">Notes</button>
                 </td>
             </tr>
         </tbody>

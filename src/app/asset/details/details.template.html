@@ -11,9 +11,9 @@
     </md-card-actions>
 </md-card>
 <md-card>
-    <md-tab-group>
+    <md-tab-group [(selectedIndex)]="selectedIndex">
         <md-tab label="Versions">
-            <view-all-version-asset></view-all-version-asset>
+            <view-all-version-asset (selectedIndex)="changeTab($event)"></view-all-version-asset>
         </md-tab>
 
         <md-tab label="Notes">

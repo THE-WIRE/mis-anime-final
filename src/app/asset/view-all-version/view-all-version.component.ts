@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { AssetVersion } from '../asset-version.interface';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MaterialModule, MdSnackBar } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MaterialModule } from '@angular/material';
+import { AssetVersion } from '../asset-version.interface';
 import * as firebase from 'firebase';
 
 
@@ -25,7 +25,8 @@ export class ViewAllAssetVersionComponent implements OnInit {
     public dept_id: any;
     public asset_id: any;
     public asset_versions: AssetVersion[];
-    constructor(private db: AngularFireDatabase, public router: Router, public ar: ActivatedRoute) {
+    @Output() selectedIndex = new EventEmitter();
+    constructor(private db: AngularFireDatabase, public router: Router, public ar: ActivatedRoute, public snackbar: MdSnackBar) {
 
         console.log(ar.snapshot.params['dept_name'], ar.snapshot.params['asset_id']);
         this.dept_id = ar.snapshot.params['dept_name'];
@@ -48,12 +49,55 @@ export class ViewAllAssetVersionComponent implements OnInit {
     }
     ngOnInit() { }
 
-    start(begin) {
-        console.log('first');
+    start(av) {
         let store = firebase.database.ServerValue.TIMESTAMP;
-        this.db.list('Time').push({
-            "asset_ver_key": begin,
-            "time": store
-        })
+        let key = av.$key;
+        const ref = firebase.database().ref('/Asset_version/' + key + '/stats');
+
+        ref.once('value', snap => {
+            if (snap.val()) {
+                this.db.object('/Asset_version/' + key + '/stats').update({ "start": store });
+                this.snackbar.open("Working started on Asset : " + av.avercode, 'OK', { duration: 3000 });
+            }
+            else {
+                this.db.object('/Asset_version/' + key + '/stats').update({ "start": store, "init": store });
+                this.snackbar.open("Working started on Asset : " + av.avercode, 'OK', { duration: 3000 });
+            }
+        });
+    }
+
+    pause(av) {
+        let key = av.$key;
+        let store = firebase.database.ServerValue.TIMESTAMP;
+        const ref = firebase.database().ref('/Asset_version/' + key + '/stats');
+
+        ref.once('value', snap => {
+            let res = snap.val();
+            this.db.object('/Asset_version/' + key + '/stats').update({ "pause": store }).then(x => {
+                this.calc_total_time(key);
+                this.snackbar.open("Working paused on Asset : " + av.avercode, 'OK', { duration: 3000 });
+            });
+        });
+
+
+    }
+
+    calc_total_time(key) {
+
+        const ref = firebase.database().ref('/Asset_version/' + key + '/stats');
+
+        ref.once('value', snap => {
+            let res = snap.val();
+
+            let init = res.total ? res.total : 0;
+            let diff = (res.pause - res.start);
+            let total = init + diff;
+            console.log(init, diff, total);
+            this.db.object('/Asset_version/' + key + '/stats').update({ "total": total })
+        });
+    }
+
+    goToNotes(av) {
+        this.selectedIndex.emit(av);
     }
 }
