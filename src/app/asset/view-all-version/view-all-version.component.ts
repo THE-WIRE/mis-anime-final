@@ -22,9 +22,9 @@ export class ViewAllAssetVersionComponent implements OnInit {
     public asset_versions: AssetVersion[];
     constructor(private db: AngularFireDatabase, public router: Router, public ar: ActivatedRoute) {
 
-        console.log(ar.snapshot.params['dept_name'], ar.snapshot.params['id']);
+        console.log(ar.snapshot.params['dept_name'], ar.snapshot.params['asset_id']);
         this.dept_id = ar.snapshot.params['dept_name'];
-        this.asset_id = ar.snapshot.params['id'];
+        this.asset_id = ar.snapshot.params['asset_id'];
 
         db.list('/Asset_version', {
             query: {

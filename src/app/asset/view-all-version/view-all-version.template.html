@@ -1,30 +1,26 @@
 <md-card>
-    <md-card-header>
-        <md-card-title>{{asset?.acode}}</md-card-title>
-        <md-card-subtitle>Started : {{asset?.ast}}</md-card-subtitle>
-    </md-card-header>
-    <md-card-content>
-        Description : {{asset?.adesc}}
-    </md-card-content>
-    <md-card-actions>
-        <button style="float: right;" md-button>Go Back</button>
-    </md-card-actions>
+    <button md-raised-button style="width:100%;" [routerLink]="['/asset/version/add',asset_id,dept_id]">Add Version</button>
+    <br>
+    <table class="table table-fixed">
+        <thead>
+            <tr>
+                <th>Version</th>
+                <th>Started</th>
+                <th>Expected</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let av of asset_versions">
+                <td>{{av.avercode}}</td>
+                <td>{{av.averst}}</td>
+                <td>{{av.averendt}}</td>
+                <td>
+                    <button md-button type="button" color="primary">Start</button>
+                    <button md-button type="button" color="accent">Pause</button>
+                    <button md-button type="button" color="none">Notes</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </md-card>
-<md-card>
-    <md-tab-group>
-        <md-tab label="Tab 1">
-            <md-card>
-                <ul>
-                    <li *ngFor="let item of asset_versions">
-                        {{item.a_d}} || {{item.avercode}}
-                    </li>
-                </ul>
-            </md-card>
-        </md-tab>
-
-        <md-tab label="Tab 2">Content 2</md-tab>
-    </md-tab-group>
-</md-card>
-
-<button md-raised-button style="width:100%;" [routerLink]="['/asset/version/add',asset_id,dept_id]">add version
-                    </button>
