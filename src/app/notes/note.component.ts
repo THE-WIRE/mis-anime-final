@@ -29,6 +29,7 @@ export class Note {
 
   public note: any
   public notes: any[]
+  public input: boolean = false
   public ishiden: boolean = false
   public reply: string
   public ishider: boolean = false
@@ -36,28 +37,73 @@ export class Note {
   public currentReplyr: any
   public r_note: any[];
   public asset_id: any;
-  public asset_verid: any
+  public asset_verid: any;
+  public selectedValue = 'all';
+  public filters = [
+    { value: 'all', viewValue: 'Show all' }
+  ];
 
 
   constructor(private db: AngularFireDatabase, private af: AngularFireAuth, private route: ActivatedRoute) {
     this.asset_id = this.route.snapshot.params['asset_id'];
-
-    db.list('/Notes', {
+    db.list('Asset_version', {
       query: {
         orderByChild: 'asset_id',
         equalTo: this.asset_id
       }
-    }).subscribe(
-      res => {
-        this.notes = res.sort(this.sortByDate);
-
-        console.log(this.notes);
-
-      },
-      err => {
-        console.log('something went wrong while retrieving notes');
+    }).subscribe(res => {
+      res.forEach(x => {
+        this.filters.push({ value: x.$key, viewValue: x.avercode })
       })
+    })
+
+    this.show_notes();
+
+
   }
+
+  show_notes() {
+    if (this.selectedValue == 'all') {
+      this.input = false
+      this.db.list('/Notes', {
+        query: {
+          orderByChild: 'asset_id',
+          equalTo: this.asset_id
+        }
+      }).subscribe(
+        res => {
+          this.notes = res.sort(this.sortByDate);
+
+          console.log(this.notes);
+
+        },
+        err => {
+          console.log('something went wrong while retrieving notes');
+        })
+    }
+
+    else {
+      this.input = true
+      this.db.list('/Notes', {
+        query: {
+          orderByChild: 'asset_ver',
+          equalTo: this.asset_id + '_' + this.selectedValue
+        }
+      }).subscribe(
+        res => {
+          console.log('check this :' + this.asset_id + '_' + this.selectedValue);
+          this.notes = res.sort(this.sortByDate);
+
+          console.log(this.notes);
+
+        },
+        err => {
+          console.log('something went wrong while retrieving notes');
+        })
+    }
+
+  }
+
 
 
   add(form) {
@@ -118,16 +164,16 @@ export class Note {
 
   }
 
-  filters = [
-    { value: '1', viewValue: 'Version 1' },
-    { value: '2', viewValue: 'Version 2 ' },
-    { value: '3', viewValue: 'Version 3' }
-  ];
+
 
 
   sortByDate(n1, n2) {
     return n1.ncrtdate - n2.ncrtdate;
   }
 
+  filtered() {
+    console.log('this is selected version  ', this.selectedValue)
+    this.show_notes();
+  }
 
 }

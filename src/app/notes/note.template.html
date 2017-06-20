@@ -2,20 +2,21 @@
     <md-card class="widget">
         <div class="col-md-12">
             <form #noteForm="ngForm" (ngSubmit)="add(noteForm.value)">
-                <md-select placeholder="Filter By Version" [(ngModel)]="selectedValue" name="food">
-                    <md-option *ngFor="let filter of filters" [value]="filter.value">
+                <md-select placeholder="Filter By Version" [(ngModel)]="selectedValue" name="selectedValue">
+                    <md-option *ngFor="let filter of filters" [value]="filter.value" (click)="filtered()">
                         {{filter.viewValue}}
                     </md-option>
                 </md-select>
+                <div *ngIf="input">
+                    <md-card class="note-card">
 
-                <md-card class="note-card">
-                    <md-input-container>
-                        <textarea mdInput (ngModel)="note" name="note" rows="" cols="50"></textarea>
-                    </md-input-container>
+                        <md-input-container>
+                            <textarea mdInput (ngModel)="note" name="note" rows="" cols="50"></textarea>
+                        </md-input-container>
 
-                    <button md-raised-button type="submit">Add Note</button>
-                </md-card>
-
+                        <button md-raised-button type="submit">Add Note</button>
+                    </md-card>
+                </div>
             </form>
         </div>
         <div style="font-size: 25px; "><b>RECENT NOTES</b></div><br/>
