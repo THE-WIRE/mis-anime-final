@@ -20,9 +20,9 @@ export const routes = [
   { path: '', component: Asset, pathMatch: 'full' },
   { path: 'add', component: AddAssetComponent, pathMatch: 'full' },
   { path: 'all', component: ViewAllAssetComponent, pathMatch: 'full' },
-  { path: 'details', component: AssetDetailsComponent, pathMatch: 'full' },
-  { path: 'version/add/:id/:dept_name', component: AddAssetVersionComponent, pathMatch: 'full' },
-  { path: 'version/:dept_name/:id', component: ViewAllAssetVersionComponent, pathMatch: 'full' },
+  { path: 'details/:asset_id/:dept_name', component: AssetDetailsComponent, pathMatch: 'full' },
+  { path: 'version/add/:asset_id/:dept_name', component: AddAssetVersionComponent, pathMatch: 'full' },
+  //{ path: 'version/:dept_name/:id', component: ViewAllAssetVersionComponent, pathMatch: 'full' },
   { path: 'version/details', component: AssetVersionDetailsComponent, pathMatch: 'full' }
 
 ];

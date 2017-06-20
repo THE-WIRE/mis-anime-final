@@ -29,8 +29,8 @@ export class AddAssetVersionComponent implements OnInit {
         form.averst = form.averst.valueOf();
         form.averendt = form.averendt.valueOf();
         form.dept_name = this.ar.snapshot.params['dept_name'];
-        form.asset_id = this.ar.snapshot.params['id'];
-        form.a_d = this.ar.snapshot.params['id'] + '_' + this.ar.snapshot.params['dept_name']
+        form.asset_id = this.ar.snapshot.params['asset_id'];
+        form.a_d = this.ar.snapshot.params['asset_id'] + '_' + this.ar.snapshot.params['dept_name']
         this.asset_version = form;
         console.log('adding this value : ', form.dept_name, form.asset_id)
         const add = this.db.list('/Asset_version')
