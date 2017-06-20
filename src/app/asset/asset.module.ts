@@ -5,12 +5,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MaterialModule } from '@angular/material';
+import { NoteModule } from '../notes/note.module'
 
 import { Asset } from './asset.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { ViewAllAssetComponent } from './view-all/view-all.component';
 import { AssetDetailsComponent } from './details/details.component';
 import { ViewDetailedAssetComponent } from './view-all/view-detailed.component';
+import { Note } from '../notes/note.component'
 
 import { AddAssetVersionComponent } from './add-version/add-version.component';
 import { ViewAllAssetVersionComponent } from './view-all-version/view-all-version.component';
@@ -44,7 +46,8 @@ export const routes = [
     MaterialModule,
     AngularFireAuthModule,
     RouterModule.forChild(routes),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    NoteModule
   ]
 })
 export class AssetModule {

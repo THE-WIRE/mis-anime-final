@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { MdInputContainer, MdCard, MdCardActions } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'note',
@@ -27,19 +28,23 @@ export class Note {
 
   public note: any
   public notes: any[]
-  public ishiden : boolean = false
-  public reply : string
-  public ishider : boolean = false
-  public currentReply :any
-  public currentReplyr :any
-  public r_note : any[];
+  public ishiden: boolean = false
+  public reply: string
+  public ishider: boolean = false
+  public currentReply: any
+  public currentReplyr: any
+  public r_note: any[];
+  public asset_id: any;
+  public asset_verid: any
 
 
-  constructor(private db: AngularFireDatabase , private af : AngularFireAuth) {
+  constructor(private db: AngularFireDatabase, private af: AngularFireAuth, private route: ActivatedRoute) {
+    this.asset_id = this.route.snapshot.params['asset_id'];
+
     db.list('/Notes', {
       query: {
-        orderByChild: 'ncrtdate',
-        limitToLast: 100
+        orderByChild: 'asset_id',
+        equalTo: this.asset_id
       }
     }).subscribe(
       res => {
@@ -57,8 +62,8 @@ export class Note {
   add(form) {
     this.note = null
     const ncrtdate = Date.now();
-    
-    const nobj = this.db.list('/Notes').push({ "note": form.note, "crdate": ncrtdate ,"crby":this.af.auth.currentUser.uid }).key//.then((item)=>{
+
+    const nobj = this.db.list('/Notes').push({ "asset_id": this.asset_id, "asset_ver": this.asset_id + '_-Kn2xduZHc6bVbfH6tah', "note": form.note, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid }).key//.then((item)=>{
     //   console.log('first '+item)
     //   console.log (item.key);
     // } )
@@ -66,57 +71,57 @@ export class Note {
     console.log('this is something awesome : ' + nobj)
   }
 
-  add_reply(key,reply){
+  add_reply(key, reply) {
     console.log(reply)
-     const ncrtdate = Date.now();
-     
-       const repobj = this.db.list('/Note_reply').push({"pnote":key,"note":reply ,"crdate" : ncrtdate , "crby": this.af.auth.currentUser.uid}).then(_=>{
-         console.log('note reply added')
-       })
-     
+    const ncrtdate = Date.now();
+
+    const repobj = this.db.list('/Note_reply').push({ "pnote": key, "note": reply, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid }).then(_ => {
+      console.log('note reply added')
+    })
+
   }
 
-  reply_note(n){
-    this.currentReply = n ;
+  reply_note(n) {
+    this.currentReply = n;
     console.log(this.currentReply)
     this.ishider = true;
     this.show_reply(n)
-    
+
   }
 
-  show_reply(key){
+  show_reply(key) {
     this.ishiden = false;
-    this.currentReplyr = key ;
+    this.currentReplyr = key;
     console.log(key)
 
-      const nrobj = this.db.list('/Note_reply',{
-        query:{
-          orderByChild : 'pnote',
-          equalTo : key
+    const nrobj = this.db.list('/Note_reply', {
+      query: {
+        orderByChild: 'pnote',
+        equalTo: key
+      }
+    }).subscribe(res => {
+
+      console.log('new show reply   ', res)
+
+      this.notes.forEach(x => {
+        //console.log(x.$key, key);
+        if (x.$key == key) {
+          x.reply = res
         }
-      }).subscribe(res =>{
-
-        console.log('new show reply   ',res)
-        
-        this.notes.forEach(x => {
-          //console.log(x.$key, key);
-          if(x.$key == key){
-             x.reply = res
-          }
-        })
-
-        //console.log(note);
       })
 
-      this.ishiden = true;
-      
+      //console.log(note);
+    })
+
+    this.ishiden = true;
+
   }
 
-  
+
 
 
   sortByDate(n1, n2) {
-    return n2.ncrtdate - n1.ncrtdate;
+    return n1.ncrtdate - n2.ncrtdate;
   }
 
 

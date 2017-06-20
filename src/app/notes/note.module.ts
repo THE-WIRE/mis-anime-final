@@ -23,7 +23,8 @@ export const routes = [
     AngularFireDatabaseModule,
     RouterModule.forChild(routes),
     AngularFireAuthModule
-  ]
+  ],
+  exports: [Note]
 })
 export class NoteModule {
   static routes = routes;
