@@ -6,7 +6,7 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AngularFireModule } from "angularfire2";
-import { MaterialModule, MdNativeDateModule } from '@angular/material';
+import { MaterialModule, MdNativeDateModule, MdToolbarModule } from '@angular/material';
 
 import { AddProjectComponent } from './project/AddProject/add_project.component'
 import { ProjectService } from './shared/cproject.service';
@@ -48,6 +48,7 @@ type StoreType = {
     BrowserAnimationsModule,
     MaterialModule,
     MdNativeDateModule,
+    MdToolbarModule,
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot(ROUTES, {
       useHash: true,

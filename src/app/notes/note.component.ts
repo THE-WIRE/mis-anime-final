@@ -2,7 +2,8 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { MdInputContainer, MdCard, MdCardActions } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'note',
@@ -117,7 +118,11 @@ export class Note {
 
   }
 
-
+  filters = [
+    { value: '1', viewValue: 'Version 1' },
+    { value: '2', viewValue: 'Version 2 ' },
+    { value: '3', viewValue: 'Version 3' }
+  ];
 
 
   sortByDate(n1, n2) {

@@ -10,6 +10,13 @@ import { MaterialModule } from '@angular/material'
         .view{
             color: white;
         }
+        table {
+            color: white;
+        }
+        .off {
+            cursor : pointer;
+           
+        }
 
         
     `]

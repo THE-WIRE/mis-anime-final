@@ -6,8 +6,8 @@
     <md-card-content>
         Description : {{selectedAsset?.adesc}}
 
-        <table class="table table-fixed">
-            <thead>
+        <table class="table table-sm table-bordered table-striped ">
+            <thead class="bg-primary">
                 <tr>
                     <th>Department</th>
                     <th>Status</th>
@@ -15,12 +15,19 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of departments">
-                    <td>
-                        <button md-raised-button style="width:100%;" [routerLink]="['/asset/details/',selectedAsset.$key, item.dname]">
+
+                    <td class="bg-info">
+                        <!--
+                            <button md-raised-button style="width:100%;" [routerLink]="['/asset/details/',selectedAsset.$key, item.dname]">
                             {{item.dname}}
-                    </button>
+                            </button>
+                        -->
+                        <span class="off" [routerLink]="['/asset/details/',selectedAsset.$key, item.dname]"> 
+                            <a >{{item.dname}}</a>
+                        </span>
                     </td>
-                    <td>Pending</td>
+
+                    <td class="bg-info">Pending</td>
                 </tr>
             </tbody>
         </table>
