@@ -10,16 +10,16 @@ export class AnotherPage {
   public item: FirebaseListObservable<any[]>;
 
   public department = {
-    "dname" : "edit",
-    "type"  : "shot production",
-    "sform" : "shpro"
+    "dname": "edit",
+    "type": "shot production",
+    "sform": "shpro"
   }
 
 
   constructor(public db: AngularFireDatabase) {
-    db.list('/Departments').push(this.department).then(_=>{
-        console.log('department pushed')
-    });
-    
+    // db.list('/Departments').push(this.department).then(_=>{
+    //     console.log('department pushed')
+
+
   }
 }

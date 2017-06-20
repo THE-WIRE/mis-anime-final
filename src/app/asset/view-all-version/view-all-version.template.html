@@ -12,7 +12,19 @@
 </md-card>
 <md-card>
     <md-tab-group>
-        <md-tab label="Tab 1">Content 1</md-tab>
+        <md-tab label="Tab 1">
+            <md-card>
+                <ul>
+                    <li *ngFor="let item of asset_versions">
+                        {{item.a_d}} || {{item.avercode}}
+                    </li>
+                </ul>
+            </md-card>
+        </md-tab>
+
         <md-tab label="Tab 2">Content 2</md-tab>
     </md-tab-group>
 </md-card>
+
+<button md-raised-button style="width:100%;" [routerLink]="['/asset/version/add',asset_id,dept_id]">add version
+                    </button>

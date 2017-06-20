@@ -21,8 +21,8 @@ export const routes = [
   { path: 'add', component: AddAssetComponent, pathMatch: 'full' },
   { path: 'all', component: ViewAllAssetComponent, pathMatch: 'full' },
   { path: 'details', component: AssetDetailsComponent, pathMatch: 'full' },
-  { path: 'version/add', component: AddAssetVersionComponent, pathMatch: 'full' },
-  { path: 'version/:dept_id/:id', component: ViewAllAssetVersionComponent, pathMatch: 'full' },
+  { path: 'version/add/:id/:dept_name', component: AddAssetVersionComponent, pathMatch: 'full' },
+  { path: 'version/:dept_name/:id', component: ViewAllAssetVersionComponent, pathMatch: 'full' },
   { path: 'version/details', component: AssetVersionDetailsComponent, pathMatch: 'full' }
 
 ];
