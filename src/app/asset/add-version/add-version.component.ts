@@ -21,7 +21,9 @@ export class AddAssetVersionComponent implements OnInit {
 
     public asset_version: AssetVersion;
 
-    constructor(private db: AngularFireDatabase, private ar: ActivatedRoute, private loc: Location) { }
+    constructor(private db: AngularFireDatabase, private ar: ActivatedRoute, public router: Router, private loc: Location) {
+        //TODO Go to Project/All if project not seletced
+    }
 
     ngOnInit() { }
 
@@ -39,5 +41,9 @@ export class AddAssetVersionComponent implements OnInit {
             this.loc.back();
         })
 
+    }
+
+    cancel() {
+        this.loc.back();
     }
 }

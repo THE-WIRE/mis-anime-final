@@ -1,12 +1,15 @@
 <md-card>
-    <button md-raised-button style="width:100%;" [routerLink]="['/asset/version/add',asset_id,dept_id]">Add Version</button>
-    <br>
+    <button md-raised-button [routerLink]="['/asset/version/add',asset_id,dept_id]">Add Version</button>
+    <br/>
+    <br/>
+    <br/>
     <table class="table table-fixed">
         <thead>
             <tr>
                 <th>Version</th>
                 <th>Started</th>
                 <th>Expected</th>
+                <th>Status</th>
                 <th>Total Time</th>
                 <th>Options</th>
             </tr>
@@ -16,10 +19,16 @@
                 <td>{{av.avercode}}</td>
                 <td>{{av?.averst}}</td>
                 <td>{{av?.averendt}}</td>
+                <td>
+                    {{av?.stats?.status | status}}
+                    <!--<md-select>
+                        <md-option></md-option>
+                    </md-select>-->
+                </td>
                 <td>{{av?.stats?.total | mstohms}}</td>
                 <td>
-                    <button md-raised-button type="button" color="primary" (click)="start(av)">Start</button>
-                    <button md-raised-button type="button" color="accent" (click)="pause(av)">Pause</button>
+                    <button md-raised-button *ngIf="av?.stats?.status != 2" type="button" color="primary" (click)="start(av)">Start</button>
+                    <button md-raised-button *ngIf="av?.stats?.status == 2" type="button" color="accent" (click)="pause(av)">Pause</button>
                     <button md-raised-button type="button" color="none" (click)="goToNotes(1)">Notes</button>
                 </td>
             </tr>

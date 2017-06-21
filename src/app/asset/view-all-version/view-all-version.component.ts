@@ -10,9 +10,7 @@ import * as firebase from 'firebase';
     selector: 'view-all-version-asset',
     templateUrl: 'view-all-version.template.html',
     styles: [`
-        }
-        .view{
-            color: white;
+       
     `]
 })
 
@@ -56,11 +54,11 @@ export class ViewAllAssetVersionComponent implements OnInit {
 
         ref.once('value', snap => {
             if (snap.val()) {
-                this.db.object('/Asset_version/' + key + '/stats').update({ "start": store });
+                this.db.object('/Asset_version/' + key + '/stats').update({ "start": store, "status": 2 });
                 this.snackbar.open("Working started on Asset : " + av.avercode, 'OK', { duration: 3000 });
             }
             else {
-                this.db.object('/Asset_version/' + key + '/stats').update({ "start": store, "init": store });
+                this.db.object('/Asset_version/' + key + '/stats').update({ "start": store, "init": store, "status": 2 });
                 this.snackbar.open("Working started on Asset : " + av.avercode, 'OK', { duration: 3000 });
             }
         });
@@ -73,7 +71,7 @@ export class ViewAllAssetVersionComponent implements OnInit {
 
         ref.once('value', snap => {
             let res = snap.val();
-            this.db.object('/Asset_version/' + key + '/stats').update({ "pause": store }).then(x => {
+            this.db.object('/Asset_version/' + key + '/stats').update({ "pause": store, "status": -1 }).then(x => {
                 this.calc_total_time(key);
                 this.snackbar.open("Working paused on Asset : " + av.avercode, 'OK', { duration: 3000 });
             });
@@ -93,7 +91,7 @@ export class ViewAllAssetVersionComponent implements OnInit {
             let diff = (res.pause - res.start);
             let total = init + diff;
             console.log(init, diff, total);
-            this.db.object('/Asset_version/' + key + '/stats').update({ "total": total })
+            this.db.object('/Asset_version/' + key + '/stats').update({ "total": total, "status": -1 })
         });
     }
 

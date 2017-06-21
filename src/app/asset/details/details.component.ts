@@ -9,9 +9,7 @@ import { ProjectService } from '../../shared/cproject.service';
     selector: 'details-asset',
     templateUrl: 'details.template.html',
     styles: [`
-        }
-        .view{
-            color: white;
+      
     `]
 })
 
