@@ -1,39 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { Shot } from '../shot.interface'
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'
+import { AssetVersion } from '../asset-version.interface';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MaterialModule } from '@angular/material';
+import { ProjectService } from '../../shared/cproject.service';
 
 @Component({
-    selector: 'details-shot',
+    selector: 'details-asset',
     templateUrl: 'details.template.html',
     styles: [`
-        .view{
-            color: white;
-        }
+      
     `]
 })
 
 export class ShotDetailsComponent implements OnInit {
 
-    public shot: Shot[];
-    constructor(private db: AngularFireDatabase) {
-        db.list('/Shots',{
-            query : {
-                equalTo : '-KmQYEq3bq21EPOW1jCo',
-                orderByKey : true,
-                limitToFirst : 1
-                
-            }
-        }).subscribe(
-            res => {
-                this.shot = res ; 
-                console.log('Shot details done');
-                console.log(res)
+    public shot: any;
+    public selectedIndex: any;
+    constructor(private db: AngularFireDatabase, public router: Router, public cproj: ProjectService, public ar: ActivatedRoute) {
+        if (!cproj.getCurrentProjectId()) {
+            router.navigate(['/project/all']);
+        }
 
-            },
-            err =>{
-                console.log('something went wrong')
-            }
-        )
+        db.object('/Shots/' + ar.snapshot.params['shot_id']).subscribe(res => {
+            this.shot = res;
+        });
+    }
+
+    changeTab(val: number) {
+        console.log(val)
+        this.selectedIndex = val;
     }
 
     ngOnInit() { }

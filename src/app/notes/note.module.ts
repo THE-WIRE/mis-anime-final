@@ -7,6 +7,7 @@ import { MaterialModule } from '@angular/material';
 import { AngularFireAuthModule } from 'angularfire2/auth'
 
 import { Note } from './note.component';
+import { NoteShot } from './noteshot.component'
 
 export const routes = [
   { path: '', component: Note, pathMatch: 'full' }
@@ -14,7 +15,8 @@ export const routes = [
 
 @NgModule({
   declarations: [
-    Note
+    Note,
+    NoteShot
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,7 @@ export const routes = [
     RouterModule.forChild(routes),
     AngularFireAuthModule
   ],
-  exports: [Note]
+  exports: [Note, NoteShot]
 })
 export class NoteModule {
   static routes = routes;

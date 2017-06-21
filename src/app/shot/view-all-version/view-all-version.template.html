@@ -1,8 +1,37 @@
-<div class="view">
-    <p>Shot Versions</p>
-
-    <ul>
-        <li *ngFor = "let version of shot_versions">{{ version.svercode }}</li>
-
-    </ul>
-</div>
+<md-card>
+    <button md-raised-button [routerLink]="['/shot/version/add',shot_id,dept_id]">Add Version</button>
+    <br/>
+    <br/>
+    <br/>
+    <table class="table table-fixed">
+        <thead>
+            <tr>
+                <th>Version</th>
+                <th>Started</th>
+                <th>Expected</th>
+                <th>Status</th>
+                <th>Total Time</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let av of shot_versions">
+                <td>{{av.svercode}}</td>
+                <td>{{av?.sverst}}</td>
+                <td>{{av?.sverendt}}</td>
+                <td>
+                    {{av?.stats?.status | status}}
+                    <!--<md-select>
+                        <md-option></md-option>
+                    </md-select>-->
+                </td>
+                <td>{{av?.stats?.total | mstohms}}</td>
+                <td>
+                    <button md-raised-button *ngIf="av?.stats?.status != 2" type="button" color="primary" (click)="start(av)">Start</button>
+                    <button md-raised-button *ngIf="av?.stats?.status == 2" type="button" color="accent" (click)="pause(av)">Pause</button>
+                    <button md-raised-button type="button" color="none" (click)="goToNotes(1)">Notes</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</md-card>
