@@ -6,6 +6,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { MaterialModule } from '@angular/material'
 import { NoteModule } from '../notes/note.module'
+import { SharedModule } from '../shared/shared.module'
 
 
 
@@ -20,8 +21,6 @@ import { ShotVersionDetailsComponent } from './version-details/version-details.c
 
 
 
-import { msToHmsPipe } from '../shared/mstohms.pipe'
-import { StatusPipe } from '../shared/status.pipe';
 
 export const routes = [
   { path: '', component: Shot, pathMatch: 'full' },
@@ -45,9 +44,8 @@ export const routes = [
     AddShotVersionComponent,
     ViewAllShotVersionComponent,
     ShotVersionDetailsComponent,
-    ViewDetailedShotComponent,
-    msToHmsPipe,
-    StatusPipe
+    ViewDetailedShotComponent
+
   ],
   imports: [
     CommonModule,
@@ -56,7 +54,8 @@ export const routes = [
     AngularFireAuthModule,
     RouterModule.forChild(routes),
     AngularFireDatabaseModule,
-    NoteModule
+    NoteModule,
+    SharedModule
   ]
 })
 export class ShotModule {

@@ -55,11 +55,11 @@ export class ViewAllShotVersionComponent implements OnInit {
         ref.once('value', snap => {
             if (snap.val()) {
                 this.db.object('/Shot_version/' + key + '/stats').update({ "start": store, "status": 2 });
-                this.snackbar.open("Working started on Shot : " + av.avercode, 'OK', { duration: 3000 });
+                this.snackbar.open("Working started on Shot : " + av.svercode, 'OK', { duration: 3000 });
             }
             else {
                 this.db.object('/Shot_version/' + key + '/stats').update({ "start": store, "init": store, "status": 2 });
-                this.snackbar.open("Working started on Shot : " + av.avercode, 'OK', { duration: 3000 });
+                this.snackbar.open("Working started on Shot : " + av.svercode, 'OK', { duration: 3000 });
             }
         });
     }
@@ -73,7 +73,7 @@ export class ViewAllShotVersionComponent implements OnInit {
             let res = snap.val();
             this.db.object('/Shot_version/' + key + '/stats').update({ "pause": store, "status": -1 }).then(x => {
                 this.calc_total_time(key);
-                this.snackbar.open("Working paused on Shot : " + av.avercode, 'OK', { duration: 3000 });
+                this.snackbar.open("Working paused on Shot : " + av.svercode, 'OK', { duration: 3000 });
             });
         });
 

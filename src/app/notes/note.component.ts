@@ -55,7 +55,12 @@ export class Note {
       }
     }).subscribe(res => {
       res.forEach(x => {
-        this.filters.push({ value: x.$key, viewValue: x.avercode })
+        this.filters = [
+          { value: 'all', viewValue: 'Show all' }
+        ];
+        res.forEach(x => {
+          this.filters.push({ value: x.$key, viewValue: x.avercode })
+        })
       })
     })
 

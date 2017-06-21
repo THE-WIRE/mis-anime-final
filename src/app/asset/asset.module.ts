@@ -6,9 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MaterialModule } from '@angular/material';
 import { NoteModule } from '../notes/note.module'
-
-import { msToHmsPipe } from '../shared/mstohms.pipe'
-import { StatusPipe } from '../shared/status.pipe';
+import { SharedModule } from '../shared/shared.module'
 
 import { Asset } from './asset.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
@@ -41,9 +39,7 @@ export const routes = [
     AddAssetVersionComponent,
     ViewAllAssetVersionComponent,
     AssetVersionDetailsComponent,
-    ViewDetailedAssetComponent,
-    msToHmsPipe,
-    StatusPipe
+    ViewDetailedAssetComponent
   ],
   imports: [
     CommonModule,
@@ -52,8 +48,13 @@ export const routes = [
     AngularFireAuthModule,
     RouterModule.forChild(routes),
     AngularFireDatabaseModule,
-    NoteModule
+    NoteModule,
+    SharedModule
+  ],
+  exports: [
+
   ]
+
 })
 export class AssetModule {
   static routes = routes;

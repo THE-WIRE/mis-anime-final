@@ -54,6 +54,9 @@ export class NoteShot {
                 equalTo: this.shot_id + '_' + this.dept_name
             }
         }).subscribe(res => {
+            this.filters = [
+                { value: 'all', viewValue: 'Show all' }
+            ];
             res.forEach(x => {
                 this.filters.push({ value: x.$key, viewValue: x.svercode })
             })
