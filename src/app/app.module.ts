@@ -6,10 +6,14 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AngularFireModule } from "angularfire2";
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { MaterialModule, MdNativeDateModule, MdToolbarModule } from '@angular/material';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AddProjectComponent } from './project/AddProject/add_project.component'
 import { ProjectService } from './shared/cproject.service';
+import { NotificationService } from './shared/notification.service'
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -49,16 +53,20 @@ type StoreType = {
     MaterialModule,
     MdNativeDateModule,
     MdToolbarModule,
+    ToastrModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot(ROUTES, {
       useHash: true,
       preloadingStrategy: PreloadAllModules
-    })
+    }),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
-    ProjectService
+    ProjectService,
+    NotificationService
   ]
 })
 export class AppModule {
