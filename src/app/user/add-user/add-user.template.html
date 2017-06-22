@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
             <md-card>
                 <header>
                     <h4>
@@ -21,23 +21,23 @@
                     <form class="form-horizontal" role="form" #userForm="ngForm" (ngSubmit)="add(userForm.value)">
                         <fieldset>
                             <div class="form-group">
-                                <md-input-container>
-                                    <div class="">
-                                        <input mdInput (ngModel)="uname" type="text" name="uname" value="" class="form-control" placeholder="User Name">
-                                    </div>
-                                </md-input-container>
-                            </div>
-
-                            <div class="form-group">
-                                <md-input-container>
+                                <md-input-container class="full-width">
                                     <div class="col-sm-7">
-                                        <input mdInput (ngModel)="upass" type="password" name="upass" value="" class="form-control" placeholder="User Password">
+                                        <input mdInput (ngModel)="uname" type="text" name="uname" value="" placeholder="User Name">
                                     </div>
                                 </md-input-container>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-sm-7">
+                                <md-input-container class="full-width">
+                                    <div class="col-sm-7">
+                                        <input mdInput (ngModel)="pass" type="password" name="pass" value="" placeholder="User Password">
+                                    </div>
+                                </md-input-container>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-7" class="full-width">
                                     <md-select placeholder="User Type" [(ngModel)]="utype" (ngModel)="utype" name="utype" data-placeholder="Select User Role" data-minimum-results-for-search="10" tabindex="-1" id="default-select">
                                         <md-option *ngFor="let user of users" [value]="user.value">
                                             {{user?.viewValue}}
@@ -46,9 +46,9 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <md-input-container>
+                                <md-input-container class="full-width">
                                     <div class="col-md-12">
-                                        <textarea mdInput (ngModel)="udetails" row="4" col="10" name="udetails" class="form-control" placeholder="Additional Details"></textarea>
+                                        <textarea mdInput (ngModel)="udetails" row="4" col="10" name="udetails" placeholder="Additional Details"></textarea>
                                     </div>
                                 </md-input-container>
                             </div>

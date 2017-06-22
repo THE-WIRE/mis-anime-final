@@ -27,6 +27,7 @@ export class Login {
   //User login with credentials entered in the login form
   login(data) {
     console.log(data);
+    data.email = data.email + '@the-wire.com';
     this.af.auth.signInWithEmailAndPassword(data.email, data.password)
       .then(data => {
         this.router.navigate(['app/dashboard']);
