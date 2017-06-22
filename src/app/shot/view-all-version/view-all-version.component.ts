@@ -95,7 +95,11 @@ export class ViewAllShotVersionComponent implements OnInit {
         });
     }
 
-    goToNotes(av) {
-        this.selectedIndex.emit(av);
+    goToNotes(tab, key) {
+        let obj = {
+            "tab": tab,
+            "key": key
+        }
+        this.selectedIndex.emit(obj);
     }
 }

@@ -29,7 +29,7 @@
                 <td>
                     <button md-raised-button *ngIf="av?.stats?.status != 2" type="button" color="primary" (click)="start(av)">Start</button>
                     <button md-raised-button *ngIf="av?.stats?.status == 2" type="button" color="accent" (click)="pause(av)">Pause</button>
-                    <button md-raised-button type="button" color="none" (click)="goToNotes(1)">Notes</button>
+                    <button md-raised-button type="button" color="none" (click)="goToNotes(1, av.$key)">Notes</button>
                 </td>
             </tr>
         </tbody>

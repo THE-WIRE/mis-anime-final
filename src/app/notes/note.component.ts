@@ -1,8 +1,9 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, Input } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { MdInputContainer, MdCard, MdCardActions } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs'
 
 
 @Component({
@@ -40,14 +41,15 @@ export class Note {
   public asset_verid: any;
   public selectedValue = 'all';
   public dept_name: any
+  public noteValue = null
   public filters = [
     { value: 'all', viewValue: 'Show all' }
   ];
 
-
   constructor(private db: AngularFireDatabase, private af: AngularFireAuth, private route: ActivatedRoute) {
     this.asset_id = this.route.snapshot.params['asset_id'];
     this.dept_name = this.route.snapshot.params['dept_name']
+
     db.list('Asset_version', {
       query: {
         orderByChild: 'a_d',
@@ -112,7 +114,6 @@ export class Note {
     }
 
   }
-
 
 
   add(form) {
@@ -182,6 +183,11 @@ export class Note {
 
   filtered() {
     console.log('this is selected version  ', this.selectedValue)
+    this.show_notes();
+  }
+
+  trigger(key) {
+    this.selectedValue = key;
     this.show_notes();
   }
 
