@@ -183,4 +183,9 @@ export class NoteShot {
         this.show_notes();
     }
 
+    trigger(key) {
+        this.selectedValue = key;
+        this.show_notes();
+    }
+
 }
