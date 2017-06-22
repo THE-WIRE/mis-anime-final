@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Shot } from '../shot.interface'
 import { AngularFireDatabase } from 'angularfire2/database'
+import { AngularFireAuth } from 'angularfire2/auth'
 import { ProjectService } from '../../shared/cproject.service';
 import { Router } from '@angular/router'
+import { NotificationService } from '../../shared/notification.service';
 
 @Component({
     selector: 'add-shot',
@@ -28,7 +30,7 @@ export class AddShotComponent implements OnInit {
 
     public shot: Shot;
 
-    constructor(private db: AngularFireDatabase, private cproj: ProjectService, private router: Router) {
+    constructor(private au: AngularFireAuth, private db: AngularFireDatabase, private cproj: ProjectService, private router: Router, private notify: NotificationService) {
         if (!cproj.getCurrentProjectId()) {
             router.navigate(['/project/all']);
         }
@@ -45,6 +47,7 @@ export class AddShotComponent implements OnInit {
         add.push(this.shot).then(_ => {
             add_project_shot.push({ "project_key": this.cproj.getCurrentProjectId(), "shot_key": _.key }).then(_ => {
                 console.log('Relation added ')
+                this.notify.add_notification('shot add', this.au.auth.currentUser.uid + ' created ' + this.shot.scode);
             })
         });
     }
