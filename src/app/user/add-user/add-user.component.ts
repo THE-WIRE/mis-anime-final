@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../user.interface';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+// import * as admin from 'firebase-admin';
 
 @Component({
     selector: 'add-user',
@@ -18,6 +18,7 @@ export class AddUserComponent implements OnInit {
 
     public user: User;
     constructor(private db: AngularFireDatabase, public af: AngularFireAuth) {
+        // console.log(admin.auth().getUserByEmail('artist@the-wire.com'));
     }
 
     ngOnInit() { }
@@ -28,7 +29,8 @@ export class AddUserComponent implements OnInit {
             data => {
                 form.upass = null;
                 this.user = form;
-                console.log(form);
+                console.log(form, data);
+
                 const add = this.db.list('/Users');
                 add.push(this.user).then(_ => { console.log('user Added') })
             }

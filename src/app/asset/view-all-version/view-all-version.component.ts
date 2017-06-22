@@ -5,7 +5,6 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AssetVersion } from '../asset-version.interface';
 import * as firebase from 'firebase';
-
 @Component({
     selector: 'view-all-version-asset',
     templateUrl: 'view-all-version.template.html',
@@ -115,14 +114,15 @@ export class ViewAllAssetVersionComponent implements OnInit {
 
         ref.once('value', snap => {
             let val = snap.val()
+            console.log(val);
 
             if (val && val.AssetVersionKey == av.$key) {
 
                 ref.update({ "AssetVersionKey": av.$key, "status": 2 })
 
             }
-            else {
-                firebase.database().ref('/Asset_version/' + snap.val().AssetVersionKey).once('value', res => {
+            else if (val && val.AssetVersionKey != av.$key) {
+                firebase.database().ref('/Asset_version/' + val.AssetVersionKey).once('value', res => {
                     if (res.val()) {
                         let r = res.val();
                         r.$key = res.key;
@@ -131,6 +131,9 @@ export class ViewAllAssetVersionComponent implements OnInit {
                         ref.update({ "AssetVersionKey": av.$key, "status": 2 })
                     }
                 })
+            }
+            else {
+                ref.update({ "AssetVersionKey": av.$key, "status": 2 })
             }
 
         })
