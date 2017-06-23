@@ -11,9 +11,12 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { MaterialModule, MdNativeDateModule, MdToolbarModule } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
 
+
 import { AddProjectComponent } from './project/AddProject/add_project.component'
 import { ProjectService } from './shared/cproject.service';
 import { NotificationService } from './shared/notification.service'
+import { ToastrService } from 'ngx-toastr'
+
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -66,7 +69,8 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     ProjectService,
-    NotificationService
+    NotificationService,
+    ToastrService
   ]
 })
 export class AppModule {

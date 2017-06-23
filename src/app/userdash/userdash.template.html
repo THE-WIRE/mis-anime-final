@@ -15,8 +15,8 @@
     <br />
     <md-card class=" col-md-2 ">
         <md-card-content class="box">
-            <div class="big-text">
-                3
+            <div class="big-text" *ngFor="let user of users | async">
+
             </div>
             <div class="description">
                 <i class="fa fa-user"></i> Users Active
