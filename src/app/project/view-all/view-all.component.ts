@@ -3,7 +3,8 @@ import { Location } from '@angular/common';
 import { Project } from '../project.interface'
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'
 import { ProjectService } from '../../shared/cproject.service';
-
+import { UserService } from '../../shared/cuser.service';
+import { Router } from '@angular/router';
 @Component({
     selector: 'view-all-project',
     templateUrl: 'view-all.template.html',
@@ -31,25 +32,33 @@ export class ViewAllProjectComponent implements OnInit {
 
     public projects: Project[];
     public cpid: any;
-    constructor(private db: AngularFireDatabase, public cproject: ProjectService, public location: Location) {
-        db.list('/Projects').subscribe(
-            res => {
-                this.projects = res;
-                console.log('refreshed');
-            },
-            err => {
-                console.log('something went wrong')
-            }
-        )
+    constructor(private db: AngularFireDatabase, public cproject: ProjectService, public location: Location, public cuser: UserService, public router: Router) {
+
+        if (!cuser.getCurrentUser()) {
+            router.navigate(['/login']);
+        }
+
+        let user = cuser.getCurrentUser();
+
+        this.projects = [];
+
+        user.projects.forEach(project => {
+            db.object('/Projects/' + project).subscribe(res => {
+                this.projects.push(res);
+            })
+        })
     }
 
     ngOnInit() { }
 
     setGlobalProject(key) {
-        this.cproject.cpid = key;
 
-        console.log(this.cproject.getCurrentProjectId());
-        this.location.back();
+
+        this.db.object('/Project_User/' + key + '_' + this.cuser.getCurrentUserId()).subscribe(res => {
+            console.log(res);
+            this.cuser.loadRole(res);
+            this.cproject.cpid = key;
+            this.location.back();
+        })
     }
-
 }

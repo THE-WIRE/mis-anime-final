@@ -14,6 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AddProjectComponent } from './project/AddProject/add_project.component'
 import { ProjectService } from './shared/cproject.service';
+import { UserService } from './shared/cuser.service';
 import { NotificationService } from './shared/notification.service'
 import { ToastrService } from 'ngx-toastr'
 
@@ -69,6 +70,7 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     ProjectService,
+    UserService,
     NotificationService,
     ToastrService
   ]
