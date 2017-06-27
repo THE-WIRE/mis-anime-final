@@ -1,17 +1,28 @@
-<div class="view user-card-container">
-    <p>Users</p>
-    <md-card class="user-card" *ngFor="let user of users">
-        <md-card-header>
-            <md-card-title>{{user?.uname}}</md-card-title>
-            <md-card-subtitle>Created : {{user?.cdate}}</md-card-subtitle>
-        </md-card-header>
-        <md-card-content>
-            <p>
-                User details...
-            </p>
-        </md-card-content>
-        <md-card-actions>
-            <button md-button (click)="setGlobalProject(user.$key)">OPEN</button>
-        </md-card-actions>
+<div>
+    <md-card>
+        <form #selectUser="ngForm" (ngSubmit)="assignUser(selectUser.value)">
+            <md-select name="user" [(ngModel)]="user">
+                <md-option *ngFor="let user of users" [value]="user.$key">{{user?.username}}</md-option>
+            </md-select>
+            <button md-raised-button type="submit">Add User</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of assignedUsers">
+                    <td>{{user?.username}}</td>
+                    <td>
+                        <md-select ngModel (ngModelChange)="assignUserRole(user.uid, $event)" [(ngModel)]="selectedValue[user.uid]">
+                            <md-option *ngFor="let role of roles" [value]="role.value">{{role.name}}</md-option>
+                        </md-select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </md-card>
 </div>

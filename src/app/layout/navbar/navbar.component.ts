@@ -1,4 +1,6 @@
 import { Component, Output, EventEmitter, Renderer, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: '[navbar]',
@@ -16,7 +18,7 @@ export class Navbar {
     isOpen: false
   };
 
-  constructor(private renderer: Renderer, private el: ElementRef) {}
+  constructor(private renderer: Renderer, private el: ElementRef, public af: AngularFireAuth, public router: Router) { }
 
   sidebarPosition(position): void {
     this.changeSidebarPosition.emit(position);
@@ -44,5 +46,14 @@ export class Navbar {
   private changeStyleElement(selector, styleName, styleValue): void {
     this.renderer.setElementStyle(this.el.nativeElement
       .querySelector(selector), styleName, styleValue);
+  }
+
+  logout() {
+    this.af.auth.signOut().then(res => {
+      this.router.navigate(['/login'])
+    })
+      .catch(err => {
+        console.log(err);
+      })
   }
 }
