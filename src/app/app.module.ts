@@ -10,6 +10,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { MaterialModule, MdNativeDateModule, MdToolbarModule } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
+import { CookieModule } from 'ngx-cookie';
 
 
 import { AddProjectComponent } from './project/AddProject/add_project.component'
@@ -58,6 +59,7 @@ type StoreType = {
     MdNativeDateModule,
     MdToolbarModule,
     ToastrModule.forRoot(),
+    CookieModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot(ROUTES, {
       useHash: true,

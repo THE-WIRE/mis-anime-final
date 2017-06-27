@@ -44,10 +44,4 @@ export class ViewAllUserComponent implements OnInit {
 
     ngOnInit() { }
 
-    setGlobalProject(key) {
-        this.cuser.cuid = key;
-
-        console.log(this.cuser.getCurrentUserId());
-    }
-
 }

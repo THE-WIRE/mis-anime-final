@@ -1,27 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user.interface'
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'
+import { AngularFireAuth } from 'angularfire2/auth'
 import { UserService } from '../../shared/cuser.service';
+import { Router } from '@angular/router';
+import { ProjectService } from '../../shared/cproject.service';
+import { MaterialModule } from '@angular/material';
 
 @Component({
     selector: 'assign-user',
-    templateUrl: 'assign.template.html',
+    templateUrl: 'assign-user.template.html',
     styles: [`
-        .view{
-            color: white;
-        }
-
-        
-
-        .user-card-container {
-          display: flex;
-          flex-flow: column nowrap;
-        }
-        
-        .user-card {
-            margin: 20px;
-            width: 350px;
-        }
 
     `]
 })
@@ -29,24 +18,92 @@ import { UserService } from '../../shared/cuser.service';
 export class AssignUserComponent implements OnInit {
 
     public users: User[];
-    constructor(private db: AngularFireDatabase, public cuser: UserService) {
-        // db.list('/Users').subscribe(
-        //     res => {
-        //         this.users = res;
-        //         console.log('refreshed');
-        //     },
-        //     err => {
-        //         console.log('something went wrong')
-        //     }
-        // )
+    public roles: any[] = [
+        { name: 'Artist', value: 'artist' },
+        { name: 'Supervisor', value: 'supervisor' },
+        { name: 'Head Supervisor', value: 'head supervisor' },
+        { name: 'Manager', value: 'manager' }
+    ];
+    public assignedUsers: any[] = [];
+    public selectedValue: any[] = [];
+
+    constructor(private db: AngularFireDatabase, public cuser: UserService, public router: Router, public cproj: ProjectService, public af: AngularFireAuth) {
+
+        af.authState.subscribe(d => {
+            if (!d) {
+                router.navigate(['/login']);
+            }
+            else {
+                if (cuser.getCurrentUser().type != 'manager') {
+                    router.navigate(['/app']);
+                }
+
+                if (!cproj.getCurrentProjectId()) {
+                    router.navigate(['/project/all']);
+                }
+
+                db.list('/Users').subscribe(res => {
+                    this.users = res;
+                    console.log(this.users);
+                });
+
+                db.list('/Project_User', {
+                    query: {
+                        orderByChild: 'pid',
+                        equalTo: cproj.getCurrentProjectId()
+                    }
+                }).subscribe(res => {
+                    this.assignedUsers = [];
+
+
+                    res.forEach(y => {
+                        db.object('/Users/' + y.uid).subscribe(z => {
+                            y.username = z.username;
+                            this.selectedValue[y.uid] = y.role;
+                            this.assignedUsers.push(y)
+                            console.log(y);
+                        })
+                    })
+
+                    //this.assignedUsers = Array.from(new Set(this.assignedUsers));
+
+                })
+
+
+
+                // db.list('/Users').subscribe(
+                //     res => {
+                //         this.users = res;
+                //         console.log('refreshed');
+                //     },
+                //     err => {
+                //         console.log('something went wrong')
+                //     }
+                // )
+            }
+        })
+
     }
 
     ngOnInit() { }
 
-    setGlobalProject(key) {
-        // this.cuser.cuid = key;
+    assignUser(val) {
+        this.db.object('/Project_User/' + this.cproj.getCurrentProjectId() + '_' + val.user).set(
+            {
+                level: 0,
+                pid: this.cproj.getCurrentProjectId(),
+                uid: val.user
+            }
+        )
+    }
 
-        // console.log(this.cuser.getCurrentUserId());
+    assignUserRole(user, role) {
+        console.log(user, role);
+        this.db.object('/Project_User/' + this.cproj.getCurrentProjectId() + '_' + user).update(
+            {
+                role: role
+            }
+        )
     }
 
 }
