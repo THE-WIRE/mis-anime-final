@@ -47,7 +47,7 @@ export class AddShotComponent implements OnInit {
         add.push(this.shot).then(_ => {
             add_project_shot.push({ "project_key": this.cproj.getCurrentProjectId(), "shot_key": _.key }).then(_ => {
                 console.log('Relation added ')
-                this.notify.add_notification('shot add', this.au.auth.currentUser.uid + ' created ' + this.shot.scode);
+                this.notify.add_notification_project_level('shot add', this.au.auth.currentUser.uid + ' created ' + this.shot.scode);
             })
         });
     }

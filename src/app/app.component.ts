@@ -13,6 +13,9 @@ import { AngularFireAuth } from 'angularfire2/auth'
 
 import * as firebase from 'firebase'
 
+import { ProjectService } from './shared/cproject.service'
+
+import { NotificationService } from './shared/notification.service'
 
 /*
  * App Component
@@ -29,17 +32,14 @@ import * as firebase from 'firebase'
   template: `<router-outlet></router-outlet>`
 })
 export class App {
-  constructor(private toastr: ToastrService, private af: AngularFireDatabase, private au: AngularFireAuth) {
+  constructor(private notify: NotificationService, private pro: ProjectService, private toastr: ToastrService, private af: AngularFireDatabase, private au: AngularFireAuth) {
+    pro.ev$.subscribe(item => {
+      this.notify.notify();
+    })
 
-    if (au.auth.currentUser) {
-      firebase.database().ref('/Notifications').on('child_added', function (data) {
-        let newNofify = data.val();
-
-        if (newNofify.crtby != au.auth.currentUser.uid) {
-          toastr.success(newNofify.notifymsg, newNofify.notifytype);
-        }
-      })
-    }
+  }
+  fun() {
+    console.log('event triggered in app.component')
   }
 
 }

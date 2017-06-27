@@ -56,8 +56,12 @@ export class ViewAllProjectComponent implements OnInit {
 
         this.db.object('/Project_User/' + key + '_' + this.cuser.getCurrentUserId()).subscribe(res => {
             console.log(res);
-            this.cuser.loadRole(res);
+            if (this.cuser.getCurrentUser().utype != "manager" && res.role) {
+                this.cuser.loadRole(res);
+            }
+
             this.cproject.cpid = key;
+            this.cproject.trigger();
             this.location.back();
         })
     }
