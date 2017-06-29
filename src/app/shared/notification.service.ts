@@ -8,9 +8,20 @@ import { ProjectService } from './cproject.service'
 
 @Injectable()
 export class NotificationService {
-    constructor(private cproj: ProjectService, private u: UserService, private toastr: ToastrService, private af: AngularFireDatabase, private au: AngularFireAuth) { }
+    public u: any;
+    constructor(private cproj: ProjectService, private cuser: UserService, private toastr: ToastrService, private af: AngularFireDatabase, private au: AngularFireAuth) {
+        this.au.authState.subscribe(res => {
+            if (res) {
+                //OK
+            }
+            else {
+                this.toastr.info('Disconnected from notifications', 'Logged Out!');
+            }
+        })
+    }
 
     add_notification_project_level(type, msg) {
+        this.u = this.cuser.getCurrentUser();
         let obj = {
             notifytype: type,
             notifycrtT: firebase.database.ServerValue.TIMESTAMP,
@@ -27,13 +38,14 @@ export class NotificationService {
     }
 
     notify() {
+        this.u = this.cuser.getCurrentUser();
         console.log('this is a level : ' + this.u.user.level)
         let this2 = this
         if (this.au.auth.currentUser) {
             let id = this.au.auth.currentUser.uid
             let level = this.u.user.level
             let ref = firebase.database().ref('Notifications')
-            let pref = ref.child(this.cproj.getCurrentProjectId());
+            let pref = ref.child(this.cproj.getCurrentProjectId().toString());
             pref.orderByChild('level').limitToLast(4).startAt(level).on('child_added', function (data) {
                 let newNofify = data.val();
                 console.log('this is not what i wanted ' + data.val().notifycrtT);

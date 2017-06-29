@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ShotVersion } from '../shot-version.interface'
 import { AngularFireDatabase } from 'angularfire2/database'
+import { AngularFireAuth } from 'angularfire2/auth'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
+import { ProjectService } from "../../shared/cproject.service";
 
 @Component({
     selector: 'add-shot-version',
@@ -21,8 +23,18 @@ export class AddShotVersionComponent implements OnInit {
 
     public shot_version: ShotVersion;
 
-    constructor(private db: AngularFireDatabase, private ar: ActivatedRoute, public router: Router, private loc: Location) {
-        //TODO Go to Project/All if project not seletced
+    constructor(private db: AngularFireDatabase, private ar: ActivatedRoute, public router: Router, private loc: Location, public af: AngularFireAuth, public cproj: ProjectService) {
+
+        this.af.authState.subscribe(res => {
+            if (res) {
+                if (!cproj.getCurrentProjectId()) {
+                    this.router.navigate(['/project/all']);
+                }
+            }
+            else {
+                this.router.navigate(['/login']);
+            }
+        })
     }
 
     ngOnInit() { }

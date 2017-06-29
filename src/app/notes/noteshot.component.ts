@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { MdInputContainer, MdCard, MdCardActions } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -45,24 +45,32 @@ export class NoteShot {
     ];
 
 
-    constructor(private db: AngularFireDatabase, private af: AngularFireAuth, private route: ActivatedRoute) {
-        this.shot_id = this.route.snapshot.params['shot_id'];
-        this.dept_name = this.route.snapshot.params['dept_name']
-        db.list('Shot_version', {
-            query: {
-                orderByChild: 's_d',
-                equalTo: this.shot_id + '_' + this.dept_name
-            }
-        }).subscribe(res => {
-            this.filters = [
-                { value: 'all', viewValue: 'Show all' }
-            ];
-            res.forEach(x => {
-                this.filters.push({ value: x.$key, viewValue: x.svercode })
-            })
-        })
+    constructor(private db: AngularFireDatabase, private af: AngularFireAuth, private route: ActivatedRoute, public router: Router) {
+        this.af.authState.subscribe(res => {
+            if (res) {
+                this.shot_id = this.route.snapshot.params['shot_id'];
+                this.dept_name = this.route.snapshot.params['dept_name']
+                db.list('Shot_version', {
+                    query: {
+                        orderByChild: 's_d',
+                        equalTo: this.shot_id + '_' + this.dept_name
+                    }
+                }).subscribe(res => {
+                    this.filters = [
+                        { value: 'all', viewValue: 'Show all' }
+                    ];
+                    res.forEach(x => {
+                        this.filters.push({ value: x.$key, viewValue: x.svercode })
+                    })
+                })
 
-        this.show_notes();
+                this.show_notes();
+
+            }
+            else {
+                this.router.navigate(['/login']);
+            }
+        })
 
 
     }

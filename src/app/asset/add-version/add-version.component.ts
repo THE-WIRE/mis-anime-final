@@ -3,6 +3,8 @@ import { AssetVersion } from '../asset-version.interface'
 import { AngularFireDatabase } from 'angularfire2/database'
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
+import { AngularFireAuth } from "angularfire2/auth";
+import { ProjectService } from '../../shared/cproject.service';
 
 @Component({
     selector: 'add-asset-version',
@@ -21,8 +23,17 @@ export class AddAssetVersionComponent implements OnInit {
 
     public asset_version: AssetVersion;
 
-    constructor(private db: AngularFireDatabase, private ar: ActivatedRoute, public router: Router, private loc: Location) {
-        //TODO Go to Project/All if project not seletced
+    constructor(private db: AngularFireDatabase, private ar: ActivatedRoute, public router: Router, private loc: Location, public af: AngularFireAuth, public cproj: ProjectService) {
+        this.af.authState.subscribe(res => {
+            if (res) {
+                if (!cproj.getCurrentProjectId()) {
+                    this.router.navigate(['/project/all']);
+                }
+            }
+            else {
+                this.router.navigate(['/login']);
+            }
+        })
     }
 
     ngOnInit() { }

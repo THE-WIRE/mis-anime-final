@@ -19,27 +19,41 @@ export class ViewAllAssetVersionComponent implements OnInit {
     public dept_id: any;
     public asset_id: any;
     public asset_versions: AssetVersion[];
+    public stats: any[];
     @Output() selectedIndex = new EventEmitter();
     constructor(private db: AngularFireDatabase, public af: AngularFireAuth, public router: Router, public ar: ActivatedRoute, public snackbar: MdSnackBar) {
 
-        console.log(ar.snapshot.params['dept_name'], ar.snapshot.params['asset_id']);
-        this.dept_id = ar.snapshot.params['dept_name'];
-        this.asset_id = ar.snapshot.params['asset_id'];
+        this.af.authState.subscribe(res => {
+            if (res) {
+                console.log(ar.snapshot.params['dept_name'], ar.snapshot.params['asset_id']);
+                this.dept_id = ar.snapshot.params['dept_name'];
+                this.asset_id = ar.snapshot.params['asset_id'];
 
-        db.list('/Asset_version', {
-            query: {
-                orderByChild: 'a_d',
-                equalTo: this.asset_id + '_' + this.dept_id
+                db.list('/Asset_version', {
+                    query: {
+                        orderByChild: 'a_d',
+                        equalTo: this.asset_id + '_' + this.dept_id
+                    }
+                }).subscribe(
+                    res => {
+                        this.asset_versions = res;
+                        this.asset_versions.forEach(x => {
+                            db.object('/Version_User_Stats/' + x.$key + '_' + this.af.auth.currentUser.uid).subscribe(y => {
+                                x.stats = y;
+                            })
+                        })
+
+                        console.log('refreshed');
+                    },
+                    err => {
+                        console.log('something went wrong')
+                    })
             }
-        }).subscribe(
-            res => {
-                this.asset_versions = res;
-                console.log('refreshed');
-            },
-            err => {
-                console.log('something went wrong')
+            else {
+                this.router.navigate(['/login'])
             }
-            )
+        })
+
     }
     ngOnInit() { }
 
@@ -47,20 +61,70 @@ export class ViewAllAssetVersionComponent implements OnInit {
 
         this.check(av);
         let store = firebase.database.ServerValue.TIMESTAMP;
+        let ts = new Date();
+        let date: any = ts.getFullYear().toString() + ts.getMonth().toString() + ts.getDate().toString();
+
         let key = av.$key;
-        const ref = firebase.database().ref('/Asset_version/' + key + '/stats');
+        const ref = firebase.database().ref('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid + '/daily/' + date);
+        const ref2 = firebase.database().ref('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid);
 
         ref.once('value', snap => {
             if (snap.val()) {
-                this.db.object('/Asset_version/' + key + '/stats').update({ "start": store, "status": 2 }).then(x => {
-                    this.snackbar.open("Working started on Asset : " + av.avercode, 'OK', { duration: 3000 });
+                this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid).update(
+                    {
+                        "status": 2
+                    }
+                ).then(x => {
+                    console.log("this works!3");
+                    this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid + '/daily/' + date).update({
+                        "start": store
+                    }).then(y => {
+                        this.snackbar.open("Working started on Asset : " + av.avercode, 'OK', { duration: 3000 });
+                    })
+
                 })
 
             }
             else {
-                this.db.object('/Asset_version/' + key + '/stats').update({ "start": store, "init": store, "status": 2, "artist": this.af.auth.currentUser.uid }).then(x => {
-                    this.snackbar.open("Working started on Asset : " + av.avercode, 'OK', { duration: 3000 });
-                })
+                ref2.once('value', snap => {
+                    if (snap.val()) {
+                        this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid).update(
+                            {
+                                "status": 2
+                            }
+                        ).then(x => {
+                            console.log("this works!");
+                            this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid + '/daily/' + date).update({
+                                "start": store,
+                                "init": store,
+                                "total": 0
+                            }).then(y => {
+                                this.snackbar.open("Working started on Asset : " + av.avercode, 'OK', { duration: 3000 });
+                            })
+
+                        })
+                    }
+                    else {
+                        this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid).update(
+                            {
+                                "init": store,
+                                "status": 2,
+                                "averid": key,
+                                "uid": this.af.auth.currentUser.uid
+                            }).then(x => {
+                                console.log("this works!2");
+                                this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid + '/daily/' + date).update({
+                                    "start": store,
+                                    "init": store,
+                                    "total": 0
+                                }).then(y => {
+                                    this.snackbar.open("Working started on Asset : " + av.avercode, 'OK', { duration: 3000 });
+                                })
+
+                            })
+                    }
+                });
+
 
             }
         });
@@ -68,36 +132,71 @@ export class ViewAllAssetVersionComponent implements OnInit {
 
     pause(av) {
         let key = av.$key;
+        console.log(key);
         let store = firebase.database.ServerValue.TIMESTAMP;
-        const ref = firebase.database().ref('/Asset_version/' + key + '/stats');
-
+        const ref = firebase.database().ref('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid);
+        let ts = new Date();
+        let date: any = ts.getFullYear().toString() + ts.getMonth().toString() + ts.getDate().toString();
+        console.log('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid);
         ref.once('value', snap => {
             let res = snap.val();
+            console.log(res);
             if (res.status != 2) {
                 return;
             }
-            this.db.object('/Asset_version/' + key + '/stats').update({ "pause": store, "status": -1 }).then(x => {
-                firebase.database().ref('/WorkingTree/' + this.af.auth.currentUser.uid + '/Task').update({ "status": -1 })
-                this.calc_total_time(key);
-                this.snackbar.open("Working paused on Asset : " + av.avercode, 'OK', { duration: 3000 });
-            });
+            this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid).update(
+                {
+                    "status": -1
+                }
+            ).then(x => {
+                this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid + '/daily/' + date).update({
+                    "pause": store,
+                }).then(y => {
+                    firebase.database().ref('/WorkingTree/' + this.af.auth.currentUser.uid + '/Task').update({ "status": -1 })
+                    this.calc_total_time(key);
+                    this.snackbar.open("Working paused on Asset : " + (av.avercode != undefined ? av.avercode : av.averid).toString(), 'OK', { duration: 3000 });
+                })
+            })
         });
 
 
     }
 
     calc_total_time(key) {
-        const ref = firebase.database().ref('/Asset_version/' + key + '/stats');
+        let ts = new Date();
+        let date: any = ts.getFullYear().toString() + ts.getMonth().toString() + ts.getDate().toString();
+
+        const ref = firebase.database().ref('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid + '/daily/' + date);
+        const ref2 = firebase.database().ref('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid);
+
+        let diff;
 
         ref.once('value', snap => {
             let res = snap.val();
 
             let init = res.total ? res.total : 0;
-            let diff = (res.pause - res.start);
+            diff = (res.pause - res.start);
             let total = init + diff;
             console.log(init, diff, total);
-            this.db.object('/Asset_version/' + key + '/stats').update({ "total": total })
-        });
+            this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid + '/daily/' + date).update(
+                {
+                    "total": total
+                }
+            )
+        }).then(x => {
+            ref2.once('value', snap => {
+                let res = snap.val();
+                let t = res.total ? res.total : 0;
+                let total = t + diff;
+                this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid).update(
+                    {
+                        "total": total
+                    }
+                )
+            });
+        })
+
+
     }
 
     goToNotes(tab, key) {
@@ -122,11 +221,11 @@ export class ViewAllAssetVersionComponent implements OnInit {
 
             }
             else if (val && val.AssetVersionKey != av.$key) {
-                firebase.database().ref('/Asset_version/' + val.AssetVersionKey).once('value', res => {
+                firebase.database().ref('/Version_User_Stats/' + val.AssetVersionKey + '_' + this.af.auth.currentUser.uid).once('value', res => {
                     if (res.val()) {
                         let r = res.val();
-                        r.$key = res.key;
-                        console.log(r, res.key)
+                        r.$key = r.averid;
+                        console.log(r)
                         this.pause(r)
                         ref.update({ "AssetVersionKey": av.$key, "status": 2 })
                     }

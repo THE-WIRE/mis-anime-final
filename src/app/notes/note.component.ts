@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, Input } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { MdInputContainer, MdCard, MdCardActions } from '@angular/material';
 import { AngularFireAuth } from 'angularfire2/auth'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs'
 
 
@@ -46,29 +46,34 @@ export class Note {
     { value: 'all', viewValue: 'Show all' }
   ];
 
-  constructor(private db: AngularFireDatabase, private af: AngularFireAuth, private route: ActivatedRoute) {
-    this.asset_id = this.route.snapshot.params['asset_id'];
-    this.dept_name = this.route.snapshot.params['dept_name']
+  constructor(private db: AngularFireDatabase, private af: AngularFireAuth, private route: ActivatedRoute, public router: Router) {
+    this.af.authState.subscribe(res => {
+      if (res) {
+        this.asset_id = this.route.snapshot.params['asset_id'];
+        this.dept_name = this.route.snapshot.params['dept_name']
 
-    db.list('Asset_version', {
-      query: {
-        orderByChild: 'a_d',
-        equalTo: this.asset_id + '_' + this.dept_name
-      }
-    }).subscribe(res => {
-      res.forEach(x => {
-        this.filters = [
-          { value: 'all', viewValue: 'Show all' }
-        ];
-        res.forEach(x => {
-          this.filters.push({ value: x.$key, viewValue: x.avercode })
+        db.list('Asset_version', {
+          query: {
+            orderByChild: 'a_d',
+            equalTo: this.asset_id + '_' + this.dept_name
+          }
+        }).subscribe(res => {
+          res.forEach(x => {
+            this.filters = [
+              { value: 'all', viewValue: 'Show all' }
+            ];
+            res.forEach(x => {
+              this.filters.push({ value: x.$key, viewValue: x.avercode })
+            })
+          })
         })
-      })
+
+        this.show_notes();
+      }
+      else {
+        this.router.navigate(['/login']);
+      }
     })
-
-    this.show_notes();
-
-
   }
 
   show_notes() {

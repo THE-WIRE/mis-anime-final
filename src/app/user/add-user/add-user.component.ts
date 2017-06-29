@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from "@angular/common";;
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
+import { UserService } from '../../shared/cuser.service';
 
 @Component({
     selector: 'add-user',
@@ -15,7 +19,17 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 
 export class AddUserComponent implements OnInit {
 
-    constructor(private db: AngularFireDatabase) {
+    constructor(private db: AngularFireDatabase, public af: AngularFireAuth, public loc: Location, public router: Router, public cuser: UserService) {
+        this.af.authState.subscribe(res => {
+            if (res) {
+                if (cuser.getCurrentUser().type != 'manager') {
+                    this.loc.back();
+                }
+            }
+            else {
+                this.router.navigate(['/login']);
+            }
+        })
     }
 
     ngOnInit() { }

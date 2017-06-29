@@ -31,9 +31,17 @@ export class AddShotComponent implements OnInit {
     public shot: Shot;
 
     constructor(private au: AngularFireAuth, private db: AngularFireDatabase, private cproj: ProjectService, private router: Router, private notify: NotificationService) {
-        if (!cproj.getCurrentProjectId()) {
-            router.navigate(['/project/all']);
-        }
+        this.au.authState.subscribe(res => {
+            if (res) {
+                if (!cproj.getCurrentProjectId()) {
+                    router.navigate(['/project/all']);
+                }
+            }
+            else {
+                this.router.navigate(['/login']);
+            }
+        })
+
     }
 
     ngOnInit() { }

@@ -68,10 +68,9 @@ export class App {
           this.router.navigate(['/project/all']);
         }
       }
+      else {
+        this.router.navigate(['/login']);
+      }
     })
-
-
-
-
   }
 }

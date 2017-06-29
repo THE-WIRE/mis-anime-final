@@ -6,6 +6,7 @@ import { UserService } from '../../shared/cuser.service';
 import { Router } from '@angular/router';
 import { ProjectService } from '../../shared/cproject.service';
 import { MaterialModule } from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'assign-user',
@@ -27,7 +28,7 @@ export class AssignUserComponent implements OnInit {
     public assignedUsers: any[] = [];
     public selectedValue: any[] = [];
 
-    constructor(private db: AngularFireDatabase, public cuser: UserService, public router: Router, public cproj: ProjectService, public af: AngularFireAuth) {
+    constructor(private db: AngularFireDatabase, public cuser: UserService, public toast: ToastrService, public router: Router, public cproj: ProjectService, public af: AngularFireAuth) {
 
         af.authState.subscribe(d => {
             if (!d) {
@@ -103,7 +104,12 @@ export class AssignUserComponent implements OnInit {
             {
                 role: role
             }
-        )
+        ).then(res => {
+            this.toast.success('Role changed to ' + role, 'Operation Completed!');
+        })
+            .catch(err => {
+                this.toast.error(err.message, 'Error Occured!');
+            })
     }
 
 }

@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Location } from '@angular/common';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Router } from '@angular/router';
@@ -18,7 +19,13 @@ export class Login {
 
   public date: any;
 
-  constructor(public af: AngularFireAuth, public router: Router, public db: AngularFireDatabase, public cuser: UserService) {
+  constructor(public af: AngularFireAuth, public router: Router, public db: AngularFireDatabase, public cuser: UserService, public loc: Location) {
+
+    this.af.authState.subscribe(res => {
+      if (res) {
+        this.loc.back();
+      }
+    })
 
     this.date = new Date();
 
@@ -33,7 +40,7 @@ export class Login {
     data.email = data.email + '@the-wire.com';
     this.af.auth.signInWithEmailAndPassword(data.email, data.password)
       .then(data => {
-        this.router.navigate(['/app']);
+        this.loc.back();
       })
       .catch(error => {
         console.log("Error : ", error);
