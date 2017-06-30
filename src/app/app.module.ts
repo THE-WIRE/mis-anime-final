@@ -1,4 +1,4 @@
-import { NgModule, ApplicationRef } from '@angular/core';
+import { NgModule, ApplicationRef, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -74,7 +74,8 @@ type StoreType = {
     ProjectService,
     UserService,
     NotificationService,
-    ToastrService
+    ToastrService,
+    { provide: LOCALE_ID, useValue: "en-IN" }
   ]
 })
 export class AppModule {

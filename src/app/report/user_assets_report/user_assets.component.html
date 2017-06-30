@@ -1,0 +1,72 @@
+<md-sidenav-container>
+    <md-sidenav mode="push" align="end" #sidenav class="example-sidenav">
+        <div class="example-sidenav-content">
+            <md-card>
+                <table class="table table-fixed">
+                    <thead>
+                        <tr>
+                            <td>
+                                <h4>Date
+                                </h4>
+                            </td>
+                            <td>
+                                <h4>Started
+                                </h4>
+                            </td>
+                            <td>
+                                <h4>Total
+                                </h4>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let day of daily">
+                            <td>{{day.$key}}</td>
+                            <td>{{day.init | date:'mediumTime'}}</td>
+                            <td>{{day.total | mstohms}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-card>
+        </div>
+    </md-sidenav>
+
+    <md-card>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <table class="table table-fixed">
+            <thead>
+                <td><i>version code</i></td>
+                <td><i>Asset code</i></td>
+                <td><i>Department</i></td>
+                <td><i>Project<br/>(role)</i></td>
+                <td><i>started</i></td>
+                <td><i>Status</i></td>
+                <td><i>Time</i></td>
+                <td><i>Daily</i></td>
+            </thead>
+            <tbody>
+                <tr *ngFor="let av of assets">
+                    <td>{{av.averid | verCode | async}}</td>
+                    <td>{{av.averid | assetCode | async | async}}</td>
+                    <td>{{av.averid | depName | async}}</td>
+                    <td>{{av.averid | projName : currentid |async | async | async | async}}</td>
+                    <td>{{av.init | date}}</td>
+                    <td>{{av.status | status}}</td>
+                    <td>{{av.total | mstohms}}</td>
+                    <td>
+                        <button md-raised-button type="button" color="warn" (click)="sidenav.open(); dailyreport(av.averid)">Report</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="example-sidenav-content">
+            <button type="button" md-button (click)="sidenav.open()">
+      Open sidenav
+    </button>
+        </div>
+    </md-card>
+</md-sidenav-container>

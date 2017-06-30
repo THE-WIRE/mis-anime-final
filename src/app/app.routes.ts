@@ -20,7 +20,10 @@ export const ROUTES: Routes = [{
 },
 {
   path: 'login', loadChildren: './login/login.module#LoginModule'
-}, 
+},
+{
+  path: 'report', loadChildren: './report/report.module#ReportModule'
+},
 {
   path: 'note', loadChildren: './notes/note.module#NoteModule'
 },

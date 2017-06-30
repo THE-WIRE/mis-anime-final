@@ -1,1 +1,23 @@
-<router-outlet></router-outlet>
+<md-card>
+    <md-grid-list cols="4" rowHeight="100px" gutterSize="10px">
+        <md-grid-tile [colspan]='3' [rowspan]='1' style="background : lightblue">
+
+            {{"cu0uoPgZzvSwfG6qE6sh4R6Tp1d2" | uname | async}}
+            <br/>
+            <span *ngIf="online" style="color : green">ONLINE</span>
+            <span *ngIf="!online" style="color : red">OFFLINE</span>
+        </md-grid-tile>
+        <md-grid-tile (click)="showProjects()" [colspan]='1' [rowspan]='2' style="background : lightgreen">
+            No. of projects Assigned : {{nProjects}}
+        </md-grid-tile>
+        <md-grid-tile (click)="showAssets()" [colspan]='1' [rowspan]='1' style="background : lightpink">
+            working on {{nAssets}} Assets
+        </md-grid-tile>
+        <md-grid-tile (click)="currentAsset()" [colspan]='2' [rowspan]='1' style="background : #DDBDF1">
+            Current Working Status
+        </md-grid-tile>
+    </md-grid-list>
+</md-card>
+<div *ngIf="areAssets && uid">
+    <user-assets [currentid]="uid"></user-assets>
+</div>

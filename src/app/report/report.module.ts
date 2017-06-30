@@ -5,11 +5,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MaterialModule } from '@angular/material';
-import { NoteModule } from '../notes/note.module'
 import { SharedModule } from '../shared/shared.module'
 
 import { Report } from './report.component';
-import { Note } from '../notes/note.component'
+import { UserAssets } from './user_assets_report/user_assets.component'
 
 export const routes = [
   { path: '', component: Report, pathMatch: 'full' }
@@ -18,7 +17,8 @@ export const routes = [
 
 @NgModule({
   declarations: [
-    Report
+    Report,
+    UserAssets
   ],
   imports: [
     CommonModule,
@@ -27,7 +27,6 @@ export const routes = [
     AngularFireAuthModule,
     RouterModule.forChild(routes),
     AngularFireDatabaseModule,
-    NoteModule,
     SharedModule
   ],
   exports: [
@@ -35,6 +34,6 @@ export const routes = [
   ]
 
 })
-export class AssetModule {
+export class ReportModule {
   static routes = routes;
 }
