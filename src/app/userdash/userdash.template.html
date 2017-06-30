@@ -2,24 +2,25 @@
 </h2>
 
 <div class="row">
-    <md-card class="col-md-2" style="margin-left:25px">
+    <md-card class=" col-md-2 ">
         <md-card-content class="box">
-            <div class="icon">
-                <i class="fa fa-calendar"></i>
+            <div class="big-text">
+                {{o_users}}
             </div>
             <div class="description">
-                <strong>14</strong> meetings
+                <i class="fa fa-user"></i> Online Users
             </div>
         </md-card-content>
     </md-card>
     <br />
+    <br />
     <md-card class=" col-md-2 ">
         <md-card-content class="box">
-            <div class="big-text" *ngFor="let user of users | async">
-
+            <div class="big-text">
+                {{w_users}}
             </div>
             <div class="description">
-                <i class="fa fa-user"></i> Users Active
+                <i class="fa fa-user"></i> Users Working
             </div>
         </md-card-content>
     </md-card>

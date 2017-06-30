@@ -22,7 +22,10 @@
                             {{item.dname}}
                             </button>
                         -->
-                        <span class="off" [routerLink]="['/asset/details/',selectedAsset.$key, item.dname]"> 
+                        <span class="off" *ngIf="user.type != 'manager'" [routerLink]="['/asset/details/',selectedAsset.$key, item.dname]"> 
+                            <a >{{item.dname}}</a>
+                        </span>
+                        <span class="off" *ngIf="user.type == 'manager'" [routerLink]="['/asset/review/',selectedAsset.$key, item.dname]"> 
                             <a >{{item.dname}}</a>
                         </span>
                     </td>

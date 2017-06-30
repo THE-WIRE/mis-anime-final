@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, Renderer, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: '[navbar]',
@@ -18,7 +19,7 @@ export class Navbar {
     isOpen: false
   };
 
-  constructor(private renderer: Renderer, private el: ElementRef, public af: AngularFireAuth, public router: Router) { }
+  constructor(private renderer: Renderer, private el: ElementRef, public af: AngularFireAuth, public router: Router, public db: AngularFireDatabase) { }
 
   sidebarPosition(position): void {
     this.changeSidebarPosition.emit(position);
@@ -49,6 +50,7 @@ export class Navbar {
   }
 
   logout() {
+    this.db.object('/LoggedIn/' + this.af.auth.currentUser.uid).update({ "status": false })
     this.af.auth.signOut().then(res => {
       this.router.navigate(['/login'])
     })

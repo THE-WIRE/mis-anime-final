@@ -10,7 +10,6 @@
                 <th>Started</th>
                 <th>Expected</th>
                 <th>Status</th>
-                <th>Total Time</th>
                 <th>Options</th>
             </tr>
         </thead>
@@ -20,17 +19,16 @@
                 <td>{{av?.averst}}</td>
                 <td>{{av?.averendt}}</td>
                 <td>
-                    {{av?.stats?.status | status}}
+                    {{av?.status | status}}
                     <!--<md-select>
                         <md-option></md-option>
                     </md-select>-->
                 </td>
-                <td>{{av?.stats?.total | mstohms}}</td>
                 <td>
-                    <button md-raised-button *ngIf="av?.stats?.status != 2 && av?.stats?.status != 3" type="button" color="primary" (click)="start(av)">Start</button>
-                    <button md-raised-button *ngIf="av?.stats?.status == 2" type="button" color="accent" (click)="pause(av, false)">Pause</button>
-                    <button md-raised-button *ngIf="av?.stats?.status == -1" type="button" color="warn" (click)="done(av)">Mark Done</button>
-                    <button md-raised-button type="button" color="none" (click)="goToNotes(1, av?.$key) ">Notes</button>
+                    <button md-raised-button *ngIf="av?.status == 3" type="button" color="primary" (click)="accept(av)">Accept</button>
+                    <button md-raised-button *ngIf="av?.status == 3" type="button" color="accent" (click)="p_accept(av)">Partially Accept</button>
+                    <button md-raised-button *ngIf="av?.status == 3" type="button" color="warn" (click)="reject(av)">Reject</button>
+                    <button md-raised-button type="button" color="none" (click)="goToNotes(1, av?.$key)">Notes</button>
                 </td>
             </tr>
         </tbody>

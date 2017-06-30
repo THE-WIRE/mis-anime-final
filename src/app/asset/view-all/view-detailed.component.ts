@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Asset } from '../asset.interface'
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { MaterialModule } from '@angular/material'
+import { UserService } from '../../shared/cuser.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
     selector: 'view-detailed-asset',
@@ -26,8 +28,14 @@ export class ViewDetailedAssetComponent implements OnInit {
 
     @Input() selectedAsset: any;
     public departments: any;
-    constructor(private db: AngularFireDatabase) {
+    public user: any;
+    constructor(private db: AngularFireDatabase, private af: AngularFireAuth, private cuser: UserService) {
+        this.af.authState.subscribe(user => {
+            if (user) {
+                this.user = cuser.getCurrentUser();
+            }
 
+        })
     }
 
 

@@ -105,7 +105,7 @@ export class ViewAllAssetVersionComponent implements OnInit {
                         })
                     }
                     else {
-                        this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid).update(
+                        let a = this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid).update(
                             {
                                 "init": store,
                                 "status": 2,
@@ -122,6 +122,12 @@ export class ViewAllAssetVersionComponent implements OnInit {
                                 })
 
                             })
+
+                        let b = this.db.object('/Asset_version/' + key).update({ "status": 2 });
+
+                        Promise.all([a, b]).catch(err => {
+                            console.log(err);
+                        })
                     }
                 });
 
@@ -130,7 +136,7 @@ export class ViewAllAssetVersionComponent implements OnInit {
         });
     }
 
-    pause(av) {
+    pause(av, flag) {
         let key = av.$key;
         console.log(key);
         let store = firebase.database.ServerValue.TIMESTAMP;
@@ -152,12 +158,53 @@ export class ViewAllAssetVersionComponent implements OnInit {
                 this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid + '/daily/' + date).update({
                     "pause": store,
                 }).then(y => {
-                    firebase.database().ref('/WorkingTree/' + this.af.auth.currentUser.uid + '/Task').update({ "status": -1 })
+                    if (!flag) {
+                        firebase.database().ref('/WorkingTree/' + this.af.auth.currentUser.uid + '/Task').update({ "status": -1 })
+                    }
                     this.calc_total_time(key);
                     this.snackbar.open("Working paused on Asset : " + (av.avercode != undefined ? av.avercode : av.averid).toString(), 'OK', { duration: 3000 });
                 })
             })
         });
+
+
+    }
+
+    done(av) {
+        let key = av.$key;
+        console.log(key);
+        let store = firebase.database.ServerValue.TIMESTAMP;
+        const ref = firebase.database().ref('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid);
+        let ts = new Date();
+        let date: any = ts.getFullYear().toString() + ts.getMonth().toString() + ts.getDate().toString();
+        console.log('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid);
+        let a = ref.once('value', snap => {
+            let res = snap.val();
+            console.log(res);
+            this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid).update(
+                {
+                    "status": 3
+                }
+            ).then(x => {
+                this.db.object('/Version_User_Stats/' + key + '_' + this.af.auth.currentUser.uid + '/daily/' + date).update({
+                    "done": store,
+                }).then(y => {
+                    this.calc_total_time(key);
+                    this.snackbar.open("Asset : " + (av.avercode != undefined ? av.avercode : av.averid).toString() + ' marked Done!', 'OK', { duration: 3000 });
+                })
+            })
+        });
+
+        let b = this.db.object('/Asset_version/' + key).update({ "status": 3 });
+
+        Promise.all([a, b]).catch(err => {
+            let info = {
+                "key": key,
+                "type": "Done Update",
+                "where": "In view all asset version"
+            }
+            throw new Error("Data update failed! Try Again --> " + info);
+        })
 
 
     }
@@ -226,7 +273,7 @@ export class ViewAllAssetVersionComponent implements OnInit {
                         let r = res.val();
                         r.$key = r.averid;
                         console.log(r)
-                        this.pause(r)
+                        this.pause(r, true)
                         ref.update({ "AssetVersionKey": av.$key, "status": 2 })
                     }
                 })

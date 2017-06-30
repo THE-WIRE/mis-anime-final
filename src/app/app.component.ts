@@ -38,6 +38,7 @@ export class App {
     firebase.auth().onAuthStateChanged(user => {
       console.log('Auth status changed!');
       if (user) {
+        this.db.object('/LoggedIn/' + user.uid).update({ "status": true })
         //Load cookie values if already exist or load from db
         if (!this.c.getObject(user.uid + 'user')) {
           //load user data
@@ -50,7 +51,7 @@ export class App {
           })
 
         }
-        else if (!this.c.getObject(user.uid + 'projects')) {
+        if (!this.c.getObject(user.uid + 'projects')) {
 
           //load projects
           console.log('Loading Projects data...');
@@ -64,7 +65,7 @@ export class App {
             console.log('Project data loaded!', projects);
           })
         }
-        else if (!this.c.getObject(user.uid + 'project')) {
+        if (!this.c.getObject(user.uid + 'project')) {
           this.router.navigate(['/project/all']);
         }
       }

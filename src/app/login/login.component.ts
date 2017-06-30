@@ -40,7 +40,12 @@ export class Login {
     data.email = data.email + '@the-wire.com';
     this.af.auth.signInWithEmailAndPassword(data.email, data.password)
       .then(data => {
-        this.loc.back();
+        // if (this.loc.back()) {
+        //   this.loc.back();
+        // }
+        // else {
+        this.router.navigate(['/app']);
+        // }
       })
       .catch(error => {
         console.log("Error : ", error);

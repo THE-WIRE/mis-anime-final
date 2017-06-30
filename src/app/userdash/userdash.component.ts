@@ -28,23 +28,50 @@ export class UserDashComponent {
 
 
   users: FirebaseListObservable<any>;
+  public t_users: any;
+  public o_users: any;
+  public w_users: any;
   constructor(private notify: ToastrService, private db: AngularFireDatabase, private af: AngularFireAuth, private route: ActivatedRoute, public router: Router) {
 
     this.af.authState.subscribe(res => {
       if (res) {
         notify.success('title', 'toastr done');
-        this.users = db.list('/WorkingTree', { preserveSnapshot: true })
-        this.users
-          .subscribe(snapshots => {
-            snapshots.forEach(snapshot => {
-              console.log(snapshot.key)
-              let snap = snapshot.val()
-              const av_stat = firebase.database().ref('/WorkingTree').on('value', function (snaps) {
-                console.log(snaps.child.length)
-              })
+        this.users = db.list('/WorkingTree')
+        // this.users
+        //   .subscribe(snapshots => {
+        //     snapshots.forEach(snapshot => {
+        //       console.log(snapshot.key)
+        //       let snap = snapshot.val()
+        //       const av_stat = firebase.database().ref('/WorkingTree').on('value', function (snaps) {
+        //         console.log(snaps.child.length)
+        //       })
 
-            });
+        //     });
+        //   })
+
+        this.users.subscribe(res => {
+          this.t_users = 0;
+          this.w_users = 0;
+          res.forEach(x => {
+            if (x.Task.status == 2) {
+              this.w_users++;
+              this.t_users++;
+            }
+            else {
+              this.t_users++;
+            }
           })
+        })
+
+        this.db.list('/LoggedIn').subscribe(user => {
+          this.o_users = -1;
+          user.forEach(u => {
+            if (u.status) {
+              this.o_users++;
+            }
+          })
+
+        })
 
       }
       else {

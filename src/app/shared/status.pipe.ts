@@ -12,15 +12,15 @@ export class StatusPipe implements PipeTransform {
             case 1: return "Inventory";
             case 2: return "WIP";
             case -1: return "Paused WIP";
-            case 4: return "Done";
-            case 5: return "Sent for Review";
-            case 6: return "Delivery";
-            case 7: return "Retake";
-            case 8: return "Approved";
-            case 9: return "Revised Move Forward";
-            case 10: return "Unapproved";
-            case 11: return "On Hold";
-            case 12: return "Out of Picture";
+            case 3: return "Done";
+            case 4: return "Sent for Review";
+            case 5: return "Delivery";
+            case 6: return "Retake";
+            case 7: return "Approved";
+            case 8: return "Revised Move Forward";
+            case 9: return "Unapproved";
+            case 10: return "On Hold";
+            case 11: return "Out of Picture";
             default: return "N/A";
         }
     }

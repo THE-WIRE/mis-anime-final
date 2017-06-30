@@ -18,12 +18,15 @@ import { Note } from '../notes/note.component'
 import { AddAssetVersionComponent } from './add-version/add-version.component';
 import { ViewAllAssetVersionComponent } from './view-all-version/view-all-version.component';
 import { AssetVersionDetailsComponent } from './version-details/version-details.component';
+import { ReviewAssetVersionComponent } from './review/review.component';
+import { ReviewAllAssetVersionComponent } from './review-all/review-all.component';
 
 export const routes = [
   { path: '', component: Asset, pathMatch: 'full' },
   { path: 'add', component: AddAssetComponent, pathMatch: 'full' },
   { path: 'all', component: ViewAllAssetComponent, pathMatch: 'full' },
   { path: 'details/:asset_id/:dept_name', component: AssetDetailsComponent, pathMatch: 'full' },
+  { path: 'review/:asset_id/:dept_name', component: ReviewAssetVersionComponent, pathMatch: 'full' },
   { path: 'version/add/:asset_id/:dept_name', component: AddAssetVersionComponent, pathMatch: 'full' },
   //{ path: 'version/:dept_name/:id', component: ViewAllAssetVersionComponent, pathMatch: 'full' },
   { path: 'version/details', component: AssetVersionDetailsComponent, pathMatch: 'full' }
@@ -39,7 +42,9 @@ export const routes = [
     AddAssetVersionComponent,
     ViewAllAssetVersionComponent,
     AssetVersionDetailsComponent,
-    ViewDetailedAssetComponent
+    ViewDetailedAssetComponent,
+    ReviewAssetVersionComponent,
+    ReviewAllAssetVersionComponent
   ],
   imports: [
     CommonModule,
