@@ -85,6 +85,13 @@ export class Note {
           orderByChild: 'asset_dept',
           equalTo: this.asset_id + '_' + this.dept_name
         }
+      }).map(res1 => {
+        res1.forEach(x => {
+          x.show = false;
+        })
+
+        return res1
+
       }).subscribe(
         res => {
           this.notes = res.sort(this.sortByDate);
@@ -147,35 +154,38 @@ export class Note {
     this.currentReply = n;
     console.log(this.currentReply)
     this.ishider = true;
-    this.show_reply(n)
+    this.show_reply(n, false)
 
   }
 
-  show_reply(key) {
-    this.ishiden = false;
-    this.currentReplyr = key;
-    console.log(key)
-
-    const nrobj = this.db.list('/Note_reply', {
-      query: {
-        orderByChild: 'pnote',
-        equalTo: key
+  show_reply(key, value) {
+    for (let i in this.notes) {
+      if (this.notes[i].$key == key) {
+        this.notes[i].show = !value
       }
-    }).subscribe(res => {
-
-      console.log('new show reply   ', res)
-
-      this.notes.forEach(x => {
-        //console.log(x.$key, key);
-        if (x.$key == key) {
-          x.reply = res
+    }
+    console.log(key)
+    if (!value) {
+      const nrobj = this.db.list('/Note_reply', {
+        query: {
+          orderByChild: 'pnote',
+          equalTo: key
         }
+      }).subscribe(res => {
+
+        console.log('new show reply   ', res)
+
+        this.notes.forEach(x => {
+          //console.log(x.$key, key);
+          if (x.$key == key) {
+            x.reply = res.sort(this.sortByDate);
+          }
+        })
+
+        //console.log(note);
       })
+    }
 
-      //console.log(note);
-    })
-
-    this.ishiden = true;
 
   }
 

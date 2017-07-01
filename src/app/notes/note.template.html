@@ -37,7 +37,7 @@
                     </md-card-content>
                     <md-card-actions>
                         <button (click)="reply_note(no.$key)" md-button>REPLY</button>
-                        <button (click)="show_reply(no.$key)" md-button>SHOW REPLY</button>
+                        <button (click)="show_reply(no.$key,no.show)" md-button>SHOW REPLY</button>
                         <button md-button>DELETE</button>
                         <div *ngIf="(ishider)&&(no.$key == currentReply)">
                             <md-card class="note-card">
@@ -47,12 +47,13 @@
                                 <button md-raised-button type="button" (click)="add_reply(no.$key,reply)">Submit</button>
                             </md-card>
                         </div>
-                        <div *ngIf="(ishiden)&&(no.$key == currentReplyr)">
+                        <div *ngIf="no.show">
                             <md-card class="note-card-reply" *ngFor="let rep of no.reply">
                                 <md-card-header>
                                     <!--<div md-card-avatar class="example-header-image"></div>-->
                                     <md-card-title><strong><u>{{rep.assetver_id | verCode | async}}</u></strong><strong>  {{ rep.crby | uname | async }}</strong>,
-                                        Role</md-card-title>
+                                        Role
+                                    </md-card-title>
                                     <md-checkbox [checked]="rep.checked" (change)="checkNoteR(rep.$key,rep.checked)"></md-checkbox>
                                     <md-card-subtitle>Created : {{ rep?.crdate | date:'medium'}}</md-card-subtitle>
                                 </md-card-header>
