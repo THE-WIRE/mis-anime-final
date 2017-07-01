@@ -24,8 +24,10 @@
                 <md-card class="note-card" *ngFor="let no of notes">
                     <md-card-header>
                         <!--<div md-card-avatar class="example-header-image"></div>-->
-                        <md-card-title><strong>{{ no.crby | uname | async }}</strong>, Role</md-card-title>
-                        <md-checkbox></md-checkbox>
+                        <md-card-title><strong><u>{{no.assetver_id | verCode | async}}</u></strong><strong>  {{ no.crby | uname | async }}</strong>,
+                            Role
+                        </md-card-title>
+                        <md-checkbox [checked]="no.checked" (change)="checkNote(no.$key,no.checked)"></md-checkbox>
                         <md-card-subtitle>Created : {{ no.crdate | date:'medium'}}</md-card-subtitle>
                     </md-card-header>
                     <md-card-content>
@@ -49,8 +51,9 @@
                             <md-card class="note-card-reply" *ngFor="let rep of no.reply">
                                 <md-card-header>
                                     <!--<div md-card-avatar class="example-header-image"></div>-->
-                                    <md-card-title><strong>User</strong>, Role</md-card-title>
-                                    <md-checkbox></md-checkbox>
+                                    <md-card-title><strong><u>{{rep.assetver_id | verCode | async}}</u></strong><strong>  {{ rep.crby | uname | async }}</strong>,
+                                        Role</md-card-title>
+                                    <md-checkbox [checked]="rep.checked" (change)="checkNoteR(rep.$key,rep.checked)"></md-checkbox>
                                     <md-card-subtitle>Created : {{ rep?.crdate | date:'medium'}}</md-card-subtitle>
                                 </md-card-header>
                                 <md-card-content>

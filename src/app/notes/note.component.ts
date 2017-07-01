@@ -125,7 +125,7 @@ export class Note {
     this.note = null
     const ncrtdate = Date.now();
 
-    const nobj = this.db.list('/Notes').push({ "asset_id": this.asset_id, "dept_name": this.dept_name, "asset_dept": this.asset_id + '_' + this.dept_name, "asset_dept_ver": this.asset_id + '_' + this.dept_name + '_' + this.selectedValue, "note": form.note, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid, "checked": false }).key//.then((item)=>{
+    const nobj = this.db.list('/Notes').push({ "asset_id": this.asset_id, "dept_name": this.dept_name, "asset_dept": this.asset_id + '_' + this.dept_name, "asset_dept_ver": this.asset_id + '_' + this.dept_name + '_' + this.selectedValue, "note": form.note, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid, "checked": false, "assetver_id": this.selectedValue }).key//.then((item)=>{
     //   console.log('first '+item)
     //   console.log (item.key);
     // } )
@@ -137,7 +137,7 @@ export class Note {
     console.log(reply)
     const ncrtdate = Date.now();
 
-    const repobj = this.db.list('/Note_reply').push({ "pnote": key, "note": reply, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid, "checked": false }).then(_ => {
+    const repobj = this.db.list('/Note_reply').push({ "pnote": key, "note": reply, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid, "checked": false, "asstver_id": this.selectedValue }).then(_ => {
       console.log('note reply added')
     })
 
@@ -179,8 +179,21 @@ export class Note {
 
   }
 
+  checkNote(key, value) {
+    this.db.object('Notes/' + key).update({ "checked": !value }).then(x => {
+      console.log('value updated');
+    }).catch(err => {
+      console.log(err);
+    })
+  }
 
-
+  checkNoteR(key, value) {
+    this.db.object('Note_reply/' + key).update({ "checked": !value }).then(x => {
+      console.log('value updated');
+    }).catch(err => {
+      console.log(err);
+    })
+  }
 
   sortByDate(n1, n2) {
     return n2.crdate - n1.crdate;
