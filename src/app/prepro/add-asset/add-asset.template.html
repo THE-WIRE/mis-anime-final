@@ -45,32 +45,13 @@
                                 </md-input-container>
                             </div>
 
-                            <div class="form-group">
-                                <md-input-container class="full-width">
-                                    <div class="col-md-12">
-                                        <input mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" name="ast" (ngModel)="ast" value="" class="col-md-10">
-                                        <button mdSuffix [mdDatepickerToggle]="picker" class="col-md-2"></button>
-                                    </div>
-                                </md-input-container>
-                            </div>
-
-                            <div class="form-group">
-                                <md-input-container class="full-width">
-                                    <div class="col-md-12">
-                                        <input mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" name="aendt" (ngModel)="aendt" value="" class="col-md-10">
-                                        <button mdSuffix [mdDatepickerToggle]="picker1" class="col-md-2"></button>
-                                    </div>
-                                </md-input-container>
-                            </div>
                         </fieldset>
                         <md-card-actions>
                             <div class="col-sm-offset-4 col-sm-7">
                                 <div class="btn-toolbar">
                                     <button md-raised-button type="submit" color="primary">Create Asset</button>
-                                    <button md-raised-button type="button" color="accent">Cancel</button>
+                                    <button md-raised-button (click)="cancel()" type="button" color="accent">Cancel</button>
                                 </div>
-                                <md-datepicker #picker></md-datepicker>
-                                <md-datepicker #picker1></md-datepicker>
                             </div>
                         </md-card-actions>
                     </form>

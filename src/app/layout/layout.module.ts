@@ -11,9 +11,12 @@ import { Sidebar } from './sidebar/sidebar.component';
 import { Navbar } from './navbar/navbar.component';
 import { EmptyLinkModule } from './directives/empty-link/empty-link.module';
 
+import { MaterialModule } from "@angular/material";
+
 @NgModule({
   imports: [
     CommonModule,
+    MaterialModule,
     ROUTES,
     FormsModule,
     ButtonsModule.forRoot(),

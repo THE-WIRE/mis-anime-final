@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from "@angular/common";
 import { Router } from '@angular/router';
 import { Asset } from '../asset.interface';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -23,7 +24,7 @@ export class AddAssetComponent implements OnInit {
 
     public asset: Asset;
 
-    constructor(private db: AngularFireDatabase, public af: AngularFireAuth, public cproj: ProjectService, public router: Router) {
+    constructor(private db: AngularFireDatabase, public af: AngularFireAuth, public cproj: ProjectService, public router: Router, public loc: Location) {
         if (!cproj.getCurrentProjectId()) {
             router.navigate(['/project/all']);
         }
@@ -34,14 +35,16 @@ export class AddAssetComponent implements OnInit {
 
     add(form) {
         form.crby = this.af.auth.currentUser.uid;
-        form.ast = form.ast.valueOf();
-        form.aendt = form.aendt.valueOf();
         this.asset = form;
         const add = this.db.list('/Assets');
         const add_project_asset = this.db.list('/Project_Asset/');
 
         add.push(this.asset).then(_ => { add_project_asset.push({ "asset_key": _.key, "project_key": this.cproj.getCurrentProjectId() }) });
 
+    }
+
+    cancel() {
+        this.loc.back();
     }
 
     selectedValue: string;

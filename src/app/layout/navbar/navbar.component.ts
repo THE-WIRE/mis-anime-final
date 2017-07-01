@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter, Renderer, ElementRef } from '@angular/
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { MaterialModule } from "@angular/material";
 
 @Component({
   selector: '[navbar]',

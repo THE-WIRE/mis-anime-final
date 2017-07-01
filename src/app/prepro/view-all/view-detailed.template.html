@@ -22,10 +22,10 @@
                             {{item.dname}}
                             </button>
                         -->
-                        <span class="off" *ngIf="user.type != 'supervisor'" [routerLink]="['/asset/details/',selectedAsset.$key, item.dname]"> 
+                        <span class="off" *ngIf="user.type != 'supervisor'" [routerLink]="['/app/prepro/details/',selectedAsset.$key, item.dname]"> 
                             <a >{{item.dname}}</a>
                         </span>
-                        <span class="off" *ngIf="user.type == 'supervisor'" [routerLink]="['/asset/review/',selectedAsset.$key, item.dname]"> 
+                        <span class="off" *ngIf="user.type == 'supervisor'" [routerLink]="['/app/prepro/review/',selectedAsset.$key, item.dname]"> 
                             <a >{{item.dname}}</a>
                         </span>
                     </td>

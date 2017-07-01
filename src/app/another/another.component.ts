@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { Http } from "@angular/http";
 
 @Component({
   selector: 'another',
@@ -16,10 +17,18 @@ export class AnotherPage {
   }
 
 
-  constructor(public db: AngularFireDatabase) {
+  constructor(public db: AngularFireDatabase, public http: Http) {
     // db.list('/Departments').push(this.department).then(_=>{
     //     console.log('department pushed')
 
+    http.get('//freegeoip.net/json/').map(x => {
+      let body = x.json();
+      return body || {};
+    }).subscribe(m => {
+      console.log(JSON.parse(JSON.stringify(m)));
+      console.log(m);
+    })
 
   }
+
 }

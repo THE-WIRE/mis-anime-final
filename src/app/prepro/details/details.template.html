@@ -1,0 +1,25 @@
+<md-card>
+    <md-card-header>
+        <md-card-title>{{asset?.acode}}</md-card-title>
+        <md-card-subtitle>Started : {{asset?.ast}}</md-card-subtitle>
+    </md-card-header>
+    <md-card-content>
+        Description : {{asset?.adesc}}
+    </md-card-content>
+    <md-card-actions>
+        <br/>
+        <button style="float: right; z-index: 100;" [routerLink]="['/app/prepro/all']" md-raised-button>Go Back</button>
+        <br/>
+    </md-card-actions>
+</md-card>
+<md-card>
+    <md-tab-group [(selectedIndex)]="selectedIndex">
+        <md-tab label="Versions">
+            <view-all-version-asset (selectedIndex)="changeTab($event)"></view-all-version-asset>
+        </md-tab>
+
+        <md-tab label="Notes">
+            <note></note>
+        </md-tab>
+    </md-tab-group>
+</md-card>

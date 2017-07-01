@@ -9,6 +9,7 @@ import { NoteModule } from '../notes/note.module'
 import { SharedModule } from '../shared/shared.module'
 
 import { Asset } from './asset.component';
+import { AddAssetComponent } from './add-asset/add-asset.component';
 import { ViewAllAssetComponent } from './view-all/view-all.component';
 import { AssetDetailsComponent } from './details/details.component';
 import { ViewDetailedAssetComponent } from './view-all/view-detailed.component';
@@ -21,7 +22,8 @@ import { ReviewAssetVersionComponent } from './review/review.component';
 import { ReviewAllAssetVersionComponent } from './review-all/review-all.component';
 
 export const routes = [
-  { path: '', component: Asset, pathMatch: 'full' },
+  { path: '', component: ViewAllAssetComponent, pathMatch: 'full' },
+  { path: 'add', component: AddAssetComponent, pathMatch: 'full' },
   { path: 'all', component: ViewAllAssetComponent, pathMatch: 'full' },
   { path: 'details/:asset_id/:dept_name', component: AssetDetailsComponent, pathMatch: 'full' },
   { path: 'review/:asset_id/:dept_name', component: ReviewAssetVersionComponent, pathMatch: 'full' },
@@ -34,6 +36,7 @@ export const routes = [
 @NgModule({
   declarations: [
     Asset,
+    AddAssetComponent,
     ViewAllAssetComponent,
     AssetDetailsComponent,
     AddAssetVersionComponent,
@@ -58,6 +61,6 @@ export const routes = [
   ]
 
 })
-export class AssetModule {
+export class PreproModule {
   static routes = routes;
 }

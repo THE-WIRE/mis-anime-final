@@ -1,0 +1,62 @@
+<div class="content container asset-version-form">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="page-title">Asset <small>Version</small></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <md-card [ngClass]="{widget : true}">
+                <header>
+                    <h4>
+                        <i class="fa fa-align-left"></i> Inputs
+                    </h4>
+                    <div class="widget-controls">
+                        <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+                        <a href="#"><i class="fa fa-refresh"></i></a>
+                        <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+                    </div>
+                </header>
+                <div class="body project-form">
+                    <form class="form-horizontal" role="form" #AssetVersionForm="ngForm" (ngSubmit)="add(AssetVersionForm.value)">
+                        <fieldset>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input mdInput (ngModel)="avercode" type="text" name="avercode" value="" placeholder="Asset Version Code" />
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input mdInput [mdDatepicker]="picker" placeholder="Choose a Start date" name="averst" (ngModel)="averst" value="" class="col-md-10">
+                                        <button mdSuffix [mdDatepickerToggle]="picker" class="col-md-2"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="form-group">
+                                <md-input-container class="full-width">
+                                    <div class="col-md-12">
+                                        <input mdInput [mdDatepicker]="picker1" placeholder="Choose an End date" name="averendt" (ngModel)="averendt" value="" class="col-md-10">
+                                        <button mdSuffix [mdDatepickerToggle]="picker1" class="col-md-2"></button>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </fieldset>
+                        <md-card-actions>
+                            <div class="col-sm-offset-4 col-sm-7">
+                                <div class="btn-toolbar">
+                                    <button md-raised-button type="submit" color="primary">Create Version</button>
+                                    <button md-raised-button type="button" (click)="cancel()" color="accent">Cancel</button>
+                                </div>
+                                <md-datepicker #picker></md-datepicker>
+                                <md-datepicker #picker1></md-datepicker>
+                            </div>
+                        </md-card-actions>
+                    </form>
+                </div>
+            </md-card>
+        </div>
+    </div>
+</div>

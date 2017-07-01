@@ -9,6 +9,7 @@ const routes: Routes = [
       { path: 'shot', loadChildren: '../shot/shot.module#ShotModule' },
       { path: 'project', loadChildren: '../project/project.module#ShotModule' },
       { path: 'asset', loadChildren: '../asset/asset.module#AssetModule' },
+      { path: 'prepro', loadChildren: '../prepro/asset.module#PreproModule' },
       { path: 'userdash', loadChildren: '../userdash/userdash.module#UserDashModule' },
       { path: 'another', loadChildren: '../another/another.module#AnotherModule' }
     ]
