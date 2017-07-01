@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-12" style="margin-top: 20px;">
     <md-card class="widget">
         <div class="col-md-12">
             <form #noteForm="ngForm" (ngSubmit)="add(noteForm.value)">
@@ -19,14 +19,13 @@
                 </div>
             </form>
         </div>
-        <div style="font-size: 25px; "><b>RECENT NOTES</b></div><br/>
         <div style="font-size: 15px; ">
             <ul>
-
                 <md-card class="note-card" *ngFor="let no of notes">
                     <md-card-header>
                         <!--<div md-card-avatar class="example-header-image"></div>-->
                         <md-card-title><strong>{{ no.crby | uname | async }}</strong>, Role</md-card-title>
+                        <md-checkbox></md-checkbox>
                         <md-card-subtitle>Created : {{ no.crdate | date:'medium'}}</md-card-subtitle>
                     </md-card-header>
                     <md-card-content>
@@ -51,6 +50,7 @@
                                 <md-card-header>
                                     <!--<div md-card-avatar class="example-header-image"></div>-->
                                     <md-card-title><strong>User</strong>, Role</md-card-title>
+                                    <md-checkbox></md-checkbox>
                                     <md-card-subtitle>Created : {{ rep?.crdate | date:'medium'}}</md-card-subtitle>
                                 </md-card-header>
                                 <md-card-content>
