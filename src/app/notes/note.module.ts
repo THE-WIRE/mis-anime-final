@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { MaterialModule } from '@angular/material';
 import { AngularFireAuthModule } from 'angularfire2/auth'
+import { SharedModule } from '../shared/shared.module'
 
 import { Note } from './note.component';
 import { NoteShot } from './noteshot.component'
@@ -24,7 +25,8 @@ export const routes = [
     MaterialModule,
     AngularFireDatabaseModule,
     RouterModule.forChild(routes),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    SharedModule
   ],
   exports: [Note, NoteShot]
 })

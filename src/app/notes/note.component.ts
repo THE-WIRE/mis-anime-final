@@ -125,7 +125,7 @@ export class Note {
     this.note = null
     const ncrtdate = Date.now();
 
-    const nobj = this.db.list('/Notes').push({ "asset_id": this.asset_id, "dept_name": this.dept_name, "asset_dept": this.asset_id + '_' + this.dept_name, "asset_dept_ver": this.asset_id + '_' + this.dept_name + '_' + this.selectedValue, "note": form.note, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid }).key//.then((item)=>{
+    const nobj = this.db.list('/Notes').push({ "asset_id": this.asset_id, "dept_name": this.dept_name, "asset_dept": this.asset_id + '_' + this.dept_name, "asset_dept_ver": this.asset_id + '_' + this.dept_name + '_' + this.selectedValue, "note": form.note, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid, "checked": false }).key//.then((item)=>{
     //   console.log('first '+item)
     //   console.log (item.key);
     // } )
@@ -137,7 +137,7 @@ export class Note {
     console.log(reply)
     const ncrtdate = Date.now();
 
-    const repobj = this.db.list('/Note_reply').push({ "pnote": key, "note": reply, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid }).then(_ => {
+    const repobj = this.db.list('/Note_reply').push({ "pnote": key, "note": reply, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid, "checked": false }).then(_ => {
       console.log('note reply added')
     })
 
@@ -183,7 +183,7 @@ export class Note {
 
 
   sortByDate(n1, n2) {
-    return n1.ncrtdate - n2.ncrtdate;
+    return n2.crdate - n1.crdate;
   }
 
   filtered() {

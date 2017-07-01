@@ -11,6 +11,7 @@ import { AssetPipe } from './asset_version_id_pipes/getAsset.pipe'
 import { DepNamePipe } from './asset_version_id_pipes/getDepartment.pipe'
 import { ProjNamePipe } from './asset_version_id_pipes/getProject.pipe'
 import { VerCodePipe } from './asset_version_id_pipes/versionCode.pipe'
+import { UserRole } from './notes_pipes/get_user_role.pipe'
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { VerCodePipe } from './asset_version_id_pipes/versionCode.pipe'
         AssetPipe,
         DepNamePipe,
         ProjNamePipe,
-        VerCodePipe
+        VerCodePipe,
+        UserRole
     ],
     declarations: [
         msToHmsPipe,
@@ -35,7 +37,8 @@ import { VerCodePipe } from './asset_version_id_pipes/versionCode.pipe'
         AssetPipe,
         DepNamePipe,
         ProjNamePipe,
-        VerCodePipe
+        VerCodePipe,
+        UserRole
     ],
     providers: [],
 })
