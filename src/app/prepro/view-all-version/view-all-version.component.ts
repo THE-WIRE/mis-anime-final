@@ -20,6 +20,7 @@ export class ViewAllAssetVersionComponent implements OnInit {
     public asset_id: any;
     public asset_versions: AssetVersion[];
     public stats: any[];
+    public t_versions: any;
     @Output() selectedIndex = new EventEmitter();
     constructor(private db: AngularFireDatabase, public af: AngularFireAuth, public router: Router, public ar: ActivatedRoute, public snackbar: MdSnackBar) {
 
@@ -36,14 +37,25 @@ export class ViewAllAssetVersionComponent implements OnInit {
                     }
                 }).subscribe(
                     res => {
+                        this.t_versions = res.length
                         this.asset_versions = res;
                         this.asset_versions.forEach(x => {
+                            x.stats = {};
+                            x.stats.status = x.status;
                             db.object('/Version_User_Stats/' + x.$key + '_' + this.af.auth.currentUser.uid).subscribe(y => {
-                                x.stats = y;
+                                console.log(y)
+                                if (y.status != undefined) {
+                                    x.stats = y;
+                                }
+                                else {
+                                    x.stats.status = x.status;
+                                }
                             })
                         })
 
-                        console.log('refreshed');
+                        this.asset_versions = this.asset_versions.sort(this.sortByDate);
+
+                        console.log('refreshed', this.asset_versions);
                     },
                     err => {
                         console.log('something went wrong')
@@ -56,6 +68,48 @@ export class ViewAllAssetVersionComponent implements OnInit {
 
     }
     ngOnInit() { }
+
+
+    add() {
+        let form: any = new Object();
+        form.dept_name = this.dept_id;
+        form.asset_id = this.asset_id;
+        form.status = 1;
+        let last_ver = this.t_versions;
+        form.currentVer = true;
+        form.crdate = firebase.database.ServerValue.TIMESTAMP;
+
+        form.a_d = this.ar.snapshot.params['asset_id'] + '_' + this.ar.snapshot.params['dept_name']
+
+        console.log('adding this value : ', form.dept_name, form.asset_id)
+        this.db.object('/Assets/' + this.asset_id).subscribe(res => {
+            form.avercode = res.acode + '-V' + (last_ver < 999 ?
+                last_ver < 99 ?
+                    last_ver < 9 ?
+                        '000' + (last_ver + 1).toString() : '00' + (last_ver + 1).toString() : '0' + (last_ver + 1).toString() : (last_ver + 1).toString()).toString();
+
+            const add = this.db.list('/Asset_version')
+            if (this.t_versions != 0) {
+                this.asset_versions.forEach(x => {
+                    if (x.currentVer) {
+                        this.db.object('Asset_version/' + x.$key).update({ "currentVer": false }).then(res => {
+                            add.push(form).then(_ => {
+                                console.log('Asset version Added')
+                            })
+                        })
+                    }
+                })
+            }
+            else {
+                add.push(form).then(_ => {
+                    console.log('Asset version Added')
+                })
+            }
+
+        })
+
+
+    }
 
     start(av) {
 
@@ -284,4 +338,42 @@ export class ViewAllAssetVersionComponent implements OnInit {
 
         })
     }
+
+    sortByDate(a, b) {
+        return (b.crdate - a.crdate);
+    }
+
+    isVisible(av, label) {
+        switch (label) {
+            case 'start':
+                if (((av.stats == undefined) || (av.stats.status != 2 && av.stats.status != 3)) && av.currentVer) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            case 'pause':
+                if ((av.stats != undefined) && (av.stats.status == 2 && av.stats.status != 3) && av.currentVer) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            case 'done':
+                if ((av.stats != undefined) && (av.stats.status != 2 && av.stats.status == -1 && av.stats.status != 3) && av.currentVer) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            case 'notes':
+                if (av.currentVer) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+        }
+    }
 }
+

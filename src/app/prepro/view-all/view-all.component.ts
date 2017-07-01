@@ -9,12 +9,7 @@ import { Subject } from 'rxjs/Subject'
 
 @Component({
     selector: 'view-all-asset',
-    templateUrl: 'view-all.template.html',
-    styles: [`
-        .view{
-            color: white;
-        }
-    `]
+    templateUrl: 'view-all.template.html'
 })
 
 export class ViewAllAssetComponent implements OnInit {

@@ -9,12 +9,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
     selector: 'view-detailed-asset',
     templateUrl: 'view-detailed.template.html',
     styles: [`
-        .view{
-            color: white;
-        }
-        table {
-            color: white;
-        }
         .off {
             cursor : pointer;
            
