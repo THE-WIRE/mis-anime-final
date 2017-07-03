@@ -1,5 +1,5 @@
 <md-card>
-    <md-card-content>
+    <md-card-content class="size">
         <md-card-title>Asset</md-card-title>
         <table class="table table-fixed">
             <thead>
@@ -22,7 +22,7 @@
                         {{asset?.crby | uname | async}}
                     </td>
                     <td *ngIf="asset.isShown">
-                        <button (click)="explore(asset.$key)" md-raised-button type="button">EXPLORE</button>
+                        <button (click)="explore(asset.$key)" md-raised-button type="button" class="size">EXPLORE</button>
                     </td>
 
                     <td *ngIf="!asset.isShown" colspan="7">

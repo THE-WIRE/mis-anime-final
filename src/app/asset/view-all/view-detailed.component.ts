@@ -18,9 +18,10 @@ import { AngularFireAuth } from 'angularfire2/auth';
         .off {
             cursor : pointer;
            
-        }
-
-        
+        } 
+        .size{
+        font-size : 0.5rem
+       }  
     `]
 })
 

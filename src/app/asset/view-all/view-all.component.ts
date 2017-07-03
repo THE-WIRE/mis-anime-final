@@ -14,6 +14,9 @@ import { Subject } from 'rxjs/Subject'
         .view{
             color: white;
         }
+        .size{
+        font-size : 0.5rem
+       }
     `]
 })
 

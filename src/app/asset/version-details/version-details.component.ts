@@ -8,9 +8,9 @@ import { Router } from "@angular/router";
     selector: 'version-details-asset',
     templateUrl: 'version-details.template.html',
     styles: [`
-        .view{
-            color: white;
-        }
+       .size{
+        font-size : 0.5rem
+       } 
     `]
 })
 

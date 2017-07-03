@@ -12,7 +12,9 @@ import { Note } from '../../notes/note.component';
     selector: 'review-asset',
     templateUrl: 'review.template.html',
     styles: [`
-      
+      .size{
+        font-size : 0.5rem
+       }
     `]
 })
 

@@ -9,7 +9,9 @@ import * as firebase from 'firebase';
     selector: 'view-all-version-asset',
     templateUrl: 'view-all-version.template.html',
     styles: [`
-       
+       .size{
+        font-size : 0.5rem
+       }
     `]
 })
 

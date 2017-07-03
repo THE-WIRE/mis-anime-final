@@ -1,19 +1,19 @@
 <md-card>
-    <md-card-header>
+    <md-card-header class="size">
         <md-card-title>{{asset?.acode}}</md-card-title>
         <md-card-subtitle>Started : {{asset?.ast}}</md-card-subtitle>
     </md-card-header>
-    <md-card-content>
+    <md-card-content class="size">
         Description : {{asset?.adesc}}
     </md-card-content>
-    <md-card-actions>
+    <md-card-actions class="size">
         <br/>
         <button style="float: right; z-index: 100;" [routerLink]="['/asset/all']" md-raised-button>Go Back</button>
         <br/>
     </md-card-actions>
 </md-card>
 <md-card>
-    <md-tab-group [(selectedIndex)]="selectedIndex">
+    <md-tab-group [(selectedIndex)]="selectedIndex" class="size">
         <md-tab label="Versions">
             <view-all-version-asset (selectedIndex)="changeTab($event)"></view-all-version-asset>
         </md-tab>
