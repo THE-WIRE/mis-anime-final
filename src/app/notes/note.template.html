@@ -7,11 +7,11 @@
                         {{filter.viewValue}}
                     </md-option>
                 </md-select>
-                <div *ngIf="input">
+                <div *ngIf="(selectedValue == 'all') || (selectedValue == currentVersion)">
                     <md-card class="note-card">
 
                         <md-input-container>
-                            <textarea mdInput (ngModel)="note" name="note" rows="" cols="50"></textarea>
+                            <textarea mdInput [(ngModel)]="note" (ngModel)="note" name="note" rows="" cols="50"></textarea>
                         </md-input-container>
 
                         <button md-raised-button type="submit">Add Note</button>
@@ -24,10 +24,16 @@
                 <md-card class="note-card" *ngFor="let no of notes">
                     <md-card-header>
                         <!--<div md-card-avatar class="example-header-image"></div>-->
-                        <md-card-title><strong><u>{{no.assetver_id | verCode | async}}</u></strong><strong>  {{ no.crby | uname | async }}</strong>,
+                        <md-card-title><strong><u>{{no.assetver_id | verCode | async}}( {{no.assetver_id | stat | async | status}} )</u></strong><strong>  {{ no.crby | uname | async }}</strong>,
                             Role
                         </md-card-title>
                         <md-checkbox [checked]="no.checked" (change)="checkNote(no.$key,no.checked)"></md-checkbox>
+                        <md-select *ngIf="currentVersion == no.assetver_id" (change)="changeVerStatus()" placeholder="Change Status" [(ngModel)]="statusC"
+                            name="statusC">
+                            <md-option *ngFor="let s of status" [value]="s.value">
+                                {{s.viewValue}}
+                            </md-option>
+                        </md-select>
                         <md-card-subtitle>Created : {{ no.crdate | date:'medium'}}</md-card-subtitle>
                     </md-card-header>
                     <md-card-content>
@@ -36,7 +42,7 @@
                         </p>
                     </md-card-content>
                     <md-card-actions>
-                        <button (click)="reply_note(no.$key)" md-button>REPLY</button>
+                        <button *ngIf="no.assetver_id == currentVersion" (click)="reply_note(no.$key)" md-button>REPLY</button>
                         <button (click)="show_reply(no.$key,no.show)" md-button>SHOW REPLY</button>
                         <button md-button>DELETE</button>
                         <div *ngIf="(ishider)&&(no.$key == currentReply)">

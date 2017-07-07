@@ -30,7 +30,6 @@ export class Note {
 
   public note: any
   public notes: any[]
-  public input: boolean = false
   public ishiden: boolean = false
   public reply: string
   public ishider: boolean = false
@@ -42,8 +41,25 @@ export class Note {
   public selectedValue = 'all';
   public dept_name: any
   public noteValue = null
+  public currentVersion: string = null;
   public filters = [
     { value: 'all', viewValue: 'Show all' }
+  ];
+  public statusC: any
+  public status = [
+    { value: 0, viewValue: "Awaiting Inventory" },
+    { value: 1, viewValue: "Inventory" },
+    { value: 2, viewValue: "WIP" },
+    { value: -1, viewValue: "Paused WIP" },
+    { value: 3, viewValue: "Done" },
+    { value: 4, viewValue: "Sent for Review" },
+    { value: 5, viewValue: "Delivery" },
+    { value: 6, viewValue: "Retake" },
+    { value: 7, viewValue: "Approved" },
+    { value: 8, viewValue: "Revised Move Forward" },
+    { value: 9, viewValue: "Unapproved" },
+    { value: 10, viewValue: "On Hold" },
+    { value: 11, viewValue: "Out of Picture" }
   ];
 
   constructor(private db: AngularFireDatabase, private af: AngularFireAuth, private route: ActivatedRoute, public router: Router) {
@@ -58,13 +74,17 @@ export class Note {
             equalTo: this.asset_id + '_' + this.dept_name
           }
         }).subscribe(res => {
+          this.filters = [
+            { value: 'all', viewValue: 'Show all' }
+          ];
           res.forEach(x => {
-            this.filters = [
-              { value: 'all', viewValue: 'Show all' }
-            ];
-            res.forEach(x => {
-              this.filters.push({ value: x.$key, viewValue: x.avercode })
-            })
+            if (x.currentVer == true) {
+              this.currentVersion = x.$key;
+            }
+            this.filters.push({ value: x.$key, viewValue: x.avercode })
+            // res.forEach(x => {
+
+            // })
           })
         })
 
@@ -79,7 +99,6 @@ export class Note {
   show_notes() {
     this.notes = null;
     if (this.selectedValue == 'all') {
-      this.input = false
       this.db.list('/Notes', {
         query: {
           orderByChild: 'asset_dept',
@@ -96,16 +115,14 @@ export class Note {
         res => {
           this.notes = res.sort(this.sortByDate);
 
-          console.log(this.notes);
+          console.log('this are notes', this.notes);
 
         },
         err => {
           console.log('something went wrong while retrieving notes');
         })
     }
-
     else {
-      this.input = true
       this.notes = null;
       this.db.list('/Notes', {
         query: {
@@ -117,7 +134,7 @@ export class Note {
           console.log('check this :' + this.asset_id + '_' + this.selectedValue);
           this.notes = res.sort(this.sortByDate);
 
-          console.log(this.notes);
+          console.log(this.selectedValue, this.notes);
 
         },
         err => {
@@ -132,10 +149,11 @@ export class Note {
     this.note = null
     const ncrtdate = Date.now();
 
-    const nobj = this.db.list('/Notes').push({ "asset_id": this.asset_id, "dept_name": this.dept_name, "asset_dept": this.asset_id + '_' + this.dept_name, "asset_dept_ver": this.asset_id + '_' + this.dept_name + '_' + this.selectedValue, "note": form.note, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid, "checked": false, "assetver_id": this.selectedValue }).key//.then((item)=>{
-    //   console.log('first '+item)
-    //   console.log (item.key);
-    // } )
+    const nobj = this.db.list('/Notes').push({ "asset_id": this.asset_id, "dept_name": this.dept_name, "asset_dept": this.asset_id + '_' + this.dept_name, "asset_dept_ver": this.asset_id + '_' + this.dept_name + '_' + this.currentVersion, "note": form.note, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid, "checked": false, "assetver_id": this.currentVersion }).then((item) => {
+      //   console.log('first '+item)
+      //   console.log (item.key);
+      this.note = null;
+    })
 
     console.log('this is something awesome : ' + nobj)
   }
@@ -144,7 +162,7 @@ export class Note {
     console.log(reply)
     const ncrtdate = Date.now();
 
-    const repobj = this.db.list('/Note_reply').push({ "pnote": key, "note": reply, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid, "checked": false, "asstver_id": this.selectedValue }).then(_ => {
+    const repobj = this.db.list('/Note_reply').push({ "pnote": key, "note": reply, "crdate": ncrtdate, "crby": this.af.auth.currentUser.uid, "checked": false, "asstver_id": this.currentVersion }).then(_ => {
       console.log('note reply added')
     })
 
@@ -217,6 +235,12 @@ export class Note {
   trigger(key) {
     this.selectedValue = key;
     this.show_notes();
+  }
+
+  changeVerStatus() {
+    this.db.object('Asset_version/' + this.currentVersion).update({ 'status': this.statusC }).then(res => {
+      console.log('status updated');
+    })
   }
 
 }
