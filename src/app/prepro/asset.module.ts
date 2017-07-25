@@ -1,12 +1,13 @@
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MaterialModule } from '@angular/material';
 import { NoteModule } from '../notes/note.module'
 import { SharedModule } from '../shared/shared.module'
+import { TagInputModule } from 'ngx-chips';
 
 import { Asset } from './asset.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
@@ -46,12 +47,14 @@ export const routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     AngularFireAuthModule,
     RouterModule.forChild(routes),
     AngularFireDatabaseModule,
     NoteModule,
-    SharedModule
+    SharedModule,
+    TagInputModule
   ],
   exports: [
 

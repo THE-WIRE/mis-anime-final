@@ -11,6 +11,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { MaterialModule, MdNativeDateModule, MdToolbarModule } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
 import { CookieModule } from 'ngx-cookie';
+import { TagInputModule } from 'ngx-chips';
 
 
 import { AddProjectComponent } from './project/AddProject/add_project.component'
@@ -53,6 +54,7 @@ type StoreType = {
   imports: [ // import Angular's modules
     BrowserModule,
     FormsModule,
+    TagInputModule,
     HttpModule,
     BrowserAnimationsModule,
     MaterialModule,

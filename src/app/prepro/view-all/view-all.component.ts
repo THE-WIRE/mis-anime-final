@@ -27,9 +27,6 @@ export class ViewAllAssetComponent implements OnInit {
                     router.navigate(['/project/all']);
                 }
 
-
-
-
                 const obj = db.list('/Project_Asset', {
                     query: {
                         orderByChild: 'project_key',
@@ -59,11 +56,8 @@ export class ViewAllAssetComponent implements OnInit {
                             });
 
                         })
-
-
                     })
                 })
-
             }
             else {
                 this.router.navigate(['/login'])

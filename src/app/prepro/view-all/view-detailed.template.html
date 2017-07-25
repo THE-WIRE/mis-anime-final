@@ -10,7 +10,7 @@
             <thead class="bg-primary">
                 <tr>
                     <th>Department</th>
-                    <th>Status</th>
+                    <th>Assigned Artist(s)</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,8 +29,17 @@
                             <a >{{item.dname}}</a>
                         </span>
                     </td>
+                    <td>
+                        <tag-input [(ngModel)]="item.assigned" [onlyFromAutocomplete]="true" (onTextChange)="call($event)" (onAdd)="onAdd($event, item.dname)" (onRemove)="onRemove($event)">
+                            <tag-input-dropdown [showDropdownIfEmpty]="true" [focusFirstElement]="true" [displayBy]="'username'" [identifyBy]="'$key'" [autocompleteItems]="requestAutocompleteItems | async">
+                                <ng-template let-item="item">
+                                    {{ item.username }}
+                                </ng-template>
+                            </tag-input-dropdown>
+                        </tag-input>
+                    </td>
 
-                    <td class="bg-info">Pending</td>
+
                 </tr>
             </tbody>
         </table>
