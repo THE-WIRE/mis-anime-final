@@ -8,6 +8,8 @@ import { Observable } from 'rxjs/Rx';
 import { TagInputModule } from 'ng2-tag-input';
 import { UserService } from "../../shared/cuser.service";
 
+import * as firebase from 'firebase';
+
 @Component({
     selector: 'view-detailed-asset',
     templateUrl: 'view-detailed.template.html',
@@ -45,10 +47,10 @@ export class ViewDetailedAssetComponent implements OnInit {
                     limitToFirst: 5
                 }
             })
-    }
 
-    public onAdding(tag) {
-        console.log(tag);
+        this.requestAutocompleteItems.subscribe(res => {
+            console.log(res);
+        })
     }
 
     ngOnInit() {
@@ -64,7 +66,10 @@ export class ViewDetailedAssetComponent implements OnInit {
             console.log(res)
             this.departments = res
             this.departments.forEach(x => {
-                x.assigned = []
+                this.db.list('/Asset_Department/' + this.selectedAsset.$key + '_' + x.dname + '/Artists/').subscribe(y => {
+                    console.log(y);
+                    x.assigned = y;
+                })
             })
         })
     }
@@ -75,9 +80,18 @@ export class ViewDetailedAssetComponent implements OnInit {
 
     }
 
-    onRemove(event) {
-        console.log(event);
+    onRemove(event, dept) {
+        console.log(event, dept);
 
+        firebase.database().ref('/Asset_Department/' + this.selectedAsset.$key + '_' + dept + '/Artists/').orderByChild('value').equalTo(event.value).once('value', snap => {
+            let x = snap.val();
+            console.log(x);
+            for (let i in x) {
+                console.log(i)
+                this.db.object('/Asset_Department/' + this.selectedAsset.$key + '_' + dept + '/Artists/' + i).remove();
+            }
+
+        })
     }
 
     call(inp) {

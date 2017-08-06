@@ -30,7 +30,7 @@
                         </span>
                     </td>
                     <td>
-                        <tag-input [(ngModel)]="item.assigned" [onlyFromAutocomplete]="true" (onTextChange)="call($event)" (onAdd)="onAdd($event, item.dname)" (onRemove)="onRemove($event)">
+                        <tag-input id="{{selectedAsset.$key}}_{{item.dname}}" [(ngModel)]="item.assigned" [onlyFromAutocomplete]="true" (onTextChange)="call($event)" (onAdd)="onAdd($event, item.dname)" (onRemove)="onRemove($event, item.dname)">
                             <tag-input-dropdown [showDropdownIfEmpty]="true" [focusFirstElement]="true" [displayBy]="'username'" [identifyBy]="'$key'" [autocompleteItems]="requestAutocompleteItems | async">
                                 <ng-template let-item="item">
                                     {{ item.username }}
